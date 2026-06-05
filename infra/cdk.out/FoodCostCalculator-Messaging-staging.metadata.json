@@ -1,0 +1,471 @@
+{
+  "/FoodCostCalculator-Messaging-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Environment",
+          "value": "staging"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Project",
+          "value": "FoodCostCalculator"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationQueueUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationQueueUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:286:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationQueueArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationQueueArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:292:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingQueueUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingQueueUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:298:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingQueueArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingQueueArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:304:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsQueueUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsQueueUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:310:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsQueueArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsQueueArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:316:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncQueueUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncQueueUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:322:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncQueueArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncQueueArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:328:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationDlqUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationDlqUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:336:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingDlqUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingDlqUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:342:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsDlqUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsDlqUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:348:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncDlqUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncDlqUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:354:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationDlqAlarmArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationDlqAlarmArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:362:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingDlqAlarmArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingDlqAlarmArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:368:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsDlqAlarmArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsDlqAlarmArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:374:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncDlqAlarmArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncDlqAlarmArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:380:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationDlq/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationDlq5BB4EF67"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:96:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationQueue5499790E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:103:33)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingDlq/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingDlq7D2A8396"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:130:29)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingQueue9B45F43E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:137:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsDlq/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsDlq62CCB714"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:164:26)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsQueueA22E95C2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:171:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncDlq/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncDlqF5811D6F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:199:26)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncQueue566857F7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:206:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CostPropagationDlqAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostPropagationDlqAlarm945CFEF9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:230:36)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/OcrProcessingDlqAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OcrProcessingDlqAlarmB4A8C1FF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:243:34)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/AiInsightsDlqAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AiInsightsDlqAlarm8616B74B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:256:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/SquareSyncDlqAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SquareSyncDlqAlarmC2DC486A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new MessagingStack (/Users/vicky/cogschecker/infra/lib/stacks/MessagingStack.ts:269:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:82:24)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Messaging-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

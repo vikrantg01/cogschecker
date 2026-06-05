@@ -1,0 +1,35 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface Venue {
+  id: string;
+  organisationId: string;
+  name: string;
+  address?: string;
+}
+
+interface VenueState {
+  currentVenueId: string | null;
+  venues: Venue[];
+  setCurrentVenue: (venueId: string) => void;
+  setVenues: (venues: Venue[]) => void;
+  getCurrentVenue: () => Venue | undefined;
+}
+
+export const useVenueStore = create<VenueState>()(
+  persist(
+    (set, get) => ({
+      currentVenueId: null,
+      venues: [],
+      setCurrentVenue: (venueId) => set({ currentVenueId: venueId }),
+      setVenues: (venues) => set({ venues }),
+      getCurrentVenue: () => {
+        const state = get();
+        return state.venues.find((v) => v.id === state.currentVenueId);
+      },
+    }),
+    {
+      name: 'venue-storage',
+    }
+  )
+);

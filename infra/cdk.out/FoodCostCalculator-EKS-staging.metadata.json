@@ -1,0 +1,1043 @@
+{
+  "/FoodCostCalculator-EKS-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Environment",
+          "value": "staging"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Project",
+          "value": "FoodCostCalculator"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/ClusterName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:405:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/ClusterArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:411:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/ClusterEndpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterEndpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:417:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/ClusterOidcIssuer": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterOidcIssuer"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:423:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/ApiServiceAccountRoleArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiServiceAccountRoleArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:429:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/WorkersServiceAccountRoleArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WorkersServiceAccountRoleArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:435:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/KubectlReadyBarrier": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterKubectlReadyBarrier502B0E83"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/HasEcrPublic": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterHasEcrPublicC520A45E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 0
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 0
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderOnEventHandlerServiceRoleCCF0B43EArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderOnEventHandlerServiceRoleCCF0B43EArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole0C95B6ADArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole0C95B6ADArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderframeworkonEvent758DF90EArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderframeworkonEvent758DF90EArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/Handler": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 2
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderframeworkonEvent215682F3Arn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderframeworkonEvent215682F3Arn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/reference-to-FoodCostCalculatorEKSstagingEksClusterKubectlHandlerRole0CD08115Arn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "referencetoFoodCostCalculatorEKSstagingEksClusterKubectlHandlerRole0CD08115Arn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/reference-to-FoodCostCalculatorEKSstagingEksCluster99786526ClusterSecurityGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "referencetoFoodCostCalculatorEKSstagingEksCluster99786526ClusterSecurityGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider.NestedStack/@aws-cdk--aws-eks.KubectlProvider.NestedStackResource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:225:44)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:225:44)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/KubectlHandlerRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterKubectlHandlerRole4A986A70"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterRoleC84B376F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupa027D4FF9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-b/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupbC33D0694"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-c/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupcE178DF2D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NodeProxyAgentLayer924C1971"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OnEventHandler42BEBAE0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IsCompleteHandler7073F4DA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/Handler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Handler886CB40B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsCliLayerF44AAF94"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/KubectlHandlerRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterKubectlHandlerRoleDefaultPolicy88E68B8E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/Resource/CreationRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterCreationRole75AABE42"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/Resource/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterFAB68BDB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-a/NodeGroupRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupaNodeGroupRole7E0261F1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-b/NodeGroupRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupbNodeGroupRoleBDAFE14A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-c/NodeGroupRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterNodegroupNodeGroupcNodeGroupRole6618D730"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164: (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:164:2)",
+        "Array.map (:)",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:137:40)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterApiServiceAccountRole91A5F1AB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:225:44)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/OpenIdConnectProvider/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterOpenIdConnectProviderEBA08909"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterWorkersServiceAccountRole0C52B424"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:318:48)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OnEventHandlerServiceRole15A26729"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IsCompleteHandlerServiceRole5810CC58"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEvent83C1D0A7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkisComplete26D7B0CB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonTimeout0B47CA38"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Providerwaiterstatemachine5D4A9DF0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEvent83C1D0A7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:66:20)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/Resource/CreationRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterCreationRoleDefaultPolicy2DFE4D73"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/AwsAuth/manifest/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterAwsAuthmanifest4F460A9B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/ConditionJson/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterApiServiceAccountConditionJson10F518A5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:225:44)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterApiServiceAccountRoleDefaultPolicyAE06F409"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:251:32)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/manifest-ApiServiceAccountServiceAccountResource/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterApiServiceAccountmanifestApiServiceAccountServiceAccountResource71D5FAB0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:225:44)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/ConditionJson/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterWorkersServiceAccountConditionJson01D07764"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:318:48)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterWorkersServiceAccountRoleDefaultPolicy99C2BE5A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:326:36)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/manifest-WorkersServiceAccountServiceAccountResource/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksClusterWorkersServiceAccountmanifestWorkersServiceAccountServiceAccountResource157FE839"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addServiceAccount in aws-cdk-lib...",
+        "new EksStack (/Users/vicky/cogschecker/infra/lib/stacks/EksStack.ts:318:48)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:115:18)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEventServiceRole9FF04296"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkisCompleteServiceRoleB1087139"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonTimeoutServiceRole28643D26"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderwaiterstatemachineRole0C7159F9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEventServiceRole9FF04296"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkisCompleteServiceRoleDefaultPolicy2E7140AC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonTimeoutServiceRoleDefaultPolicy2688969F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderwaiterstatemachineRoleDefaultPolicyD3C3DA1A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

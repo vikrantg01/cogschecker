@@ -1,0 +1,5 @@
+rootProject.name = 'food-cost-calculator'
+
+include 'modules:api'
+include 'modules:workers'
+include 'modules:shared'

@@ -1,0 +1,12 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // Shared utilities — no Spring Boot runtime needed
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.3.2'
+    compileOnly 'org.springframework.boot:spring-boot-starter:3.3.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
+    testImplementation 'net.jqwik:jqwik:1.9.0'
+}

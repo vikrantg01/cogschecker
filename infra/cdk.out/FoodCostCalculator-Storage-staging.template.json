@@ -1,0 +1,481 @@
+{
+ "Description": "Food Cost Calculator — S3 buckets for invoice files and static assets",
+ "Resources": {
+  "InvoicesKmsKey64E5037F": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Food Cost Calculator — KMS key for invoice file encryption (staging)",
+    "EnableKeyRotation": true,
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::646194726437:root"
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/InvoicesKmsKey/Resource"
+   }
+  },
+  "InvoicesKmsKeyAliasE74ACAB1": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/fcc-invoices-staging",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "InvoicesKmsKey64E5037F",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/InvoicesKmsKey/Alias/Resource"
+   }
+  },
+  "InvoicesBucket57FCB164": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "KMSMasterKeyID": {
+         "Fn::GetAtt": [
+          "InvoicesKmsKey64E5037F",
+          "Arn"
+         ]
+        },
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "BucketName": "fcc-invoices-staging-646194726437",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "transition-to-glacier",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "GLACIER",
+         "TransitionInDays": 90
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/InvoicesBucket/Resource"
+   }
+  },
+  "InvoicesBucketPolicy8F7685F0": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "InvoicesBucket57FCB164"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "InvoicesBucket57FCB164",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "InvoicesBucket57FCB164",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/InvoicesBucket/Policy/Resource"
+   }
+  },
+  "AssetsBucket5CB76180": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "fcc-assets-staging-646194726437",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "WebsiteConfiguration": {
+     "ErrorDocument": "index.html",
+     "IndexDocument": "index.html"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/AssetsBucket/Resource"
+   }
+  },
+  "AssetsBucketPolicyFFACF6C4": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "AssetsBucket5CB76180"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:PutBucketPolicy"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AssetsBucket5CB76180",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "AssetsBucket5CB76180",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/AssetsBucket/Policy/Resource"
+   }
+  },
+  "AssetsBucketAutoDeleteObjectsCustomResource51BA1286": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "AssetsBucket5CB76180"
+    }
+   },
+   "DependsOn": [
+    "AssetsBucketPolicyFFACF6C4"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/AssetsBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "AssetsBucket5CB76180"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WPwQ6CMBBEv8V7WQ2GeEaOHiT4AaaWlZRCa7othjT9d6mYEE9vZnY3mc0hL05w2PE3ZaJV2SAfEG6OC8WW6B7USBAuOLPqqRPKQXJK5isioyOEsxcKXQp/akVtBinmLV59jKzy5MzYIBlvBaaFTf+Namsm2aI9c0JWEqFbmnVSd+nm6t3Lu8i0aRF62k95AcXySU9SZtZrJ0eEZuUHu2iv/OYAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage-staging/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "InvoicesBucketName": {
+   "Description": "S3 bucket name for invoice files",
+   "Value": {
+    "Ref": "InvoicesBucket57FCB164"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-InvoicesBucketName"
+   }
+  },
+  "InvoicesBucketArn": {
+   "Description": "S3 bucket ARN for invoice files",
+   "Value": {
+    "Fn::GetAtt": [
+     "InvoicesBucket57FCB164",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-InvoicesBucketArn"
+   }
+  },
+  "InvoicesKmsKeyId": {
+   "Description": "KMS key ID for invoice encryption",
+   "Value": {
+    "Ref": "InvoicesKmsKey64E5037F"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-InvoicesKmsKeyId"
+   }
+  },
+  "InvoicesKmsKeyArn": {
+   "Description": "KMS key ARN for invoice encryption",
+   "Value": {
+    "Fn::GetAtt": [
+     "InvoicesKmsKey64E5037F",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-InvoicesKmsKeyArn"
+   }
+  },
+  "AssetsBucketName": {
+   "Description": "S3 bucket name for static assets (React SPA)",
+   "Value": {
+    "Ref": "AssetsBucket5CB76180"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AssetsBucketName"
+   }
+  },
+  "AssetsBucketArn": {
+   "Description": "S3 bucket ARN for static assets",
+   "Value": {
+    "Fn::GetAtt": [
+     "AssetsBucket5CB76180",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AssetsBucketArn"
+   }
+  },
+  "AssetsBucketWebsiteUrl": {
+   "Description": "S3 static website URL (not used directly — served via CloudFront)",
+   "Value": {
+    "Fn::GetAtt": [
+     "AssetsBucket5CB76180",
+     "WebsiteURL"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AssetsBucketWebsiteUrl"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

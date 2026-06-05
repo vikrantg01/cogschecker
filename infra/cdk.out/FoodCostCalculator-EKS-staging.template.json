@@ -1,0 +1,1656 @@
+{
+ "Description": "Food Cost Calculator — EKS cluster, node groups, OIDC, IRSA roles",
+ "Resources": {
+  "EksClusterKubectlHandlerRole4A986A70": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2ContainerRegistryPullOnly"
+       ]
+      ]
+     },
+     {
+      "Fn::If": [
+       "EksClusterHasEcrPublicC520A45E",
+       {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly"
+         ]
+        ]
+       },
+       {
+        "Ref": "AWS::NoValue"
+       }
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/KubectlHandlerRole/Resource"
+   }
+  },
+  "EksClusterKubectlHandlerRoleDefaultPolicy88E68B8E": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "eks:DescribeCluster",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "EksClusterFAB68BDB",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "EksClusterCreationRole75AABE42",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EksClusterKubectlHandlerRoleDefaultPolicy88E68B8E",
+    "Roles": [
+     {
+      "Ref": "EksClusterKubectlHandlerRole4A986A70"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/KubectlHandlerRole/DefaultPolicy/Resource"
+   }
+  },
+  "EksClusterRoleC84B376F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSClusterPolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/Role/Resource"
+   }
+  },
+  "EksClusterCreationRole75AABE42": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": [
+         {
+          "Fn::GetAtt": [
+           "EksClusterKubectlHandlerRole4A986A70",
+           "Arn"
+          ]
+         },
+         {
+          "Fn::GetAtt": [
+           "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+           "Outputs.FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole0C95B6ADArn"
+          ]
+         },
+         {
+          "Fn::GetAtt": [
+           "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+           "Outputs.FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderOnEventHandlerServiceRoleCCF0B43EArn"
+          ]
+         }
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/Resource/CreationRole/Resource"
+   }
+  },
+  "EksClusterCreationRoleDefaultPolicy2DFE4D73": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "EksClusterRoleC84B376F",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "eks:CreateCluster",
+        "eks:CreateFargateProfile",
+        "eks:DeleteCluster",
+        "eks:DescribeCluster",
+        "eks:DescribeUpdate",
+        "eks:TagResource",
+        "eks:UntagResource",
+        "eks:UpdateClusterConfig",
+        "eks:UpdateClusterVersion"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:eks:us-east-1:646194726437:cluster/fcc-eks-staging",
+        "arn:aws:eks:us-east-1:646194726437:cluster/fcc-eks-staging/*"
+       ]
+      },
+      {
+       "Action": [
+        "eks:DeleteFargateProfile",
+        "eks:DescribeFargateProfile"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:eks:us-east-1:646194726437:fargateprofile/fcc-eks-staging/*"
+      },
+      {
+       "Action": [
+        "ec2:DescribeDhcpOptions",
+        "ec2:DescribeInstances",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeVpcs",
+        "iam:CreateServiceLinkedRole",
+        "iam:GetRole",
+        "iam:listAttachedRolePolicies"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EksClusterCreationRoleDefaultPolicy2DFE4D73",
+    "Roles": [
+     {
+      "Ref": "EksClusterCreationRole75AABE42"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/Resource/CreationRole/DefaultPolicy/Resource"
+   }
+  },
+  "EksClusterFAB68BDB": {
+   "Type": "Custom::AWSCDK-EKS-Cluster",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProviderframeworkonEvent758DF90EArn"
+     ]
+    },
+    "Config": {
+     "name": "fcc-eks-staging",
+     "version": "1.30",
+     "roleArn": {
+      "Fn::GetAtt": [
+       "EksClusterRoleC84B376F",
+       "Arn"
+      ]
+     },
+     "kubernetesNetworkConfig": {
+      "ipFamily": "ipv4"
+     },
+     "resourcesVpcConfig": {
+      "subnetIds": [
+       {
+        "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivateeksSubnet1Subnet26C5D3839B8A3988"
+       },
+       {
+        "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivateeksSubnet2Subnet1E588F58A0623DC2"
+       }
+      ],
+      "securityGroupIds": [
+       {
+        "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputFnGetAttEksNodeSecurityGroup0F7E9400GroupIdA2751198"
+       }
+      ],
+      "endpointPublicAccess": true,
+      "endpointPrivateAccess": true
+     },
+     "logging": {
+      "clusterLogging": [
+       {
+        "enabled": true,
+        "types": [
+         "api",
+         "audit",
+         "authenticator",
+         "controllerManager",
+         "scheduler"
+        ]
+       }
+      ]
+     },
+     "accessConfig": {}
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "EksClusterCreationRole75AABE42",
+      "Arn"
+     ]
+    },
+    "AttributesRevision": 5
+   },
+   "DependsOn": [
+    "EksClusterCreationRoleDefaultPolicy2DFE4D73",
+    "EksClusterCreationRole75AABE42"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/Resource/Resource/Default"
+   }
+  },
+  "EksClusterKubectlReadyBarrier502B0E83": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "aws:cdk:eks:kubectl-ready"
+   },
+   "DependsOn": [
+    "EksClusterCreationRoleDefaultPolicy2DFE4D73",
+    "EksClusterCreationRole75AABE42",
+    "EksClusterFAB68BDB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/KubectlReadyBarrier"
+   }
+  },
+  "EksClusterNodegroupNodeGroupaNodeGroupRole7E0261F1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSWorkerNodePolicy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKS_CNI_Policy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-a/NodeGroupRole/Resource"
+   }
+  },
+  "EksClusterNodegroupNodeGroupa027D4FF9": {
+   "Type": "AWS::EKS::Nodegroup",
+   "Properties": {
+    "AmiType": "AL2_x86_64",
+    "CapacityType": "ON_DEMAND",
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "DiskSize": 50,
+    "ForceUpdateEnabled": true,
+    "InstanceTypes": [
+     "m6i.xlarge"
+    ],
+    "Labels": {
+     "nodegroup": "fcc-nodes-a"
+    },
+    "NodeRole": {
+     "Fn::GetAtt": [
+      "EksClusterNodegroupNodeGroupaNodeGroupRole7E0261F1",
+      "Arn"
+     ]
+    },
+    "NodegroupName": "fcc-nodes-a-staging",
+    "ScalingConfig": {
+     "DesiredSize": 1,
+     "MaxSize": 5,
+     "MinSize": 1
+    },
+    "Subnets": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivateeksSubnet1Subnet26C5D3839B8A3988"
+     }
+    ],
+    "Tags": {
+     "Component": "EKS",
+     "Environment": "staging",
+     "ManagedBy": "CDK",
+     "Name": "fcc-eks-staging",
+     "NodeGroup": "fcc-nodes-a",
+     "Project": "FoodCostCalculator"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-a/Resource"
+   }
+  },
+  "EksClusterAwsAuthmanifest4F460A9B": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderframeworkonEvent215682F3Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"apiVersion\":\"v1\",\"kind\":\"ConfigMap\",\"metadata\":{\"name\":\"aws-auth\",\"namespace\":\"kube-system\",\"labels\":{\"aws.cdk.eks/prune-c8797a42eff2006624de13aad4440ad07fae5dbb0d\":\"\"}},\"data\":{\"mapRoles\":\"[{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "EksClusterNodegroupNodeGroupaNodeGroupRole7E0261F1",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{EC2PrivateDNSName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\"]},{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "EksClusterNodegroupNodeGroupbNodeGroupRoleBDAFE14A",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{EC2PrivateDNSName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\"]},{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "EksClusterNodegroupNodeGroupcNodeGroupRole6618D730",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{EC2PrivateDNSName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\"]}]\",\"mapUsers\":\"[]\",\"mapAccounts\":\"[]\"}}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "EksClusterCreationRole75AABE42",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c8797a42eff2006624de13aad4440ad07fae5dbb0d",
+    "Overwrite": true
+   },
+   "DependsOn": [
+    "EksClusterKubectlReadyBarrier502B0E83"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/AwsAuth/manifest/Resource/Default"
+   }
+  },
+  "EksClusterNodegroupNodeGroupbNodeGroupRoleBDAFE14A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSWorkerNodePolicy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKS_CNI_Policy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-b/NodeGroupRole/Resource"
+   }
+  },
+  "EksClusterNodegroupNodeGroupbC33D0694": {
+   "Type": "AWS::EKS::Nodegroup",
+   "Properties": {
+    "AmiType": "AL2_x86_64",
+    "CapacityType": "ON_DEMAND",
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "DiskSize": 50,
+    "ForceUpdateEnabled": true,
+    "InstanceTypes": [
+     "m6i.xlarge"
+    ],
+    "Labels": {
+     "nodegroup": "fcc-nodes-b"
+    },
+    "NodeRole": {
+     "Fn::GetAtt": [
+      "EksClusterNodegroupNodeGroupbNodeGroupRoleBDAFE14A",
+      "Arn"
+     ]
+    },
+    "NodegroupName": "fcc-nodes-b-staging",
+    "ScalingConfig": {
+     "DesiredSize": 1,
+     "MaxSize": 5,
+     "MinSize": 1
+    },
+    "Subnets": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivateeksSubnet2Subnet1E588F58A0623DC2"
+     }
+    ],
+    "Tags": {
+     "Component": "EKS",
+     "Environment": "staging",
+     "ManagedBy": "CDK",
+     "Name": "fcc-eks-staging",
+     "NodeGroup": "fcc-nodes-b",
+     "Project": "FoodCostCalculator"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-b/Resource"
+   }
+  },
+  "EksClusterNodegroupNodeGroupcNodeGroupRole6618D730": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSWorkerNodePolicy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKS_CNI_Policy"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-c/NodeGroupRole/Resource"
+   }
+  },
+  "EksClusterNodegroupNodeGroupcE178DF2D": {
+   "Type": "AWS::EKS::Nodegroup",
+   "Properties": {
+    "AmiType": "AL2_x86_64",
+    "CapacityType": "ON_DEMAND",
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "DiskSize": 50,
+    "ForceUpdateEnabled": true,
+    "InstanceTypes": [
+     "m6i.xlarge"
+    ],
+    "Labels": {
+     "nodegroup": "fcc-nodes-c"
+    },
+    "NodeRole": {
+     "Fn::GetAtt": [
+      "EksClusterNodegroupNodeGroupcNodeGroupRole6618D730",
+      "Arn"
+     ]
+    },
+    "NodegroupName": "fcc-nodes-c-staging",
+    "ScalingConfig": {
+     "DesiredSize": 1,
+     "MaxSize": 5,
+     "MinSize": 1
+    },
+    "Subnets": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivateeksSubnet1Subnet26C5D3839B8A3988"
+     }
+    ],
+    "Tags": {
+     "Component": "EKS",
+     "Environment": "staging",
+     "ManagedBy": "CDK",
+     "Name": "fcc-eks-staging",
+     "NodeGroup": "fcc-nodes-c",
+     "Project": "FoodCostCalculator"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/NodegroupNodeGroup-c/Resource"
+   }
+  },
+  "EksClusterApiServiceAccountConditionJson10F518A5": {
+   "Type": "Custom::AWSCDKCfnJson",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57",
+      "Arn"
+     ]
+    },
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+           }
+          ]
+         }
+        ]
+       },
+       ":aud\":\"sts.amazonaws.com\",\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+           }
+          ]
+         }
+        ]
+       },
+       ":sub\":\"system:serviceaccount:default:api\"}"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/ConditionJson/Resource/Default"
+   }
+  },
+  "EksClusterApiServiceAccountRole91A5F1AB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "Fn::GetAtt": [
+          "EksClusterApiServiceAccountConditionJson10F518A5",
+          "Value"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": {
+         "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/Role/Resource"
+   }
+  },
+  "EksClusterApiServiceAccountRoleDefaultPolicyAE06F409": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:s3:::fcc-invoices-staging",
+        "arn:aws:s3:::fcc-invoices-staging/*"
+       ]
+      },
+      {
+       "Action": [
+        "sqs:GetQueueUrl",
+        "sqs:SendMessage"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:sqs:us-east-1:646194726437:fcc-*-staging"
+      },
+      {
+       "Action": [
+        "cognito-idp:AdminCreateUser",
+        "cognito-idp:AdminDisableUser",
+        "cognito-idp:AdminEnableUser",
+        "cognito-idp:AdminGetUser",
+        "cognito-idp:AdminSetUserPassword",
+        "cognito-idp:AdminUpdateUserAttributes",
+        "cognito-idp:AdminUserGlobalSignOut",
+        "cognito-idp:ListUsers"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:cognito-idp:us-east-1:646194726437:userpool/*"
+      },
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:secretsmanager:us-east-1:646194726437:secret:food-cost-calculator/staging/*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EksClusterApiServiceAccountRoleDefaultPolicyAE06F409",
+    "Roles": [
+     {
+      "Ref": "EksClusterApiServiceAccountRole91A5F1AB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/Role/DefaultPolicy/Resource"
+   }
+  },
+  "EksClusterApiServiceAccountmanifestApiServiceAccountServiceAccountResource71D5FAB0": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderframeworkonEvent215682F3Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"name\":\"api\",\"namespace\":\"default\",\"labels\":{\"aws.cdk.eks/prune-c8748c166c3f136b2b4e63e0d2e5ae0a5d81de48b3\":\"\",\"app.kubernetes.io/name\":\"api\"},\"annotations\":{\"eks.amazonaws.com/role-arn\":\"",
+       {
+        "Fn::GetAtt": [
+         "EksClusterApiServiceAccountRole91A5F1AB",
+         "Arn"
+        ]
+       },
+       "\"}}}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "EksClusterCreationRole75AABE42",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c8748c166c3f136b2b4e63e0d2e5ae0a5d81de48b3"
+   },
+   "DependsOn": [
+    "EksClusterKubectlReadyBarrier502B0E83"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/ApiServiceAccount/manifest-ApiServiceAccountServiceAccountResource/Resource/Default"
+   }
+  },
+  "EksClusterOpenIdConnectProviderEBA08909": {
+   "Type": "Custom::AWSCDKOpenIdConnectProvider",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0",
+      "Arn"
+     ]
+    },
+    "ClientIDList": [
+     "sts.amazonaws.com"
+    ],
+    "Url": {
+     "Fn::GetAtt": [
+      "EksClusterFAB68BDB",
+      "OpenIdConnectIssuerUrl"
+     ]
+    },
+    "RejectUnauthorized": false,
+    "CodeHash": "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/OpenIdConnectProvider/Resource/Default"
+   }
+  },
+  "EksClusterWorkersServiceAccountConditionJson01D07764": {
+   "Type": "Custom::AWSCDKCfnJson",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57",
+      "Arn"
+     ]
+    },
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+           }
+          ]
+         }
+        ]
+       },
+       ":aud\":\"sts.amazonaws.com\",\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+           }
+          ]
+         }
+        ]
+       },
+       ":sub\":\"system:serviceaccount:default:workers\"}"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/ConditionJson/Resource/Default"
+   }
+  },
+  "EksClusterWorkersServiceAccountRole0C52B424": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "Fn::GetAtt": [
+          "EksClusterWorkersServiceAccountConditionJson01D07764",
+          "Value"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": {
+         "Ref": "EksClusterOpenIdConnectProviderEBA08909"
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "EKS"
+     },
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "fcc-eks-staging"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/Role/Resource"
+   }
+  },
+  "EksClusterWorkersServiceAccountRoleDefaultPolicy99C2BE5A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "sqs:ChangeMessageVisibility",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:sqs:us-east-1:646194726437:fcc-*-staging"
+      },
+      {
+       "Action": [
+        "textract:AnalyzeDocument",
+        "textract:GetDocumentAnalysis",
+        "textract:StartDocumentAnalysis"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-*"
+      },
+      {
+       "Action": [
+        "ses:SendEmail",
+        "ses:SendRawEmail"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:ses:us-east-1:646194726437:identity/*"
+      },
+      {
+       "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:s3:::fcc-invoices-staging",
+        "arn:aws:s3:::fcc-invoices-staging/*"
+       ]
+      },
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:secretsmanager:us-east-1:646194726437:secret:food-cost-calculator/staging/*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EksClusterWorkersServiceAccountRoleDefaultPolicy99C2BE5A",
+    "Roles": [
+     {
+      "Ref": "EksClusterWorkersServiceAccountRole0C52B424"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/Role/DefaultPolicy/Resource"
+   }
+  },
+  "EksClusterWorkersServiceAccountmanifestWorkersServiceAccountServiceAccountResource157FE839": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderframeworkonEvent215682F3Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"name\":\"workers\",\"namespace\":\"default\",\"labels\":{\"aws.cdk.eks/prune-c8bb36d1b9157a06a4559cb85aee096e092fb26550\":\"\",\"app.kubernetes.io/name\":\"workers\"},\"annotations\":{\"eks.amazonaws.com/role-arn\":\"",
+       {
+        "Fn::GetAtt": [
+         "EksClusterWorkersServiceAccountRole0C52B424",
+         "Arn"
+        ]
+       },
+       "\"}}}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "EksClusterFAB68BDB"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "EksClusterCreationRole75AABE42",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c8bb36d1b9157a06a4559cb85aee096e092fb26550"
+   },
+   "DependsOn": [
+    "EksClusterKubectlReadyBarrier502B0E83"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/EksCluster/WorkersServiceAccount/manifest-WorkersServiceAccountServiceAccountResource/Resource/Default"
+   }
+  },
+  "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.us-east-1.",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/cdk-hnb659fds-assets-646194726437-us-east-1/bdeb31fadae866d1eed5e94cbe03c39490ccbc089748083ea5412027274d050e.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource",
+    "aws:asset:path": "FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProvider4DEBF89B.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoFoodCostCalculatorEKSstagingEksClusterKubectlHandlerRole0CD08115Arn": {
+      "Fn::GetAtt": [
+       "EksClusterKubectlHandlerRole4A986A70",
+       "Arn"
+      ]
+     },
+     "referencetoFoodCostCalculatorEKSstagingEksCluster99786526ClusterSecurityGroupId": {
+      "Fn::GetAtt": [
+       "EksClusterFAB68BDB",
+       "ClusterSecurityGroupId"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.us-east-1.",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/cdk-hnb659fds-assets-646194726437-us-east-1/6e5f3fdae2c90aaf55697b6cd60a66070820af6b7ecb93f857d5e026de356919.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "EksClusterKubectlHandlerRoleDefaultPolicy88E68B8E",
+    "EksClusterKubectlHandlerRole4A986A70"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/@aws-cdk--aws-eks.KubectlProvider.NestedStack/@aws-cdk--aws-eks.KubectlProvider.NestedStackResource",
+    "aws:asset:path": "FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderEEE48E65.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Resource": "*",
+         "Action": [
+          "iam:CreateOpenIDConnectProvider",
+          "iam:DeleteOpenIDConnectProvider",
+          "iam:UpdateOpenIDConnectProviderThumbprint",
+          "iam:AddClientIDToOpenIDConnectProvider",
+          "iam:RemoveClientIDFromOpenIDConnectProvider"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Role"
+   }
+  },
+  "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Key": "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x"
+   },
+   "DependsOn": [
+    "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider/Role"
+   }
+  },
+  "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Key": "c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x"
+   },
+   "DependsOn": [
+    "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80",
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VQ0U7DMAz8Ft7TgCpVPHd9AgSbug+YssQrXlunip1OqOq/kxJNwNP5rPPZ51KX1bN+ejA3LqzriwHPejmKsb1KrdMCPeulGSILBPXhHXTBx0k1F/ol9Y3rKJ/qLZ4hEAjwuyG8AIs6QpjRQm2tjyRqPwG9uMYTgZVD8DM6CKtCM+ql9QNsvj948APar43mal1Vk27wYwvsY7BZea//NpO5Q0FPG3nljDnQf4f7+p1hUDUzSFJ1SN02sI8yRVkVpZD6yo9zWekqvenKiEVIUXAE3Wb8BlzXW9BDAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-EKS-staging/CDKMetadata/Default"
+   }
+  }
+ },
+ "Conditions": {
+  "EksClusterHasEcrPublicC520A45E": {
+   "Fn::Equals": [
+    {
+     "Ref": "AWS::Partition"
+    },
+    "aws"
+   ]
+  }
+ },
+ "Outputs": {
+  "ClusterName": {
+   "Description": "EKS cluster name",
+   "Value": {
+    "Ref": "EksClusterFAB68BDB"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-EksClusterName"
+   }
+  },
+  "ClusterArn": {
+   "Description": "EKS cluster ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksClusterFAB68BDB",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-EksClusterArn"
+   }
+  },
+  "ClusterEndpoint": {
+   "Description": "EKS cluster API server endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksClusterFAB68BDB",
+     "Endpoint"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-EksClusterEndpoint"
+   }
+  },
+  "ClusterOidcIssuer": {
+   "Description": "EKS cluster OIDC issuer URL (for IRSA)",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksClusterFAB68BDB",
+     "OpenIdConnectIssuerUrl"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-EksOidcIssuer"
+   }
+  },
+  "ApiServiceAccountRoleArn": {
+   "Description": "IRSA role ARN for API service account",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksClusterApiServiceAccountRole91A5F1AB",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-ApiServiceAccountRoleArn"
+   }
+  },
+  "WorkersServiceAccountRoleArn": {
+   "Description": "IRSA role ARN for workers service account",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksClusterWorkersServiceAccountRole0C52B424",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-WorkersServiceAccountRoleArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

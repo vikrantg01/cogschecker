@@ -1,0 +1,336 @@
+{
+  "/FoodCostCalculator-Database-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Environment",
+          "value": "staging"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Project",
+          "value": "FoodCostCalculator"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCluster": [
+    {
+      "type": "aws:cdk:warning",
+      "data": "Cluster AuroraCluster only has serverless readers and no reader is in promotion tier 0-1.Serverless readers in promotion tiers >= 2 will NOT scale with the writer, which can lead to availability issues if a failover event occurs. It is recommended that at least one reader has `scaleWithWriter` set to true [ack: @aws-cdk/aws-rds:noFailoverServerlessReaders]",
+      "trace": [
+        "Annotations.addMessage (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2399)",
+        "Annotations.addWarningV2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1087)",
+        "WrappedClass.validateClusterInstances (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-rds/lib/cluster.js:1:18637)",
+        "WrappedClass._createInstances (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-rds/lib/cluster.js:1:17026)",
+        "new DatabaseCluster2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-rds/lib/cluster.js:5:12043)",
+        "new DatabaseCluster2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:855)",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Module.m._compile (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1618:23)",
+        "Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Object.require.extensions.<computed> [as .ts] (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1621:12)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "phase4 (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:649:14)",
+        "bootstrap (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:95:10)",
+        "main (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:55:10)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:800:3)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Object.Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "node:internal/main/run_main_module:33:47"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/SecretArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SecretArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:218:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/ClusterEndpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterEndpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:224:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/ClusterReadEndpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterReadEndpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:230:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/DatabaseName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DatabaseName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:236:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/ClusterArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:242:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCredentials/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraCredentials20EDD625"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Secret2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:63:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraParameterGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraParameterGroup4BFCEB23"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraSubnetGroup/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraSubnetGroup"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SubnetGroup2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:115:25)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCluster/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraCluster23D869C0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCredentials/Attachment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraCredentialsAttachmentFE214782"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCluster/LogRetentionpostgresql/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraClusterLogRetentionpostgresql3202E189"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCluster/Writer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraClusterWriterAA1AB06C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/AuroraCluster/Reader1/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraClusterReader1C65EE150"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-rds/lib/cluster.js:1:163 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:58:23)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseCluster2 in aws-cdk-lib...",
+        "new DatabaseStack (/Users/vicky/cogschecker/infra/lib/stacks/DatabaseStack.ts:140:20)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

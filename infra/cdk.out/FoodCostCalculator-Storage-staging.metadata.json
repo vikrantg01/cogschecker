@@ -1,0 +1,311 @@
+{
+  "/FoodCostCalculator-Storage-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Environment",
+          "value": "staging"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Project",
+          "value": "FoodCostCalculator"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesBucketName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesBucketName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:123:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesBucketArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesBucketArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:129:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesKmsKeyId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesKmsKeyId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:135:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesKmsKeyArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesKmsKeyArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:141:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucketName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucketName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:147:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucketArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucketArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:153:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucketWebsiteUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucketWebsiteUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:159:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesKmsKey/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesKmsKey64E5037F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:50:27)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesBucket57FCB164"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:71:27)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucket5CB76180"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:110:25)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketAutoDeleteObjects"
+      }
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesKmsKey/Alias/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesKmsKeyAliasE74ACAB1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:50:27)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/InvoicesBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvoicesBucketPolicy8F7685F0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:71:27)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucketPolicyFFACF6C4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:110:25)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:39:22)",
+        "...node internals..."
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketPolicyStatements"
+      }
+    }
+  ],
+  "/FoodCostCalculator-Storage-staging/AssetsBucket/AutoDeleteObjectsCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssetsBucketAutoDeleteObjectsCustomResource51BA1286"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

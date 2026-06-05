@@ -1,0 +1,36 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6": {
+      "displayName": "FoodCostCalculator-Storage-staging/Custom::S3AutoDeleteObjectsCustomResourceProvider Code",
+      "source": {
+        "path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-eada8120": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "4cac13894ef840641ab0388e52035758711e3b6a6265f0549e0a7f7bc0f33a34": {
+      "displayName": "FoodCostCalculator-Storage-staging Template",
+      "source": {
+        "path": "FoodCostCalculator-Storage-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-bdeba527": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "4cac13894ef840641ab0388e52035758711e3b6a6265f0549e0a7f7bc0f33a34.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

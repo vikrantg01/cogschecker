@@ -1,0 +1,654 @@
+{
+ "Description": "Food Cost Calculator — SQS FIFO queues, DLQs, CloudWatch alarms",
+ "Resources": {
+  "CostPropagationDlq5BB4EF67": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-cost-propagation-dlq-staging.fifo",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/CostPropagationDlq/Resource"
+   }
+  },
+  "CostPropagationQueue5499790E": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-cost-propagation-staging.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "CostPropagationDlq5BB4EF67",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 3
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VisibilityTimeout": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/CostPropagationQueue/Resource"
+   }
+  },
+  "OcrProcessingDlq7D2A8396": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-ocr-processing-dlq-staging.fifo",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/OcrProcessingDlq/Resource"
+   }
+  },
+  "OcrProcessingQueue9B45F43E": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-ocr-processing-staging.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "OcrProcessingDlq7D2A8396",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 3
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VisibilityTimeout": 60
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/OcrProcessingQueue/Resource"
+   }
+  },
+  "AiInsightsDlq62CCB714": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-ai-insights-dlq-staging.fifo",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/AiInsightsDlq/Resource"
+   }
+  },
+  "AiInsightsQueueA22E95C2": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-ai-insights-staging.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "AiInsightsDlq62CCB714",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 3
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VisibilityTimeout": 300
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/AiInsightsQueue/Resource"
+   }
+  },
+  "SquareSyncDlqF5811D6F": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-square-sync-dlq-staging.fifo",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/SquareSyncDlq/Resource"
+   }
+  },
+  "SquareSyncQueue566857F7": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "ContentBasedDeduplication": true,
+    "FifoQueue": true,
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "fcc-square-sync-staging.fifo",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "SquareSyncDlqF5811D6F",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 3
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VisibilityTimeout": 120
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/SquareSyncQueue/Resource"
+   }
+  },
+  "CostPropagationDlqAlarm945CFEF9": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Alarm when cost propagation DLQ has messages (processing failures)",
+    "AlarmName": "fcc-cost-propagation-dlq-alarm-staging",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "CostPropagationDlq5BB4EF67",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateNumberOfMessagesVisible",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "Threshold": 0,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/CostPropagationDlqAlarm/Resource"
+   }
+  },
+  "OcrProcessingDlqAlarmB4A8C1FF": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Alarm when OCR processing DLQ has messages (Textract or parsing failures)",
+    "AlarmName": "fcc-ocr-processing-dlq-alarm-staging",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "OcrProcessingDlq7D2A8396",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateNumberOfMessagesVisible",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "Threshold": 0,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/OcrProcessingDlqAlarm/Resource"
+   }
+  },
+  "AiInsightsDlqAlarm8616B74B": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Alarm when AI insights DLQ has messages (Bedrock or analysis failures)",
+    "AlarmName": "fcc-ai-insights-dlq-alarm-staging",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "AiInsightsDlq62CCB714",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateNumberOfMessagesVisible",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "Threshold": 0,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/AiInsightsDlqAlarm/Resource"
+   }
+  },
+  "SquareSyncDlqAlarmC2DC486A": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Alarm when Square sync DLQ has messages (Square API or matching failures)",
+    "AlarmName": "fcc-square-sync-dlq-alarm-staging",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "SquareSyncDlqF5811D6F",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateNumberOfMessagesVisible",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "Threshold": 0,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/SquareSyncDlqAlarm/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzI11zNQTCwv1k1OydbNyUzSqw4uSUzO1gEKxVcXFxbrVQeWppam6jin5YEZtTrJOfmlKeWJJckZetWOOYlFuSA5MKO2FsT0Ly0pKC2p1cnLT0nVyyrWLzMy1TMFWpJVnJmpW1SaV5KZm6oXBKEBkfFysoEAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Messaging-staging/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "CostPropagationQueueUrl": {
+   "Description": "Cost propagation queue URL",
+   "Value": {
+    "Ref": "CostPropagationQueue5499790E"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-CostPropagationQueueUrl"
+   }
+  },
+  "CostPropagationQueueArn": {
+   "Description": "Cost propagation queue ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "CostPropagationQueue5499790E",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-CostPropagationQueueArn"
+   }
+  },
+  "OcrProcessingQueueUrl": {
+   "Description": "OCR processing queue URL",
+   "Value": {
+    "Ref": "OcrProcessingQueue9B45F43E"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-OcrProcessingQueueUrl"
+   }
+  },
+  "OcrProcessingQueueArn": {
+   "Description": "OCR processing queue ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "OcrProcessingQueue9B45F43E",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-OcrProcessingQueueArn"
+   }
+  },
+  "AiInsightsQueueUrl": {
+   "Description": "AI insights queue URL",
+   "Value": {
+    "Ref": "AiInsightsQueueA22E95C2"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AiInsightsQueueUrl"
+   }
+  },
+  "AiInsightsQueueArn": {
+   "Description": "AI insights queue ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "AiInsightsQueueA22E95C2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AiInsightsQueueArn"
+   }
+  },
+  "SquareSyncQueueUrl": {
+   "Description": "Square sync queue URL",
+   "Value": {
+    "Ref": "SquareSyncQueue566857F7"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-SquareSyncQueueUrl"
+   }
+  },
+  "SquareSyncQueueArn": {
+   "Description": "Square sync queue ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "SquareSyncQueue566857F7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-SquareSyncQueueArn"
+   }
+  },
+  "CostPropagationDlqUrl": {
+   "Description": "Cost propagation DLQ URL",
+   "Value": {
+    "Ref": "CostPropagationDlq5BB4EF67"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-CostPropagationDlqUrl"
+   }
+  },
+  "OcrProcessingDlqUrl": {
+   "Description": "OCR processing DLQ URL",
+   "Value": {
+    "Ref": "OcrProcessingDlq7D2A8396"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-OcrProcessingDlqUrl"
+   }
+  },
+  "AiInsightsDlqUrl": {
+   "Description": "AI insights DLQ URL",
+   "Value": {
+    "Ref": "AiInsightsDlq62CCB714"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AiInsightsDlqUrl"
+   }
+  },
+  "SquareSyncDlqUrl": {
+   "Description": "Square sync DLQ URL",
+   "Value": {
+    "Ref": "SquareSyncDlqF5811D6F"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-SquareSyncDlqUrl"
+   }
+  },
+  "CostPropagationDlqAlarmArn": {
+   "Description": "Cost propagation DLQ alarm ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "CostPropagationDlqAlarm945CFEF9",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-CostPropagationDlqAlarmArn"
+   }
+  },
+  "OcrProcessingDlqAlarmArn": {
+   "Description": "OCR processing DLQ alarm ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "OcrProcessingDlqAlarmB4A8C1FF",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-OcrProcessingDlqAlarmArn"
+   }
+  },
+  "AiInsightsDlqAlarmArn": {
+   "Description": "AI insights DLQ alarm ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "AiInsightsDlqAlarm8616B74B",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AiInsightsDlqAlarmArn"
+   }
+  },
+  "SquareSyncDlqAlarmArn": {
+   "Description": "Square sync DLQ alarm ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "SquareSyncDlqAlarmC2DC486A",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-SquareSyncDlqAlarmArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

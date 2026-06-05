@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.workers.worker.SquareMatchingServicePropertyTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-06-05T11:17:45" hostname="Vikrants-MacBook-Pro-2.local" time="5.317">
+  <properties/>
+  <testcase name="P21: Square name matching correctly identifies matches and non-matches" classname="com.cogschecker.foodcost.workers.worker.SquareMatchingServicePropertyTest" time="4.279"/>
+  <testcase name="P21.1: Partial name matches are not matched (only exact matches)" classname="com.cogschecker.foodcost.workers.worker.SquareMatchingServicePropertyTest" time="0.105"/>
+  <testcase name="P21.3: No false matches with multiple distinct recipes" classname="com.cogschecker.foodcost.workers.worker.SquareMatchingServicePropertyTest" time="0.839"/>
+  <testcase name="P21.2: Case variations of the same name all match" classname="com.cogschecker.foodcost.workers.worker.SquareMatchingServicePropertyTest" time="0.092"/>
+  <system-out><![CDATA[timestamp = 2026-06-05T21:17:49.734371, SquareMatchingServicePropertyTest:P21: Square name matching correctly identifies matches and non-matches = 
+                              |-----------------------jqwik-----------------------
+tries = 5000                  | # of calls to property
+checks = 5000                 | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 68         | # of all combined edge cases
+edge-cases#tried = 68         | # of edge cases tried in current run
+seed = -8302075289670107063   | random seed to reproduce generated values
+
+
+timestamp = 2026-06-05T21:17:49.842174, SquareMatchingServicePropertyTest:P21.1: Partial name matches are not matched (only exact matches) = 
+                              |-----------------------jqwik-----------------------
+tries = 1000                  | # of calls to property
+checks = 1000                 | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 8          | # of all combined edge cases
+edge-cases#tried = 8          | # of edge cases tried in current run
+seed = 2996045732853272372    | random seed to reproduce generated values
+
+
+timestamp = 2026-06-05T21:17:50.681853, SquareMatchingServicePropertyTest:P21.3: No false matches with multiple distinct recipes = 
+                              |-----------------------jqwik-----------------------
+tries = 1000                  | # of calls to property
+checks = 979                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 20         | # of all combined edge cases
+edge-cases#tried = 20         | # of edge cases tried in current run
+seed = 4698007682011068740    | random seed to reproduce generated values
+
+
+timestamp = 2026-06-05T21:17:50.774017, SquareMatchingServicePropertyTest:P21.2: Case variations of the same name all match = 
+                              |-----------------------jqwik-----------------------
+tries = 1000                  | # of calls to property
+checks = 1000                 | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 4          | # of all combined edge cases
+edge-cases#tried = 4          | # of edge cases tried in current run
+seed = 1320408483998828778    | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/vicky/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.18/417558ea01fe9f0e8a94af28b9469d281c4e3984/byte-buddy-agent-1.14.18.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

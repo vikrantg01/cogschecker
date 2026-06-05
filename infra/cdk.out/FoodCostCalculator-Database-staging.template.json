@@ -1,0 +1,535 @@
+{
+ "Description": "Food Cost Calculator — Aurora PostgreSQL Serverless v2 Multi-AZ cluster",
+ "Resources": {
+  "AuroraCredentials20EDD625": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Aurora PostgreSQL credentials for Food Cost Calculator (staging)",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\":\"fcc_app_user\"}"
+    },
+    "Name": "food-cost-calculator/staging/aurora/credentials",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCredentials/Resource"
+   }
+  },
+  "AuroraCredentialsAttachmentFE214782": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "AuroraCredentials20EDD625"
+    },
+    "TargetId": {
+     "Ref": "AuroraCluster23D869C0"
+    },
+    "TargetType": "AWS::RDS::DBCluster"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCredentials/Attachment/Resource"
+   }
+  },
+  "AuroraParameterGroup4BFCEB23": {
+   "Type": "AWS::RDS::DBClusterParameterGroup",
+   "Properties": {
+    "Description": "Aurora PostgreSQL parameter group for Food Cost Calculator (staging) — SSL + pgaudit",
+    "Family": "aurora-postgresql15",
+    "Parameters": {
+     "rds.force_ssl": "1",
+     "shared_preload_libraries": "pgaudit",
+     "pgaudit.log": "all",
+     "pgaudit.log_statement_once": "0"
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraParameterGroup/Resource"
+   }
+  },
+  "AuroraSubnetGroup": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Aurora PostgreSQL subnet group for Food Cost Calculator (staging)",
+    "DBSubnetGroupName": "fcc-aurora-staging",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivatedataSubnet1Subnet9638AA76576225C8"
+     },
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputRefVpcprivatedataSubnet2Subnet85309E021EB0F8E3"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraSubnetGroup/Default"
+   }
+  },
+  "AuroraCluster23D869C0": {
+   "Type": "AWS::RDS::DBCluster",
+   "Properties": {
+    "BackupRetentionPeriod": 7,
+    "CopyTagsToSnapshot": true,
+    "DBClusterIdentifier": "fcc-aurora-staging",
+    "DBClusterParameterGroupName": {
+     "Ref": "AuroraParameterGroup4BFCEB23"
+    },
+    "DBSubnetGroupName": {
+     "Ref": "AuroraSubnetGroup"
+    },
+    "DatabaseName": "foodcostcalculator",
+    "DeletionProtection": false,
+    "EnableCloudwatchLogsExports": [
+     "postgresql"
+    ],
+    "Engine": "aurora-postgresql",
+    "EngineVersion": "15.5",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuroraCredentials20EDD625"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuroraCredentials20EDD625"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "Port": 5432,
+    "PreferredBackupWindow": "03:00-04:00",
+    "ServerlessV2ScalingConfiguration": {
+     "MaxCapacity": 2,
+     "MinCapacity": 0.5
+    },
+    "StorageEncrypted": true,
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ],
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network-staging:ExportsOutputFnGetAttAuroraSecurityGroup75F699F6GroupId12D936A9"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCluster/Resource"
+   }
+  },
+  "AuroraClusterLogRetentionpostgresql3202E189": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/rds/cluster/",
+       {
+        "Ref": "AuroraCluster23D869C0"
+       },
+       "/postgresql"
+      ]
+     ]
+    },
+    "RetentionInDays": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCluster/LogRetentionpostgresql/Resource"
+   }
+  },
+  "AuroraClusterWriterAA1AB06C": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "AuroraCluster23D869C0"
+    },
+    "DBInstanceClass": "db.serverless",
+    "DBInstanceIdentifier": "fcc-aurora-writer-staging",
+    "EnablePerformanceInsights": true,
+    "Engine": "aurora-postgresql",
+    "PerformanceInsightsRetentionPeriod": 7,
+    "PromotionTier": 0,
+    "PubliclyAccessible": false,
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCluster/Writer/Resource"
+   }
+  },
+  "AuroraClusterReader1C65EE150": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "AuroraCluster23D869C0"
+    },
+    "DBInstanceClass": "db.serverless",
+    "DBInstanceIdentifier": "fcc-aurora-reader1-staging",
+    "EnablePerformanceInsights": true,
+    "Engine": "aurora-postgresql",
+    "PerformanceInsightsRetentionPeriod": 7,
+    "PromotionTier": 2,
+    "PubliclyAccessible": false,
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "DependsOn": [
+    "AuroraClusterWriterAA1AB06C"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/AuroraCluster/Reader1/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteRetentionPolicy",
+        "logs:PutRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs22.x",
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "staging"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "FoodCostCalculator"
+     }
+    ]
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Q0WrDMAz8lr073sgIfW5aGIPBSrr3ojia5yaxiyV3jJB/n5KUkfXpdLrTISnXebHRTw/wTZlp2qxztR6ODKZV0joNhCYiUw8eLEaRZq52n/5WLfAB0SJvWQa/evQrw70yqtiQHg4QoUfG+BJDukz2fbnrEknnTjqm2iOvbOvGHhhqILyN/stZyKsnBm9wVF2wpN+CrSTbswte0fMJiOQ8vZ1AuC6TaZFLiVQOej1UocMpaMZD6Jz5mehSjeMsIYUUDaq/Yk6TJ1rn7eR4T3xJcrkPDeozPV7zQhfy9DM5l8Uky/SoqwV/Ad/ucoWRAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database-staging/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "SecretArn": {
+   "Description": "Secrets Manager ARN for Aurora credentials",
+   "Value": {
+    "Ref": "AuroraCredentials20EDD625"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AuroraSecretArn"
+   }
+  },
+  "ClusterEndpoint": {
+   "Description": "Aurora PostgreSQL cluster writer endpoint (hostname:port)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::GetAtt": [
+        "AuroraCluster23D869C0",
+        "Endpoint.Address"
+       ]
+      },
+      ":",
+      {
+       "Fn::GetAtt": [
+        "AuroraCluster23D869C0",
+        "Endpoint.Port"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AuroraClusterEndpoint"
+   }
+  },
+  "ClusterReadEndpoint": {
+   "Description": "Aurora PostgreSQL cluster reader endpoint (read-only queries)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::GetAtt": [
+        "AuroraCluster23D869C0",
+        "ReadEndpoint.Address"
+       ]
+      },
+      ":",
+      {
+       "Fn::GetAtt": [
+        "AuroraCluster23D869C0",
+        "Endpoint.Port"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AuroraReaderEndpoint"
+   }
+  },
+  "DatabaseName": {
+   "Description": "Aurora PostgreSQL database name",
+   "Value": "foodcostcalculator",
+   "Export": {
+    "Name": "FoodCostCalculator-staging-DatabaseName"
+   }
+  },
+  "ClusterArn": {
+   "Description": "Aurora cluster ARN (for IAM and resource tagging)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "arn:aws:rds:us-east-1:646194726437:cluster:",
+      {
+       "Ref": "AuroraCluster23D869C0"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-staging-AuroraClusterArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,156 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "9a746caeb230acdc3265185e86b9466a51c3ec22cffc1616d837969aabd69237": {
+      "displayName": "@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Code",
+      "source": {
+        "path": "asset.9a746caeb230acdc3265185e86b9466a51c3ec22cffc1616d837969aabd69237.zip",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-1bae985e": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "9a746caeb230acdc3265185e86b9466a51c3ec22cffc1616d837969aabd69237.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "4ce63d0f25823b6d54518a4f99439cbe1566300e54a38d35f269915a337f2c01": {
+      "displayName": "@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Code",
+      "source": {
+        "path": "asset.4ce63d0f25823b6d54518a4f99439cbe1566300e54a38d35f269915a337f2c01",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-e34f1d58": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "4ce63d0f25823b6d54518a4f99439cbe1566300e54a38d35f269915a337f2c01.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "07a90cc3efdfc34da22208dcd9d211f06f5b0e01b21e778edc7c3966b1f61d57": {
+      "displayName": "@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Code",
+      "source": {
+        "path": "asset.07a90cc3efdfc34da22208dcd9d211f06f5b0e01b21e778edc7c3966b1f61d57",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-007fba3d": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "07a90cc3efdfc34da22208dcd9d211f06f5b0e01b21e778edc7c3966b1f61d57.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "96be612fb7dbf9fc3a1342e000a091920b1f4103c0e97852f7b8a4b28d4e2d7a": {
+      "displayName": "@aws-cdk--aws-eks.KubectlProvider/Handler/Code",
+      "source": {
+        "path": "asset.96be612fb7dbf9fc3a1342e000a091920b1f4103c0e97852f7b8a4b28d4e2d7a",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-9c4e2f3d": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "96be612fb7dbf9fc3a1342e000a091920b1f4103c0e97852f7b8a4b28d4e2d7a.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "e2659170a0721541efa761a8d5d04d5e36cbbf691c4b15a9053002b7c825055d": {
+      "displayName": "@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Code",
+      "source": {
+        "path": "asset.e2659170a0721541efa761a8d5d04d5e36cbbf691c4b15a9053002b7c825055d.zip",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-649d29e9": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "e2659170a0721541efa761a8d5d04d5e36cbbf691c4b15a9053002b7c825055d.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50": {
+      "displayName": "FoodCostCalculator-EKS-staging/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider Code",
+      "source": {
+        "path": "asset.d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-003cae06": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80": {
+      "displayName": "FoodCostCalculator-EKS-staging/AWSCDKCfnUtilsProviderCustomResourceProvider Code",
+      "source": {
+        "path": "asset.c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "646194726437-us-east-1-e86fb37a": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "bdeb31fadae866d1eed5e94cbe03c39490ccbc089748083ea5412027274d050e": {
+      "displayName": "@aws-cdk--aws-eks.ClusterResourceProvider Nested Stack Template",
+      "source": {
+        "path": "FoodCostCalculatorEKSstagingawscdkawseksClusterResourceProvider4DEBF89B.nested.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-d537b5c2": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "bdeb31fadae866d1eed5e94cbe03c39490ccbc089748083ea5412027274d050e.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "6e5f3fdae2c90aaf55697b6cd60a66070820af6b7ecb93f857d5e026de356919": {
+      "displayName": "@aws-cdk--aws-eks.KubectlProvider Nested Stack Template",
+      "source": {
+        "path": "FoodCostCalculatorEKSstagingawscdkawseksKubectlProviderEEE48E65.nested.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-306a0acd": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "6e5f3fdae2c90aaf55697b6cd60a66070820af6b7ecb93f857d5e026de356919.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    },
+    "8cb9c2c9043682029ab630f0e06a3767369b375d667043c143c2c428e3f56b1c": {
+      "displayName": "FoodCostCalculator-EKS-staging Template",
+      "source": {
+        "path": "FoodCostCalculator-EKS-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-37114b4c": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "8cb9c2c9043682029ab630f0e06a3767369b375d667043c143c2c428e3f56b1c.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "00dd0353b97c0c666e304513fc4ff9e44d65ab22b213ef32fd39874a2d48b00e": {
+      "displayName": "FoodCostCalculator-Auth-staging Template",
+      "source": {
+        "path": "FoodCostCalculator-Auth-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-1a67b0e7": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "00dd0353b97c0c666e304513fc4ff9e44d65ab22b213ef32fd39874a2d48b00e.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

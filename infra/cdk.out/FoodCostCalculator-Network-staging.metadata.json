@@ -1,0 +1,856 @@
+{
+  "/FoodCostCalculator-Network-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:error",
+      "data": "AWS was not able to validate the provided access credentials",
+      "trace": [
+        "Annotations.addMessage (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2399)",
+        "Annotations.addError (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1631)",
+        "Annotations._addTrackableError (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1730)",
+        "ContextProvider.getValue (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/context-provider.js:2:1886)",
+        "NetworkStack.get availabilityZones [as availabilityZones] (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/stack.js:1:12163)",
+        "new Vpc2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:18274)",
+        "new Vpc2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:855)",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Module.m._compile (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1618:23)",
+        "Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Object.require.extensions.<computed> [as .ts] (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1621:12)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "phase4 (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:649:14)",
+        "bootstrap (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:95:10)",
+        "main (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:55:10)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:800:3)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Object.Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "node:internal/main/run_main_module:33:47"
+      ]
+    },
+    {
+      "type": "aws:cdk:error-code",
+      "data": "ContextProviderError"
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Environment",
+          "value": "staging"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        },
+        {
+          "key": "Project",
+          "value": "FoodCostCalculator"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Custom::VpcRestrictDefaultSGCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/EksNodeSelfIngress": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksNodeSelfIngress"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:184:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/VpcId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:232:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/PublicSubnetIds": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublicSubnetIds"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:238:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/PrivateEksSubnetIds": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PrivateEksSubnetIds"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:244:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/PrivateDataSubnetIds": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PrivateDataSubnetIds"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:250:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/AlbSecurityGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbSecurityGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:256:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/EksNodeSecurityGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksNodeSecurityGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:262:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/AuroraSecurityGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraSecurityGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:268:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/ElastiCacheSecurityGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ElastiCacheSecurityGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:274:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpc8378EB38"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/IGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIGWD7BA715C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/VPCGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcVPCGWBF912B6E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/AlbSecurityGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbSecurityGroup86A59E99"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SecurityGroup2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:130:29)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/EksNodeSecurityGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EksNodeSecurityGroup0F7E9400"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SecurityGroup2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:168:33)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/AuroraSecurityGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuroraSecurityGroup75F699F6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SecurityGroup2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:202:32)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/ElastiCacheSecurityGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ElastiCacheSecurityGroup085F6B0A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SecurityGroup2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:217:37)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Ref\":\"VpcprivatedataSubnet1Subnet9638AA76\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefVpcprivatedataSubnet1Subnet9638AA76576225C8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Ref\":\"VpcprivatedataSubnet2Subnet85309E02\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefVpcprivatedataSubnet2Subnet85309E021EB0F8E3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Fn::GetAtt\":[\"AuroraSecurityGroup75F699F6\",\"GroupId\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttAuroraSecurityGroup75F699F6GroupId12D936A9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Fn::GetAtt\":[\"ElastiCacheSecurityGroup085F6B0A\",\"GroupId\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttElastiCacheSecurityGroup085F6B0AGroupId22D29E01"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Ref\":\"VpcprivateeksSubnet1Subnet26C5D383\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefVpcprivateeksSubnet1Subnet26C5D3839B8A3988"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Ref\":\"VpcprivateeksSubnet2Subnet1E588F58\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefVpcprivateeksSubnet2Subnet1E588F58A0623DC2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Exports/Output{\"Fn::GetAtt\":[\"EksNodeSecurityGroup0F7E9400\",\"GroupId\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttEksNodeSecurityGroup0F7E9400GroupIdA2751198"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1Subnet2BB74ED7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1RouteTable15C15F8E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1RouteTableAssociation4E83B6E4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1DefaultRouteB88F9E93"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:197 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/EIP": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1EIP411541E6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet1/NATGateway": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1NATGatewayA036E8A6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2SubnetE34B022A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2RouteTableC5A6DF77"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2RouteTableAssociationCCE257FF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:257 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2DefaultRoute732F0BEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:197 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/EIP": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2EIP811E07A7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/publicSubnet2/NATGateway": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2NATGateway4A29FD4F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet1Subnet26C5D383"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet1RouteTableDD032766"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet1RouteTableAssociation188E24B8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet1/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet1DefaultRoute17663278"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet2Subnet1E588F58"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet2RouteTableD7CBC121"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet2RouteTableAssociationD0F787FE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:260 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-eksSubnet2/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivateeksSubnet2DefaultRoute618384CC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet1Subnet9638AA76"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet1RouteTable304546DC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet1RouteTableAssociationC484D6C4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet2Subnet85309E02"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet2RouteTable4B43529F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/private-dataSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcprivatedataSubnet2RouteTableAssociation00B8E4FF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ec2/lib/vpc.js:1:262 in aws-cdk-lib...",
+        "Array.forEach (:)",
+        "...aws-cdk-lib..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Network-staging/Vpc/RestrictDefaultSecurityGroupCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcRestrictDefaultSecurityGroupCustomResourceC73DA2BE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Vpc2 in aws-cdk-lib...",
+        "new NetworkStack (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStack.ts:83:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app.ts:29:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ]
+}

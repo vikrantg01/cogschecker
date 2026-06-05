@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "0d01f63256178b7d4808f2461c39a963fdf03e852c16dade4dc87fe8889ff32f": {
+      "displayName": "FoodCostCalculator-Cache-staging Template",
+      "source": {
+        "path": "FoodCostCalculator-Cache-staging.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-7b3d5dbd": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "0d01f63256178b7d4808f2461c39a963fdf03e852c16dade4dc87fe8889ff32f.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
