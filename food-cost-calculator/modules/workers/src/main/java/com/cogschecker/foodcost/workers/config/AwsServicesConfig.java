@@ -7,6 +7,7 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.textract.TextractClient;
@@ -185,6 +186,31 @@ public class AwsServicesConfig {
     @Bean
     public KmsClient kmsClient() {
         return KmsClient.builder()
+                .region(Region.of(awsRegion))
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
+    }
+    
+    /**
+     * AWS S3 client for accessing invoice files.
+     * <p>
+     * Used by {@code OcrProcessingWorker} to fetch uploaded invoice files before
+     * sending them to Textract for OCR processing.
+     * <p>
+     * <b>IAM Permissions Required:</b>
+     * <pre>
+     * {
+     *   "Effect": "Allow",
+     *   "Action": [
+     *     "s3:GetObject"
+     *   ],
+     *   "Resource": "arn:aws:s3:::food-cost-invoices/*"
+     * }
+     * </pre>
+     */
+    @Bean
+    public S3Client s3Client() {
+        return S3Client.builder()
                 .region(Region.of(awsRegion))
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();

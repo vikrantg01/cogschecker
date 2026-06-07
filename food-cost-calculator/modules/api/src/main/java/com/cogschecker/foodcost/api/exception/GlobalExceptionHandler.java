@@ -134,6 +134,25 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handle IllegalArgumentException for invalid method arguments.
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(
+            IllegalArgumentException ex,
+            HttpServletRequest request) {
+        
+        logger.warn("Illegal argument: {}", ex.getMessage());
+        
+        ErrorResponse error = new ErrorResponse(
+            ErrorCodes.VALIDATION_CONSTRAINT_VIOLATION,
+            ex.getMessage(),
+            request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    /**
      * Handle Spring validation errors (@Valid on request bodies).
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -248,6 +267,10 @@ public class GlobalExceptionHandler {
             return HttpStatus.PAYMENT_REQUIRED;
         } else if (ex instanceof WebhookSignatureException) {
             return HttpStatus.UNAUTHORIZED;
+        } else if (ex instanceof InvoiceConfirmationException) {
+            return HttpStatus.BAD_REQUEST;
+        } else if (ex instanceof InvalidInvoiceStateException) {
+            return HttpStatus.CONFLICT;
         }
         return HttpStatus.BAD_REQUEST;
     }

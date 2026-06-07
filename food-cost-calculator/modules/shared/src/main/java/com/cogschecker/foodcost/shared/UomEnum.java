@@ -1,9 +1,12 @@
 package com.cogschecker.foodcost.shared;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Units of measure grouped by measurement dimension.
  * Cross-dimension conversions are forbidden.
  */
+@JsonDeserialize(using = UomEnumDeserializer.class)
 public enum UomEnum {
     // Weight dimension
     GRAM("g", UomDimension.WEIGHT),
@@ -30,6 +33,11 @@ public enum UomEnum {
     }
     
     public String getSymbol() {
+        return symbol;
+    }
+    
+    @com.fasterxml.jackson.annotation.JsonValue
+    public String toJson() {
         return symbol;
     }
     

@@ -1,0 +1,272 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { apiClient } from '../../lib/api';
+import { useAuthStore } from '../../store/authSlice';
+import { useVenueStore } from '../../store/venueSlice';
+import type { Venue } from '../../types/api';
+
+export const VenueDeletePage = () => {
+  const navigate = useNavigate();
+  const { venueId } = useParams<{ venueId: string }>();
+  const user = useAuthStore((state) => state.user);
+  const { venues, setVenues, currentVenueId, setCurrentVenue } = useVenueStore();
+  
+  const [confirmationText, setConfirmationText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loadingVenue, setLoadingVenue] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [venue, setVenue] = useState<Venue | null>(null);
+
+  useEffect(() => {
+    const fetchVenue = async () => {
+      if (!venueId) {
+        setError('Venue ID is required');
+        setLoadingVenue(false);
+        return;
+      }
+
+      try {
+        const orgId = user?.id || 'temp-org-id';
+        const response = await apiClient.get<Venue>(`/organisations/${orgId}/venues/${venueId}`);
+        setVenue(response.data);
+      } catch (err: any) {
+        if (err.response?.data?.message) {
+          setError(err.response.data.message);
+        } else {
+          setError('Failed to load venue');
+        }
+      } finally {
+        setLoadingVenue(false);
+      }
+    };
+
+    fetchVenue();
+  }, [venueId, user]);
+
+  const handleDelete = async () => {
+    if (!venue || confirmationText !== venue.name) {
+      return;
+    }
+
+    setError(null);
+    setLoading(true);
+
+    try {
+      const orgId = user?.id || 'temp-org-id';
+      
+      await apiClient.delete(`/organisations/${orgId}/venues/${venueId}`);
+
+      // Remove venue from the store
+      const updatedVenues = venues.filter(v => v.id !== venueId);
+      setVenues(updatedVenues);
+
+      // If the deleted venue was selected, switch to the first available venue
+      if (currentVenueId === venueId) {
+        if (updatedVenues.length > 0) {
+          setCurrentVenue(updatedVenues[0].id);
+        } else {
+          setCurrentVenue('');
+        }
+      }
+      
+      navigate('/venues');
+    } catch (err: any) {
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Failed to delete venue. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loadingVenue) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        minHeight: '400px',
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner" style={{ 
+            width: '2rem', 
+            height: '2rem',
+            margin: '0 auto 1rem',
+          }} />
+          <p style={{ color: 'var(--text-secondary)' }}>Loading venue...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !venue) {
+    return (
+      <div className="venue-delete-page" style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <div className="alert alert-error">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+            />
+          </svg>
+          <span>{error}</span>
+        </div>
+        <button
+          onClick={() => navigate('/venues')}
+          className="btn-secondary"
+          style={{ marginTop: '1rem' }}
+        >
+          ← Back to Venues
+        </button>
+      </div>
+    );
+  }
+
+  const isConfirmed = venue && confirmationText === venue.name;
+
+  return (
+    <div className="venue-delete-page" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <button
+          onClick={() => navigate('/venues')}
+          className="btn-ghost btn-sm"
+          style={{ marginBottom: '1rem' }}
+        >
+          ← Back to Venues
+        </button>
+        <h1 style={{ 
+          fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+          fontWeight: '700',
+          color: 'var(--error)',
+          marginBottom: '0.5rem',
+        }}>
+          Delete Venue
+        </h1>
+        <p style={{ 
+          color: 'var(--text-secondary)',
+          fontSize: '0.9375rem',
+        }}>
+          This action cannot be undone
+        </p>
+      </div>
+
+      <div className="card card-lg" style={{ borderColor: 'var(--error)' }}>
+        {error && venue && (
+          <div className="alert alert-error" style={{ marginBottom: '1.5rem' }}>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+              />
+            </svg>
+            <span>{error}</span>
+          </div>
+        )}
+
+        <div className="alert alert-warning" style={{ marginBottom: '1.5rem' }}>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+            />
+          </svg>
+          <div>
+            <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>
+              Warning: This will permanently delete the venue
+            </p>
+            <p style={{ fontSize: '0.875rem' }}>
+              Deleting <strong>{venue?.name}</strong> will permanently remove:
+            </p>
+            <ul style={{ 
+              marginTop: '0.5rem',
+              marginLeft: '1.5rem',
+              fontSize: '0.875rem',
+            }}>
+              <li>All ingredients in this venue</li>
+              <li>All recipes in this venue</li>
+              <li>All user access records for this venue</li>
+              <li>All associated data (invoices, reports, insights)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="confirmation" className="form-label">
+            Type the venue name to confirm deletion
+          </label>
+          <input
+            id="confirmation"
+            type="text"
+            className="form-input"
+            value={confirmationText}
+            onChange={(e) => setConfirmationText(e.target.value)}
+            placeholder={venue?.name || ''}
+            disabled={loading}
+            autoFocus
+          />
+          <span className="form-hint">
+            Type <strong>{venue?.name}</strong> to enable deletion
+          </span>
+        </div>
+
+        <div style={{ 
+          display: 'flex', 
+          gap: '1rem', 
+          justifyContent: 'flex-end',
+          marginTop: '2rem',
+        }}>
+          <button
+            type="button"
+            onClick={() => navigate('/venues')}
+            className="btn-secondary"
+            disabled={loading}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="btn-primary"
+            disabled={loading || !isConfirmed}
+            style={{
+              background: 'var(--error)',
+              opacity: !isConfirmed ? 0.6 : 1,
+            }}
+          >
+            {loading ? (
+              <>
+                <span className="spinner" />
+                Deleting...
+              </>
+            ) : (
+              'Delete Venue'
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

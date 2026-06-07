@@ -1,0 +1,179 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { apiClient } from '../../lib/api';
+import { useAuthStore } from '../../store/authSlice';
+import { useVenueStore } from '../../store/venueSlice';
+import type { Venue } from '../../types/api';
+
+export const VenueCreatePage = () => {
+  const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+  const { setVenues, venues } = useVenueStore();
+  
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    
+    if (!name.trim()) {
+      setError('Venue name is required');
+      return;
+    }
+
+    if (name.length > 100) {
+      setError('Venue name must be 100 characters or less');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // TODO: Replace with actual org ID from auth context
+      const orgId = user?.id || 'temp-org-id';
+      
+      const response = await apiClient.post<Venue>(`/organisations/${orgId}/venues`, {
+        name: name.trim(),
+        address: address.trim() || undefined,
+      });
+
+      // Add new venue to the store
+      setVenues([...venues, response.data]);
+      
+      navigate('/venues');
+    } catch (err: any) {
+      if (err.response?.status === 402) {
+        setError('You have reached the maximum number of venues for your subscription tier. Please upgrade to create more venues.');
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Failed to create venue. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="venue-create-page" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <button
+          onClick={() => navigate('/venues')}
+          className="btn-ghost btn-sm"
+          style={{ marginBottom: '1rem' }}
+        >
+          ← Back to Venues
+        </button>
+        <h1 style={{ 
+          fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+          fontWeight: '700',
+          color: 'var(--text-primary)',
+          marginBottom: '0.5rem',
+        }}>
+          Create New Venue
+        </h1>
+        <p style={{ 
+          color: 'var(--text-secondary)',
+          fontSize: '0.9375rem',
+        }}>
+          Add a new location to your organisation
+        </p>
+      </div>
+
+      <div className="card card-lg">
+        {error && (
+          <div className="alert alert-error" style={{ marginBottom: '1.5rem' }}>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+              />
+            </svg>
+            <span>{error}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="venue-name" className="form-label">
+              Venue Name *
+            </label>
+            <input
+              id="venue-name"
+              type="text"
+              className="form-input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g., Downtown Cafe"
+              maxLength={100}
+              disabled={loading}
+              autoFocus
+            />
+            <span className="form-hint">
+              A unique name to identify this venue
+            </span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="venue-address" className="form-label">
+              Address (Optional)
+            </label>
+            <textarea
+              id="venue-address"
+              className="form-input"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="123 Main Street, City, State"
+              rows={3}
+              disabled={loading}
+              style={{ resize: 'vertical' }}
+            />
+            <span className="form-hint">
+              The physical location of this venue
+            </span>
+          </div>
+
+          <div style={{ 
+            display: 'flex', 
+            gap: '1rem', 
+            justifyContent: 'flex-end',
+            marginTop: '2rem',
+          }}>
+            <button
+              type="button"
+              onClick={() => navigate('/venues')}
+              className="btn-secondary"
+              disabled={loading}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={loading || !name.trim()}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner" />
+                  Creating...
+                </>
+              ) : (
+                'Create Venue'
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};

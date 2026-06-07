@@ -1,6 +1,7 @@
 package com.cogschecker.foodcost.api.dto;
 
 import com.cogschecker.foodcost.shared.UomEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,20 +17,25 @@ public class CreateIngredientRequest {
     
     @NotBlank(message = "Ingredient name cannot be blank")
     @Size(min = 1, max = 100, message = "Ingredient name must be between 1 and 100 characters")
+    @JsonProperty("name")
     private String name;
     
     @NotNull(message = "Purchase price is required")
     @DecimalMin(value = "0.01", message = "Purchase price must be greater than 0")
+    @JsonProperty("purchasePrice")
     private BigDecimal purchasePrice;
     
     @NotNull(message = "Purchase quantity is required")
     @DecimalMin(value = "0.0001", message = "Purchase quantity must be greater than 0")
+    @JsonProperty("purchaseQuantity")
     private BigDecimal purchaseQuantity;
     
     @NotNull(message = "Unit of measure is required")
+    @JsonProperty("unitOfMeasure")
     private UomEnum unitOfMeasure;
     
     @DecimalMin(value = "1.0", message = "Yield percentage must be between 1 and 100")
+    @JsonProperty("yieldPercentage")
     private BigDecimal yieldPercentage;
     
     // Constructors

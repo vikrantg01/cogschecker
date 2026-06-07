@@ -33,7 +33,7 @@ public class RecipeIngredientLine {
     @Column(name = "quantity_used", nullable = false, precision = 10, scale = 4)
     private BigDecimal quantityUsed;
     
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = UomEnumConverter.class)
     @Column(name = "unit_of_measure", nullable = false, length = 10)
     private UomEnum unitOfMeasure;
     

@@ -400,7 +400,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 15.3 Implement `SubscriptionController` endpoints (`GET /organisations/:orgId/subscription`, upgrade, downgrade, history)
     - _Requirements: 11.1–11.9_
 
-- [ ] 16. Square POS integration
+- [x] 16. Square POS integration
   - [x] 16.1 Implement Square OAuth flow: `GET /venues/:venueId/square/connect` (redirect) and `GET /venues/:venueId/square/callback` (token exchange, encrypted storage)
     - Exchange code for access/refresh tokens via Square OAuth API
     - Encrypt tokens with KMS-managed key before storing in `square_connections`
@@ -412,31 +412,31 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - Update `recipes.menu_selling_price` for matched items; upsert `square_unmatched_items` for non-matched
     - _Requirements: 12.2, 12.3, 12.4_
 
-  - [ ] 16.3 Write property test P21: Square name matching correctly identifies matches and non-matches
+  - [x] 16.3 Write property test P21: Square name matching correctly identifies matches and non-matches
     - **Property 21: Square POS Name Matching Correctly Identifies Matches and Non-Matches**
     - **Validates: Requirements 12.3**
     - Generate arbitrary Square item names and recipe libraries; assert exact case-insensitive match is returned when a match exists; assert no false positives or missed true matches
 
-  - [ ] 16.4 Implement disconnect endpoint (`DELETE /venues/:venueId/square/connection`) and unmatched-item management endpoints (`GET /venues/:venueId/square/unmatched`, `PATCH /:id`)
+  - [x] 16.4 Implement disconnect endpoint (`DELETE /venues/:venueId/square/connection`) and unmatched-item management endpoints (`GET /venues/:venueId/square/unmatched`, `PATCH /:id`)
     - Disconnect: delete tokens, update `sync_status = 'idle'`, stop future scheduled syncs; retain previously synced prices
     - _Requirements: 12.5, 12.4_
 
-- [ ] 17. Invoice OCR pipeline
-  - [ ] 17.1 Implement invoice upload endpoint (`POST /venues/:venueId/invoices`): validate file type (PDF, JPEG, PNG) and size (≤ 10 MB), upload to S3, create `invoices` record (status: `pending`), enqueue `OCR_PROCESS` SQS message
+- [x] 17. Invoice OCR pipeline
+  - [x] 17.1 Implement invoice upload endpoint (`POST /venues/:venueId/invoices`): validate file type (PDF, JPEG, PNG) and size (≤ 10 MB), upload to S3, create `invoices` record (status: `pending`), enqueue `OCR_PROCESS` SQS message
     - Return `{ invoiceId, status: "processing" }` immediately; do not wait for Textract
     - _Requirements: 12.6, 12.7_
 
-  - [ ] 17.2 Implement `OcrProcessingWorker`: call Textract `AnalyzeDocument` (TABLES feature), parse table blocks into `invoice_line_items`, set confidence scores, flag `is_low_confidence` for score < 0.80, update invoice status to `review`
+  - [x] 17.2 Implement `OcrProcessingWorker`: call Textract `AnalyzeDocument` (TABLES feature), parse table blocks into `invoice_line_items`, set confidence scores, flag `is_low_confidence` for score < 0.80, update invoice status to `review`
     - Retry Textract call up to 3 times with exponential backoff on transient errors
     - On all-retry failure: set status to `failed`, publish in-app notification
     - _Requirements: 12.7, 12.9_
 
-  - [ ] 17.3 Implement invoice review and confirm endpoints (`GET /venues/:venueId/invoices/:id`, `PATCH /:id/lines/:lineId`, `POST /:id/confirm`)
+  - [x] 17.3 Implement invoice review and confirm endpoints (`GET /venues/:venueId/invoices/:id`, `PATCH /:id/lines/:lineId`, `POST /:id/confirm`)
     - Confirm: for each line, do case-insensitive name match against `ingredients`; update purchase price/quantity if matched; create new ingredient if no match; require all low-confidence fields to be explicitly confirmed before allowing confirm
     - _Requirements: 12.7, 12.8, 12.9, 12.10_
 
 - [ ] 18. AI insights pipeline
-  - [ ] 18.1 Implement `AiInsightsWorker`: check Pro+ tier and ≥ 30 days sales data; build Bedrock prompt; call `InvokeModel`; validate JSON response against schema; upsert `ai_insights`
+  - [x] 18.1 Implement `AiInsightsWorker`: check Pro+ tier and ≥ 30 days sales data; build Bedrock prompt; call `InvokeModel`; validate JSON response against schema; upsert `ai_insights`
     - Triggered by EventBridge (24 h sweep) and SQS message after Square sync or invoice confirm
     - Never write to `recipes`, `ingredients`, or `recipe_ingredient_lines`
     - On malformed Bedrock response: log and discard; mark insights as `stale`
@@ -468,21 +468,21 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 20.2 Implement Google and Apple social login buttons using Cognito hosted UI OAuth redirect
     - _Requirements: 8.3, 8.4, 8.5, 8.6_
 
-- [ ] 21. Frontend ingredient management screens
-  - [ ] 21.1 Implement Ingredient Library page: search bar (debounced, partial-match), ingredient list table, inline create/edit form, delete with confirmation dialog listing affected recipes
+- [x] 21. Frontend ingredient management screens
+  - [x] 21.1 Implement Ingredient Library page: search bar (debounced, partial-match), ingredient list table, inline create/edit form, delete with confirmation dialog listing affected recipes
     - _Requirements: 1.1, 1.6, 1.7, 1.8, 1.9_
 
-- [ ] 22. Frontend recipe management screens
-  - [ ] 22.1 Implement Recipe Builder page: ingredient line editor (ingredient picker, quantity input, UOM select, incompatible-UOM error inline), sub-recipe picker with circular-reference error, portion count input, name validation
+- [x] 22. Frontend recipe management screens
+  - [x] 22.1 Implement Recipe Builder page: ingredient line editor (ingredient picker, quantity input, UOM select, incompatible-UOM error inline), sub-recipe picker with circular-reference error, portion count input, name validation
     - Display cost breakdown table: each line's name, qty, uom, unit cost, line cost; total batch cost; food cost per portion; missing-price warnings
     - Show `ThresholdIndicator` and food cost percentage badge
     - _Requirements: 2.1–2.12, 3.1–3.7, 4.1–4.8_
 
-  - [ ] 22.2 Implement duplicate recipe flow and recipe search/list page
+  - [x] 22.2 Implement duplicate recipe flow and recipe search/list page
     - _Requirements: 2.6, 2.9_
 
-- [ ] 23. Frontend recipe costing report and CSV export
-  - [ ] 23.1 Implement Recipe Costing Report page: sortable columns (click to toggle asc/desc), threshold filter toggle, empty-filter message, CSV export button
+- [x] 23. Frontend recipe costing report and CSV export
+  - [x] 23.1 Implement Recipe Costing Report page: sortable columns (click to toggle asc/desc), threshold filter toggle, empty-filter message, CSV export button
     - _Requirements: 5.1–5.7_
 
 - [ ] 24. Frontend multi-venue management screens
@@ -490,15 +490,15 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - Free tier upgrade prompt on attempt to create third venue
     - _Requirements: 10.1–10.11_
 
-- [ ] 25. Frontend subscription management screens
-  - [ ] 25.1 Implement account settings page: current tier badge, billing renewal date, upgrade/downgrade flows (Stripe payment element), subscription history list, in-app payment-failed banner
+- [x] 25. Frontend subscription management screens
+  - [x] 25.1 Implement account settings page: current tier badge, billing renewal date, upgrade/downgrade flows (Stripe payment element), subscription history list, in-app payment-failed banner
     - _Requirements: 11.1–11.9_
 
-- [ ] 26. Frontend Pro/Pro+ feature screens
-  - [ ] 26.1 Implement Square POS connection page (OAuth redirect button, sync status, unmatched item review list) and invoice upload page (file picker, progress indicator, review table with low-confidence highlighting, confirm flow)
+- [x] 26. Frontend Pro/Pro+ feature screens
+  - [x] 26.1 Implement Square POS connection page (OAuth redirect button, sync status, unmatched item review list) and invoice upload page (file picker, progress indicator, review table with low-confidence highlighting, confirm flow)
     - _Requirements: 12.1–12.10_
 
-  - [ ] 26.2 Implement AI Insights dashboard: insight cards with title, explanation, supporting data, recommended action; actioned/dismissed controls; insufficient-data message with estimated date
+  - [x] 26.2 Implement AI Insights dashboard: insight cards with title, explanation, supporting data, recommended action; actioned/dismissed controls; insufficient-data message with estimated date
     - _Requirements: 13.1–13.8_
 
 - [ ] 27. Checkpoint — full stack wired

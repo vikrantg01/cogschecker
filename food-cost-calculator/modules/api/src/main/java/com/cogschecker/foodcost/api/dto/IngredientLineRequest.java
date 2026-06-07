@@ -1,6 +1,7 @@
 package com.cogschecker.foodcost.api.dto;
 
 import com.cogschecker.foodcost.shared.UomEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,14 +16,18 @@ import java.util.UUID;
  */
 public class IngredientLineRequest {
     
+    @JsonProperty("ingredientId")
     private UUID ingredientId;
     
+    @JsonProperty("subRecipeId")
     private UUID subRecipeId;
     
+    @JsonProperty("quantityUsed")
     @NotNull(message = "Quantity is required")
     @DecimalMin(value = "0.0001", message = "Quantity must be greater than 0")
     private BigDecimal quantityUsed;
     
+    @JsonProperty("unitOfMeasure")
     @NotNull(message = "Unit of measure is required")
     private UomEnum unitOfMeasure;
     

@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
                 org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration.class
         })
+@Import(TestSecurityConfig.class)
 class SquareControllerTest {
     
     @Autowired

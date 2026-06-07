@@ -18,21 +18,22 @@ export const Navigation = () => {
   };
 
   const navLinkStyle = (path: string) => ({
-    padding: '0.5rem 0.75rem',
+    padding: '0.5rem 0.625rem',
     borderRadius: '0.375rem',
-    fontSize: 'clamp(0.8125rem, 0.9vw, 0.875rem)',
+    fontSize: '0.8125rem',
     fontWeight: '500',
     color: isActive(path) ? 'var(--primary-600)' : 'var(--text-secondary)',
     background: isActive(path) ? 'var(--primary-50)' : 'transparent',
     transition: 'all 0.15s ease-in-out',
     textDecoration: 'none',
     whiteSpace: 'nowrap',
+    flexShrink: 0,
   });
 
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex items-center" style={{ gap: 'clamp(0.25rem, 0.5vw, 0.5rem)' }}>
+      <nav className="hidden md:flex items-center" style={{ gap: '0.375rem', flexWrap: 'nowrap' }}>
         <Link to="/dashboard" style={navLinkStyle('/dashboard')}>
           Dashboard
         </Link>
@@ -54,26 +55,29 @@ export const Navigation = () => {
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: 'clamp(0.5rem, 0.7vw, 0.75rem)',
-          marginLeft: 'clamp(0.5rem, 1vw, 1rem)',
-          paddingLeft: 'clamp(0.5rem, 1vw, 1rem)',
-          borderLeft: '1px solid var(--border-light)'
+          gap: '0.5rem',
+          marginLeft: '0.5rem',
+          paddingLeft: '0.75rem',
+          borderLeft: '1px solid var(--border-light)',
+          flexShrink: 0,
+          flexWrap: 'nowrap',
         }}>
           <span style={{ 
-            fontSize: 'clamp(0.8125rem, 0.9vw, 0.875rem)', 
+            fontSize: '0.8125rem', 
             color: 'var(--text-secondary)',
-            maxWidth: '150px',
+            maxWidth: '120px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            flexShrink: 1,
           }}>
             {user?.displayName || user?.email}
           </span>
           <button
             onClick={handleLogout}
             style={{
-              padding: 'clamp(0.375rem, 0.5vw, 0.5rem) clamp(0.625rem, 0.7vw, 0.75rem)',
-              fontSize: 'clamp(0.8125rem, 0.9vw, 0.875rem)',
+              padding: '0.375rem 0.625rem',
+              fontSize: '0.8125rem',
               fontWeight: '500',
               color: 'var(--text-secondary)',
               background: 'transparent',
@@ -82,6 +86,7 @@ export const Navigation = () => {
               cursor: 'pointer',
               transition: 'all 0.15s ease-in-out',
               whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'var(--bg-tertiary)';
@@ -100,7 +105,7 @@ export const Navigation = () => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="lg:hidden"
+        className="md:hidden"
         style={{
           padding: '0.5rem',
           background: 'transparent',
@@ -127,7 +132,7 @@ export const Navigation = () => {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden"
+          className="md:hidden"
           style={{
             position: 'absolute',
             top: '100%',

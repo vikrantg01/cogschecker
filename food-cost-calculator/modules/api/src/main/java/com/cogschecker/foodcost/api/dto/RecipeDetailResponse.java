@@ -21,6 +21,7 @@ public class RecipeDetailResponse {
     private BigDecimal foodCostPerPortion;
     private BigDecimal foodCostPercentage;
     private ThresholdStatus thresholdStatus;
+    private List<RecipeIngredientLineResponse> ingredientLines;
     private List<CostBreakdownLineResponse> costBreakdown;
     private boolean hasIncompleteData;
     private Instant createdAt;
@@ -133,5 +134,13 @@ public class RecipeDetailResponse {
     
     public void setThresholdStatus(ThresholdStatus thresholdStatus) {
         this.thresholdStatus = thresholdStatus;
+    }
+    
+    public List<RecipeIngredientLineResponse> getIngredientLines() {
+        return ingredientLines;
+    }
+    
+    public void setIngredientLines(List<RecipeIngredientLineResponse> ingredientLines) {
+        this.ingredientLines = ingredientLines;
     }
 }

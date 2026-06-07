@@ -1,0 +1,342 @@
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { apiClient } from '../../lib/api';
+import { useVenueStore } from '../../store/venueSlice';
+import { CostBadge } from '../../shared/components/CostBadge';
+import { ThresholdIndicator } from '../../shared/components/ThresholdIndicator';
+import type { Recipe } from '../../types/api';
+
+type SortColumn = 'name' | 'foodCostPerPortion' | 'menuSellingPrice' | 'foodCostPercentage';
+type SortDirection = 'asc' | 'desc';
+
+interface RecipeCostingRow extends Recipe {
+  // All properties from Recipe type
+}
+
+export const ReportsPage = () => {
+  const currentVenueId = useVenueStore((state) => state.currentVenueId);
+
+  // State for sorting
+  const [sortColumn, setSortColumn] = useState<SortColumn>('name');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+
+  // State for filtering
+  const [showOnlyExceeding, setShowOnlyExceeding] = useState(false);
+
+  // Default threshold (30%) - in a real app this would come from venue config
+  const threshold = 30.0;
+
+  // Fetch costing report data
+  const { data: reportData = [], isLoading, error } = useQuery({
+    queryKey: ['costing-report', currentVenueId, sortColumn, sortDirection, showOnlyExceeding],
+    queryFn: async () => {
+      const params: Record<string, string> = {
+        sortColumn,
+        sortDir: sortDirection,
+      };
+
+      if (showOnlyExceeding) {
+        params.filter = 'exceedsThreshold';
+      }
+
+      const response = await apiClient.get<RecipeCostingRow[]>(
+        `/venues/${currentVenueId}/reports/costing`,
+        { params }
+      );
+      return response.data;
+    },
+    enabled: !!currentVenueId,
+  });
+
+  // Handle column header click for sorting
+  const handleSort = (column: SortColumn) => {
+    if (sortColumn === column) {
+      // Toggle direction if same column
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Set new column with ascending as default
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  // Handle CSV export
+  const handleExport = async () => {
+    try {
+      const params: Record<string, string> = {
+        sortColumn,
+        sortDir: sortDirection,
+      };
+
+      if (showOnlyExceeding) {
+        params.filter = 'exceedsThreshold';
+      }
+
+      const response = await apiClient.get(
+        `/venues/${currentVenueId}/reports/costing/export`,
+        { 
+          params,
+          responseType: 'blob',
+        }
+      );
+
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'recipe-costing-report.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Failed to export CSV:', error);
+    }
+  };
+
+  // Render sort icon
+  const renderSortIcon = (column: SortColumn) => {
+    if (sortColumn !== column) {
+      return (
+        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+        </svg>
+      );
+    }
+
+    return sortDirection === 'asc' ? (
+      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+      </svg>
+    ) : (
+      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    );
+  };
+
+  if (!currentVenueId) {
+    return (
+      <div className="p-6">
+        <div className="alert alert-warning">
+          <span>Please select a venue to view reports.</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Recipe Costing Report</h1>
+        <p className="text-gray-600">
+          Analyze recipe profitability by comparing food costs against menu prices.
+        </p>
+      </div>
+
+      {/* Controls */}
+      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        {/* Filter Toggle */}
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-2 cursor-pointer group">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={showOnlyExceeding}
+                onChange={(e) => setShowOnlyExceeding(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 transition-colors">
+                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+              </div>
+            </div>
+            <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+              Show only exceeding threshold ({threshold}%)
+            </span>
+          </label>
+        </div>
+
+        {/* Export Button */}
+        <button
+          onClick={handleExport}
+          disabled={reportData.length === 0}
+          className="btn btn-secondary whitespace-nowrap"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Export CSV
+        </button>
+      </div>
+
+      {/* Report Table */}
+      <div className="card">
+        {error && (
+          <div className="alert alert-error mb-4">
+            <span>Failed to load report data. Please try again.</span>
+          </div>
+        )}
+
+        {isLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <span className="spinner" style={{ width: '2rem', height: '2rem' }}></span>
+            <span className="ml-3 text-gray-600">Loading report...</span>
+          </div>
+        ) : reportData.length === 0 ? (
+          <div className="text-center py-12">
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">
+              {showOnlyExceeding ? 'No recipes exceed the target threshold' : 'No recipes found'}
+            </h3>
+            <p className="mt-1 text-sm text-gray-500">
+              {showOnlyExceeding
+                ? 'All recipes are at or below the target food cost percentage.'
+                : 'Create recipes to see them in the report.'}
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  {/* Recipe Name - Sortable */}
+                  <th
+                    onClick={() => handleSort('name')}
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Recipe Name</span>
+                      {renderSortIcon('name')}
+                    </div>
+                  </th>
+
+                  {/* Food Cost Per Portion - Sortable */}
+                  <th
+                    onClick={() => handleSort('foodCostPerPortion')}
+                    className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors group"
+                  >
+                    <div className="flex items-center justify-end gap-2">
+                      <span>Food Cost / Portion</span>
+                      {renderSortIcon('foodCostPerPortion')}
+                    </div>
+                  </th>
+
+                  {/* Menu Price - Sortable */}
+                  <th
+                    onClick={() => handleSort('menuSellingPrice')}
+                    className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors group"
+                  >
+                    <div className="flex items-center justify-end gap-2">
+                      <span>Menu Price</span>
+                      {renderSortIcon('menuSellingPrice')}
+                    </div>
+                  </th>
+
+                  {/* Food Cost % - Sortable */}
+                  <th
+                    onClick={() => handleSort('foodCostPercentage')}
+                    className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors group"
+                  >
+                    <div className="flex items-center justify-end gap-2">
+                      <span>Food Cost %</span>
+                      {renderSortIcon('foodCostPercentage')}
+                    </div>
+                  </th>
+
+                  {/* Portions - Not sortable */}
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Portions
+                  </th>
+
+                  {/* Threshold Indicator */}
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {reportData.map((recipe) => (
+                  <tr key={recipe.id} className="hover:bg-gray-50 transition-colors">
+                    {/* Recipe Name */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">{recipe.name}</div>
+                    </td>
+
+                    {/* Food Cost Per Portion */}
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <CostBadge value={recipe.foodCostPerPortion} />
+                    </td>
+
+                    {/* Menu Price */}
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <CostBadge value={recipe.menuSellingPrice || null} />
+                    </td>
+
+                    {/* Food Cost Percentage */}
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      {recipe.foodCostPercentage !== null && recipe.foodCostPercentage !== undefined ? (
+                        <span className="text-sm font-mono text-gray-900">
+                          {recipe.foodCostPercentage.toFixed(1)}%
+                        </span>
+                      ) : (
+                        <span className="text-sm font-mono text-gray-400">N/A</span>
+                      )}
+                    </td>
+
+                    {/* Portions */}
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
+                      <span className="text-sm text-gray-900">{recipe.portionCount}</span>
+                    </td>
+
+                    {/* Status Indicator */}
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
+                      <ThresholdIndicator
+                        foodCostPercentage={recipe.foodCostPercentage}
+                        threshold={threshold}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Summary Stats */}
+      {!isLoading && reportData.length > 0 && (
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="card">
+            <div className="text-sm text-gray-600 mb-1">Total Recipes</div>
+            <div className="text-2xl font-bold text-gray-900">{reportData.length}</div>
+          </div>
+          <div className="card">
+            <div className="text-sm text-gray-600 mb-1">Exceeding Threshold</div>
+            <div className="text-2xl font-bold text-red-600">
+              {reportData.filter((r) => r.foodCostPercentage && r.foodCostPercentage > threshold).length}
+            </div>
+          </div>
+          <div className="card">
+            <div className="text-sm text-gray-600 mb-1">Within Target</div>
+            <div className="text-2xl font-bold text-green-600">
+              {reportData.filter((r) => r.foodCostPercentage && r.foodCostPercentage <= threshold).length}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

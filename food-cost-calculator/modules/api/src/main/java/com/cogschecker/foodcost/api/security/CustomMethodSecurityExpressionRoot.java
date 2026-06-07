@@ -1,5 +1,7 @@
 package com.cogschecker.foodcost.api.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,8 @@ import org.springframework.security.core.Authentication;
 public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot 
         implements MethodSecurityExpressionOperations {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomMethodSecurityExpressionRoot.class);
+    
     private Object filterObject;
     private Object returnObject;
     private final RbacAuthorizationManager rbacAuthorizationManager;
@@ -64,6 +68,41 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
         
         String venueIdStr = venueId.toString();
         return rbacAuthorizationManager.hasMinimumVenueRole(getAuthentication(), minimumRole, venueIdStr);
+    }
+
+    /**
+     * Custom security expression to check if the authenticated user has organisation admin role.
+     * 
+     * Usage in @PreAuthorize: @PreAuthorize("hasOrganisationRole('ADMIN', #orgId)")
+     * 
+     * @param role the required role (currently only "ADMIN" is supported at organisation level)
+     * @param organisationId the organisation ID
+     * @return true if the user has admin role for the organisation
+     */
+    public boolean hasOrganisationRole(String role, Object organisationId) {
+        if (organisationId == null) {
+            return false;
+        }
+        
+        try {
+            // Get the authentication token
+            if (!(getAuthentication() instanceof CognitoAuthenticationToken)) {
+                logger.warn("Authentication is not a CognitoAuthenticationToken: {}", 
+                           getAuthentication() != null ? getAuthentication().getClass().getName() : "null");
+                return false;
+            }
+            
+            CognitoAuthenticationToken auth = (CognitoAuthenticationToken) getAuthentication();
+            
+            // Check if the user's organisation matches and role is ADMIN
+            String orgIdStr = organisationId.toString();
+            return "ADMIN".equalsIgnoreCase(role) 
+                    && auth.getOrganisationId() != null 
+                    && auth.getOrganisationId().equals(orgIdStr);
+        } catch (ClassCastException e) {
+            logger.error("Failed to cast authentication to CognitoAuthenticationToken", e);
+            return false;
+        }
     }
 
     // MethodSecurityExpressionOperations interface methods

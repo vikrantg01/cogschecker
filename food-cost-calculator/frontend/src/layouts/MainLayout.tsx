@@ -14,47 +14,38 @@ export const MainLayout = () => {
         zIndex: 40,
       }}>
         <div style={{ 
-          maxWidth: '1400px',
+          maxWidth: '100%',
           margin: '0 auto',
-          padding: '0 clamp(1rem, 3vw, 2rem)',
+          padding: '0 clamp(0.75rem, 2vw, 1.5rem)',
         }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            height: 'clamp(56px, 8vh, 64px)',
-            gap: 'clamp(1rem, 2vw, 2rem)',
+            height: '60px',
+            gap: '1rem',
           }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(1rem, 2vw, 1.5rem)',
-              flex: '0 1 auto',
+              gap: '1rem',
+              flex: '0 0 auto',
               minWidth: 0,
             }}>
               <h1 style={{ 
                 color: 'var(--text-primary)', 
-                fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+                fontSize: 'clamp(0.95rem, 1.5vw, 1.125rem)',
                 fontWeight: '700',
                 margin: 0,
                 whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
               }}>
-                🍽️ <span className="hidden sm:inline">Food Cost Calculator</span><span className="sm:hidden">FCC</span>
+                🍽️ <span className="hidden sm:inline">FCC</span>
               </h1>
-              <div className="hidden md:block">
-                <VenueSelector />
-              </div>
+              <VenueSelector />
             </div>
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative', flex: '1 1 auto', display: 'flex', justifyContent: 'flex-end' }}>
               <Navigation />
             </div>
-          </div>
-          
-          {/* Mobile Venue Selector */}
-          <div className="md:hidden" style={{ paddingBottom: '0.75rem' }}>
-            <VenueSelector />
           </div>
         </div>
       </header>

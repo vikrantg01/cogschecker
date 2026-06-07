@@ -32,9 +32,51 @@ apiClient.interceptors.request.use(
   }
 );
 
+// Helper function to convert snake_case to camelCase
+function snakeToCamel(str: string): string {
+  return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+// Helper function to recursively transform object keys from snake_case to camelCase
+function transformKeys(obj: any): any {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(transformKeys);
+  }
+
+  if (typeof obj === 'object' && obj.constructor === Object) {
+    return Object.keys(obj).reduce((acc, key) => {
+      const camelKey = snakeToCamel(key);
+      let value = obj[key];
+
+      // Convert string numbers to actual numbers for specific fields
+      if (typeof value === 'string' && /^-?\d+(\.\d+)?$/.test(value)) {
+        const numValue = parseFloat(value);
+        if (!isNaN(numValue)) {
+          value = numValue;
+        }
+      }
+
+      acc[camelKey] = transformKeys(value);
+      return acc;
+    }, {} as any);
+  }
+
+  return obj;
+}
+
 // Response interceptor to handle 401 and 402 errors
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Transform response data from snake_case to camelCase
+    if (response.data) {
+      response.data = transformKeys(response.data);
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
 

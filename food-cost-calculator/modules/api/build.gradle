@@ -13,6 +13,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     
+    // Micrometer Prometheus for metrics exposition
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    
     // Database
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.flywaydb:flyway-core'
@@ -35,6 +38,15 @@ dependencies {
     
     // Stripe for subscription billing
     implementation 'com.stripe:stripe-java:24.0.0'
+    
+    // Structured JSON logging with Logback
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    
+    // AWS X-Ray SDK for distributed tracing
+    implementation 'com.amazonaws:aws-xray-recorder-sdk-core:2.15.1'
+    implementation 'com.amazonaws:aws-xray-recorder-sdk-spring:2.15.1'
+    implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2:2.15.1'
+    implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2-instrumentor:2.15.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'

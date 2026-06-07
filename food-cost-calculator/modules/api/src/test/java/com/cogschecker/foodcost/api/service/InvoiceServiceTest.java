@@ -4,6 +4,8 @@ import com.cogschecker.foodcost.api.domain.Invoice;
 import com.cogschecker.foodcost.api.domain.InvoiceProcessingStatus;
 import com.cogschecker.foodcost.api.exception.FileSizeExceededException;
 import com.cogschecker.foodcost.api.exception.InvalidFileTypeException;
+import com.cogschecker.foodcost.api.repository.IngredientRepository;
+import com.cogschecker.foodcost.api.repository.InvoiceLineItemRepository;
 import com.cogschecker.foodcost.api.repository.InvoiceRepository;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,10 +40,19 @@ class InvoiceServiceTest {
     private InvoiceRepository invoiceRepository;
     
     @Mock
+    private InvoiceLineItemRepository invoiceLineItemRepository;
+    
+    @Mock
+    private IngredientRepository ingredientRepository;
+    
+    @Mock
     private S3Client s3Client;
     
     @Mock
     private SqsTemplate sqsTemplate;
+    
+    @Mock
+    private CostPropagationService costPropagationService;
     
     private InvoiceService invoiceService;
     
@@ -50,7 +61,13 @@ class InvoiceServiceTest {
     
     @BeforeEach
     void setUp() {
-        invoiceService = new InvoiceService(invoiceRepository, s3Client, sqsTemplate);
+        invoiceService = new InvoiceService(
+                invoiceRepository,
+                invoiceLineItemRepository,
+                ingredientRepository,
+                s3Client,
+                sqsTemplate,
+                costPropagationService);
         ReflectionTestUtils.setField(invoiceService, "invoicesBucket", TEST_BUCKET);
         ReflectionTestUtils.setField(invoiceService, "ocrProcessingQueue", TEST_QUEUE);
     }

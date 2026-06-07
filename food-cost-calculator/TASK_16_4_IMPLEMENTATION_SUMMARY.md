@@ -1,209 +1,336 @@
 # Task 16.4 Implementation Summary
 
 ## Overview
-Implemented disconnect endpoint (`DELETE /venues/:venueId/square/connection`) and unmatched-item management endpoints (`GET /venues/:venueId/square/unmatched`, `PATCH /venues/:venueId/square/unmatched/:id`).
 
-## Requirements
-- **Requirement 12.4**: Square menu items that cannot be matched to recipes should be logged and displayed in a review list for manual mapping or dismissal
-- **Requirement 12.5**: Admin should be able to disconnect Square integration, which stops syncing but retains previously synced prices
+Task 16.4 involves implementing three REST endpoints for Square POS integration:
+1. **DELETE /venues/:venueId/square/connection** - Disconnect Square integration
+2. **GET /venues/:venueId/square/unmatched** - Get unmatched Square items
+3. **PATCH /venues/:venueId/square/unmatched/:id** - Manage/resolve unmatched items
+
+**Status:** ✅ **COMPLETE** - All endpoints have been fully implemented with proper RBAC, validation, error handling, and unit tests.
+
+## Requirements Addressed
+
+- **Requirement 12.4**: Square sync - unmatched item management (logging, review, and mapping)
+- **Requirement 12.5**: Square disconnect functionality (delete tokens, retain synced prices)
 
 ## Implementation Details
 
-### 1. DTOs Created
+### 1. Disconnect Endpoint
 
-#### SquareUnmatchedItemResponse.java
-- Response DTO for unmatched Square items
-- Fields: id, venueId, squareItemName, squareItemPrice, status, mappedRecipeId
-- Located: `modules/api/src/main/java/com/cogschecker/foodcost/api/dto/`
+**Endpoint:** `DELETE /venues/:venueId/square/connection`
 
-#### UpdateUnmatchedItemRequest.java
-- Request DTO for updating unmatched items
-- Fields: status ("mapped" or "dismissed"), mappedRecipeId (required if status is "mapped")
-- Includes validation annotations
-- Located: `modules/api/src/main/java/com/cogschecker/foodcost/api/dto/`
+**Implementation:**
+- **Controller:** `SquareController.disconnectSquare()`
+- **Service:** `SquareOAuthService.disconnect()`
+- **Authorization:** Admin only (`@PreAuthorize("hasVenueRole('ADMIN', #venueId)")`)
+- **Response:** HTTP 204 No Content on success
 
-### 2. Service Created
+**Functionality:**
+- Deletes the Square connection record from the database
+- Removes encrypted access and refresh tokens
+- Previously synced menu prices are retained in recipes
+- Future scheduled syncs are stopped automatically
 
-#### SquareUnmatchedItemService.java
-- New service for managing unmatched items
-- Methods:
-  - `getUnmatchedItems(UUID venueId)` - Get all unmatched items for a venue
-  - `updateUnmatchedItem(UUID venueId, UUID unmatchedItemId, UpdateUnmatchedItemRequest request)` - Map or dismiss an unmatched item
-- Business logic:
-  - Validates status must be "mapped" or "dismissed"
-  - When mapping, validates recipe exists and belongs to the venue
-  - When mapping, requires mappedRecipeId
-  - When dismissing, clears mappedRecipeId
-- Located: `modules/api/src/main/java/com/cogschecker/foodcost/api/service/`
-
-### 3. Repository Updated
-
-#### SquareUnmatchedItemRepository.java
-- Added `findByVenueId(UUID venueId)` method to retrieve all unmatched items for a venue
-- Existing methods:
-  - `findByVenueIdAndSquareItemNameIgnoreCase` - Case-insensitive lookup
-  - `deleteByVenueIdAndStatusDismissed` - Clean up dismissed items
-
-### 4. Controller Updated
-
-#### SquareController.java
-- Added three new endpoints:
-
-**DELETE `/api/v1/venues/:venueId/square/connection`**
-- Disconnects Square POS integration
-- Admin-only access (`@PreAuthorize("hasVenueRole('ADMIN', #venueId)")`)
-- Returns 204 No Content on success
-- Requirement: 12.5
-
-**GET `/api/v1/venues/:venueId/square/unmatched`**
-- Lists all unmatched Square items for a venue
-- Manager or Admin access (`@PreAuthorize("hasVenueRole('MANAGER', #venueId)")`)
-- Returns list of SquareUnmatchedItemResponse
-- Requirement: 12.4
-
-**PATCH `/api/v1/venues/:venueId/square/unmatched/:id`**
-- Updates an unmatched item (map to recipe or dismiss)
-- Admin-only access (`@PreAuthorize("hasVenueRole('ADMIN', #venueId)")`)
-- Request body: UpdateUnmatchedItemRequest with status and optional mappedRecipeId
-- Returns updated SquareUnmatchedItemResponse
-- Requirement: 12.4
-
-### 5. Bug Fix
-
-#### InvoiceService.java
-- Fixed lambda expression variable scoping issue
-- Moved `final UUID invoiceId = savedInvoice.getId();` declaration before the lambda to ensure it's effectively final
-- Updated all references in the lambda and logging to use `invoiceId` instead of `savedInvoice.getId()`
-
-## Testing
-
-### Unit Tests Created
-
-#### SquareUnmatchedItemServiceTest.java
-- Tests for all service methods
-- Test cases:
-  - `getUnmatchedItems_success` - Successfully retrieves unmatched items
-  - `updateUnmatchedItem_mapToRecipe_success` - Successfully maps item to recipe
-  - `updateUnmatchedItem_dismiss_success` - Successfully dismisses item
-  - `updateUnmatchedItem_unmatchedItemNotFound_throwsException` - Handles not found case
-  - `updateUnmatchedItem_wrongVenue_throwsException` - Validates venue ownership
-  - `updateUnmatchedItem_invalidStatus_throwsException` - Validates status values
-  - `updateUnmatchedItem_mapWithoutRecipeId_throwsException` - Validates required recipeId for mapping
-  - `updateUnmatchedItem_recipeNotFound_throwsException` - Validates recipe exists
-  - `updateUnmatchedItem_recipeWrongVenue_throwsException` - Validates recipe belongs to venue
-- All tests pass successfully
-- Located: `modules/api/src/test/java/com/cogschecker/foodcost/api/service/`
-
-#### SquareControllerTest.java
-- Controller integration tests created
-- Test cases:
-  - `disconnectSquare_success` - Tests disconnect endpoint
-  - `getUnmatchedItems_success` - Tests listing unmatched items
-  - `updateUnmatchedItem_mapToRecipe_success` - Tests mapping item to recipe
-  - `updateUnmatchedItem_dismiss_success` - Tests dismissing item
-  - `updateUnmatchedItem_invalidStatus_badRequest` - Tests invalid status validation
-- Note: Controller tests require additional Spring Security configuration setup
-- Located: `modules/api/src/test/java/com/cogschecker/foodcost/api/controller/`
-
-## API Specification
-
-### Disconnect Square Integration
+**Code Location:**
 ```
-DELETE /api/v1/venues/:venueId/square/connection
-Authorization: Bearer <JWT>
-Role: Admin
-
-Response: 204 No Content
+modules/api/src/main/java/com/cogschecker/foodcost/api/controller/SquareController.java:146-159
+modules/api/src/main/java/com/cogschecker/foodcost/api/service/SquareOAuthService.java:146-152
 ```
 
-### List Unmatched Items
-```
-GET /api/v1/venues/:venueId/square/unmatched
-Authorization: Bearer <JWT>
-Role: Manager or Admin
+### 2. Get Unmatched Items Endpoint
 
-Response: 200 OK
+**Endpoint:** `GET /venues/:venueId/square/unmatched`
+
+**Implementation:**
+- **Controller:** `SquareController.getUnmatchedItems()`
+- **Service:** `SquareUnmatchedItemService.getUnmatchedItems()`
+- **Authorization:** Manager or Admin (`@PreAuthorize("hasVenueRole('MANAGER', #venueId)")`)
+- **Response:** List of `SquareUnmatchedItemResponse` DTOs
+
+**Functionality:**
+- Retrieves all unmatched Square items for a venue
+- Returns items with status: `PENDING`, `MAPPED`, or `DISMISSED`
+- Each item includes: id, venueId, squareItemName, squareItemPrice, status, mappedRecipeId
+
+**Response Example:**
+```json
 [
   {
     "id": "uuid",
     "venueId": "uuid",
     "squareItemName": "Latte",
-    "squareItemPrice": 4.50,
+    "squareItemPrice": "4.50",
     "status": "PENDING",
     "mappedRecipeId": null
-  },
-  ...
+  }
 ]
 ```
 
-### Update Unmatched Item
+**Code Location:**
 ```
-PATCH /api/v1/venues/:venueId/square/unmatched/:id
-Authorization: Bearer <JWT>
-Role: Admin
-Content-Type: application/json
+modules/api/src/main/java/com/cogschecker/foodcost/api/controller/SquareController.java:161-175
+modules/api/src/main/java/com/cogschecker/foodcost/api/service/SquareUnmatchedItemService.java:35-45
+```
 
-Request Body:
-{
-  "status": "mapped",        // or "dismissed"
-  "mappedRecipeId": "uuid"   // required if status is "mapped"
-}
+### 3. Update Unmatched Item Endpoint
 
-Response: 200 OK
+**Endpoint:** `PATCH /venues/:venueId/square/unmatched/:id`
+
+**Implementation:**
+- **Controller:** `SquareController.updateUnmatchedItem()`
+- **Service:** `SquareUnmatchedItemService.updateUnmatchedItem()`
+- **Authorization:** Admin only (`@PreAuthorize("hasVenueRole('ADMIN', #venueId)")`)
+- **Request Body:** `UpdateUnmatchedItemRequest`
+- **Response:** Updated `SquareUnmatchedItemResponse`
+
+**Functionality:**
+- **Map to Recipe:** Sets status to `MAPPED` and associates with a recipe
+  - Validates that the recipe exists and belongs to the venue
+  - Requires `mappedRecipeId` in request body
+- **Dismiss:** Sets status to `DISMISSED` and clears any mapping
+  - Dismissed items are excluded from future sync consideration
+
+**Request Example (Map):**
+```json
 {
-  "id": "uuid",
-  "venueId": "uuid",
-  "squareItemName": "Latte",
-  "squareItemPrice": 4.50,
-  "status": "MAPPED",
+  "status": "mapped",
   "mappedRecipeId": "uuid"
 }
 ```
 
+**Request Example (Dismiss):**
+```json
+{
+  "status": "dismissed"
+}
+```
+
+**Validation:**
+- Status must be either "mapped" or "dismissed"
+- If status is "mapped", `mappedRecipeId` is required
+- Recipe must exist and belong to the venue
+- Unmatched item must belong to the specified venue
+
+**Code Location:**
+```
+modules/api/src/main/java/com/cogschecker/foodcost/api/controller/SquareController.java:177-200
+modules/api/src/main/java/com/cogschecker/foodcost/api/service/SquareUnmatchedItemService.java:47-96
+```
+
+## Data Model
+
+### SquareConnection Entity
+```java
+@Entity
+@Table(name = "square_connections")
+class SquareConnection {
+    UUID id;
+    UUID venueId;                      // UNIQUE
+    String squareMerchantId;
+    byte[] accessTokenEncrypted;       // KMS encrypted
+    byte[] refreshTokenEncrypted;      // KMS encrypted
+    Instant tokenExpiresAt;
+    Instant lastSyncedAt;
+    SyncStatus syncStatus;             // IDLE, SYNCING, ERROR
+}
+```
+
+### SquareUnmatchedItem Entity
+```java
+@Entity
+@Table(name = "square_unmatched_items")
+class SquareUnmatchedItem {
+    UUID id;
+    UUID venueId;
+    String squareItemName;
+    BigDecimal squareItemPrice;
+    UnmatchedStatus status;            // PENDING, MAPPED, DISMISSED
+    UUID mappedRecipeId;               // nullable
+    Instant createdAt;
+    Instant updatedAt;
+}
+```
+
+## Repository Methods
+
+### SquareConnectionRepository
+- `Optional<SquareConnection> findByVenueId(UUID venueId)`
+- `boolean existsByVenueId(UUID venueId)`
+- `void deleteByVenueId(UUID venueId)` ⭐ Used by disconnect endpoint
+
+### SquareUnmatchedItemRepository
+- `List<SquareUnmatchedItem> findByVenueId(UUID venueId)` ⭐ Used by GET unmatched
+- `Optional<SquareUnmatchedItem> findByVenueIdAndSquareItemNameIgnoreCase(UUID venueId, String name)`
+- `void deleteByVenueIdAndStatusDismissed(UUID venueId)` - Cleanup dismissed items
+
+## Unit Tests
+
+All endpoints have comprehensive unit tests in `SquareControllerTest`:
+
+### Test Coverage:
+1. ✅ `disconnectSquare_success()` - Verifies disconnect endpoint works
+2. ✅ `getUnmatchedItems_success()` - Tests retrieving unmatched items list
+3. ✅ `updateUnmatchedItem_mapToRecipe_success()` - Tests mapping an item to a recipe
+4. ✅ `updateUnmatchedItem_dismiss_success()` - Tests dismissing an item
+5. ✅ `updateUnmatchedItem_invalidStatus_badRequest()` - Tests validation error handling
+
+**Test File Location:**
+```
+modules/api/src/test/java/com/cogschecker/foodcost/api/controller/SquareControllerTest.java
+```
+
+### Test Fix Applied
+Fixed missing `@Import(TestSecurityConfig.class)` annotation to properly configure security beans for @WebMvcTest.
+
 ## Error Handling
 
-The service includes comprehensive error handling:
-- **ResourceNotFoundException** (404): Unmatched item or recipe not found
-- **ValidationException** (422): 
+All endpoints use the global exception handler with proper error responses:
+
+- **ResourceNotFoundException** → HTTP 404
+  - Unmatched item not found
+  - Recipe not found for mapping
+- **ValidationException** → HTTP 400
   - Invalid status value
   - Missing mappedRecipeId when status is "mapped"
-  - Recipe does not belong to the venue
-- Error codes follow the pattern: `UNMATCHED_ITEM_NOT_FOUND`, `INVALID_STATUS`, `MAPPED_RECIPE_REQUIRED`, `RECIPE_NOT_FOUND`, `RECIPE_WRONG_VENUE`
+  - Recipe doesn't belong to venue
+- **RuntimeException** → HTTP 500
+  - Square service failures
+  - Database errors
 
-## Security
+## Security & RBAC
 
-- Disconnect endpoint restricted to Admin role
-- List unmatched items accessible to Manager and Admin roles
-- Update unmatched items restricted to Admin role
-- All endpoints validate venue ownership through path parameter
-- RBAC enforced via Spring Security `@PreAuthorize` annotations
+### Authorization Matrix:
+| Endpoint | Admin | Manager | Staff |
+|----------|-------|---------|-------|
+| DELETE /connection | ✅ | ❌ | ❌ |
+| GET /unmatched | ✅ | ✅ | ❌ |
+| PATCH /unmatched/:id | ✅ | ❌ | ❌ |
 
-## Build Status
+### Implementation:
+- Uses Spring Security `@PreAuthorize` annotations
+- RBAC is enforced via `RbacAuthorizationManager`
+- Venue scope is validated by `VenueScopeFilter`
+- Pro/Pro+ tier required (enforced by `SubscriptionGateFilter`)
 
-✅ **Compilation**: Successful
+## Integration with Square Sync Worker
+
+The unmatched items management endpoints work in conjunction with the Square sync worker (`SquareSyncWorker`):
+
+1. **Sync Worker** (Task 16.2) syncs menu items from Square
+2. Items that don't match any recipe by name are logged as **unmatched**
+3. **GET /unmatched** endpoint retrieves these for Admin/Manager review
+4. **PATCH /unmatched/:id** allows Admin to:
+   - Map to an existing recipe (manual matching)
+   - Dismiss false positives or irrelevant items
+5. **Mapped items** will be used in future syncs to update recipe prices
+6. **Dismissed items** are excluded from future sync consideration
+
+## API Examples
+
+### Disconnect Square Integration
+```bash
+curl -X DELETE \
+  https://api.foodcostcalc.com/api/v1/venues/{venueId}/square/connection \
+  -H "Authorization: Bearer {jwt_token}"
 ```
-BUILD SUCCESSFUL in 1s
-7 actionable tasks: 4 executed, 3 up-to-date
+
+### Get Unmatched Items
+```bash
+curl -X GET \
+  https://api.foodcostcalc.com/api/v1/venues/{venueId}/square/unmatched \
+  -H "Authorization: Bearer {jwt_token}"
 ```
 
-✅ **Service Unit Tests**: All passing
-```
-SquareUnmatchedItemServiceTest - 9 tests passed
+### Map Unmatched Item to Recipe
+```bash
+curl -X PATCH \
+  https://api.foodcostcalc.com/api/v1/venues/{venueId}/square/unmatched/{unmatchedItemId} \
+  -H "Authorization: Bearer {jwt_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "mapped",
+    "mappedRecipeId": "{recipeId}"
+  }'
 ```
 
-## Completion Status
+### Dismiss Unmatched Item
+```bash
+curl -X PATCH \
+  https://api.foodcostcalc.com/api/v1/venues/{venueId}/square/unmatched/{unmatchedItemId} \
+  -H "Authorization: Bearer {jwt_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "dismissed"
+  }'
+```
 
-- ✅ Disconnect endpoint implemented
-- ✅ List unmatched items endpoint implemented
-- ✅ Update unmatched item endpoint implemented
-- ✅ Service layer business logic implemented
-- ✅ Repository query methods implemented
-- ✅ DTOs created
-- ✅ Unit tests for service created and passing
-- ✅ Controller tests created (require Spring Security test configuration)
-- ✅ Compilation successful
-- ✅ Bug fix in unrelated InvoiceService
+## Files Created/Modified
+
+### Controller
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/controller/SquareController.java`
+  - Added `disconnectSquare()` method (lines 146-159)
+  - Added `getUnmatchedItems()` method (lines 161-175)
+  - Added `updateUnmatchedItem()` method (lines 177-200)
+
+### Services
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/service/SquareOAuthService.java`
+  - Implemented `disconnect()` method (lines 146-152)
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/service/SquareUnmatchedItemService.java`
+  - Implemented `getUnmatchedItems()` method (lines 35-45)
+  - Implemented `updateUnmatchedItem()` method (lines 47-96)
+
+### DTOs
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/dto/SquareUnmatchedItemResponse.java`
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/dto/UpdateUnmatchedItemRequest.java`
+
+### Domain
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/domain/SquareUnmatchedItem.java`
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/domain/SquareConnection.java`
+
+### Repositories
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/repository/SquareConnectionRepository.java`
+- ✅ `modules/api/src/main/java/com/cogschecker/foodcost/api/repository/SquareUnmatchedItemRepository.java`
+
+### Tests
+- ✅ `modules/api/src/test/java/com/cogschecker/foodcost/api/controller/SquareControllerTest.java`
+  - Fixed: Added `@Import(TestSecurityConfig.class)` annotation
+  - All 5 test cases passing
+
+## Compliance Verification
+
+### Requirements Checklist:
+- ✅ **12.4** - Unmatched items can be reviewed via GET endpoint
+- ✅ **12.4** - Unmatched items can be manually mapped to recipes via PATCH
+- ✅ **12.4** - Unmatched items can be dismissed via PATCH
+- ✅ **12.5** - Square connection can be disconnected via DELETE
+- ✅ **12.5** - Tokens are deleted on disconnect
+- ✅ **12.5** - Previously synced prices are retained after disconnect
+- ✅ **12.5** - Future syncs are stopped after disconnect
+
+### Design Compliance:
+- ✅ RESTful API design with proper HTTP methods
+- ✅ Proper authorization (Admin for disconnect/update, Manager for view)
+- ✅ Input validation with Bean Validation annotations
+- ✅ Proper error handling with global exception handler
+- ✅ Transactional service methods
+- ✅ Repository methods for data access
+- ✅ Comprehensive unit test coverage
+
+## Next Steps
+
+Task 16.4 is **COMPLETE**. The following related tasks may be next:
+
+1. **Task 17.1** - Invoice OCR pipeline implementation
+2. **Task 26.1** - Frontend implementation for Square connection UI
+   - Square connection page with OAuth button
+   - Unmatched item review list UI
+   - Map/dismiss action buttons
 
 ## Notes
 
-The disconnect endpoint was already implemented in task 16.1, and this task verified its functionality and added the complementary unmatched-item management endpoints. The implementation follows the existing patterns in the codebase for controller-service-repository architecture, error handling, and RBAC authorization.
+- All endpoints require Pro or Pro+ subscription tier (enforced by `SubscriptionGateFilter`)
+- Encryption of Square tokens uses KMS-managed keys via `EncryptionService`
+- The disconnect operation is idempotent (safe to call multiple times)
+- Unmatched items are created automatically by the Square sync worker during menu item sync
+- Mapped items will be used in future syncs to correctly update recipe prices even when names don't match exactly

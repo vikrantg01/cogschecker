@@ -1,10 +1,12 @@
 package com.cogschecker.foodcost.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,14 +15,20 @@ import java.util.List;
  */
 public class CreateRecipeRequest {
     
+    @JsonProperty("name")
     @NotBlank(message = "Recipe name is required")
     @Size(min = 1, max = 100, message = "Recipe name must be between 1 and 100 characters")
     private String name;
     
+    @JsonProperty("portionCount")
     @Min(value = 1, message = "Portion count must be at least 1")
     @Max(value = 9999, message = "Portion count cannot exceed 9999")
     private Integer portionCount;
     
+    @JsonProperty("menuSellingPrice")
+    private BigDecimal menuSellingPrice;
+    
+    @JsonProperty("ingredientLines")
     @Size(max = 200, message = "Recipe cannot have more than 200 ingredient lines")
     private List<IngredientLineRequest> ingredientLines;
     
@@ -43,6 +51,14 @@ public class CreateRecipeRequest {
     
     public void setPortionCount(Integer portionCount) {
         this.portionCount = portionCount;
+    }
+    
+    public BigDecimal getMenuSellingPrice() {
+        return menuSellingPrice;
+    }
+    
+    public void setMenuSellingPrice(BigDecimal menuSellingPrice) {
+        this.menuSellingPrice = menuSellingPrice;
     }
     
     public List<IngredientLineRequest> getIngredientLines() {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -40,8 +41,11 @@ public class SecurityConfig {
     /**
      * Configure NimbusJwtDecoder to fetch and cache JWKS from Cognito.
      * The JWKS is cached in-memory and refreshed automatically when Cognito rotates signing keys.
+     * 
+     * This bean is NOT created when 'local' profile is active (LocalJwtConfig provides a mock decoder instead).
      */
     @Bean
+    @Profile("!local")
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withJwkSetUri(jwksUri).build();
     }
@@ -71,6 +75,7 @@ public class SecurityConfig {
             VenueScopeFilter venueScopeFilter,
             @Lazy SubscriptionGateFilter subscriptionGateFilter) throws Exception {
         http
+            .cors(cors -> cors.configure(http))  // Enable CORS
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

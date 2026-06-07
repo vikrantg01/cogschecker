@@ -72,6 +72,12 @@ public final class ErrorCodes {
     public static final String AI_INSIGHTS_FAILED = "AI_8006";
     public static final String STRIPE_WEBHOOK_INVALID_SIGNATURE = "STRIPE_8007";
     public static final String STRIPE_WEBHOOK_PROCESSING_FAILED = "STRIPE_8008";
+    public static final String INVOICE_NOT_FOUND = "INVOICE_8009";
+    public static final String LINE_ITEM_NOT_FOUND = "INVOICE_8010";
+    public static final String INVOICE_INVALID_STATE = "INVOICE_8011";
+    public static final String INVOICE_CONFIRMATION_FAILED = "INVOICE_8012";
+    public static final String INSIGHT_NOT_FOUND = "INSIGHT_8013";
+    public static final String INSIGHT_INVALID_STATUS = "INSIGHT_8014";
     
     // Validation errors (9xxx)
     public static final String VALIDATION_REQUIRED_FIELD = "VALIDATION_9001";

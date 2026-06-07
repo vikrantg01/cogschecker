@@ -1,0 +1,54 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: food-cost-calculator-api
+  namespace: default
+  labels:
+    app: food-cost-calculator-api
+    release: prometheus  # Required label for Prometheus Operator to discover this ServiceMonitor
+spec:
+  # Selector to match the Kubernetes Service for the API
+  selector:
+    matchLabels:
+      app: food-cost-calculator-api
+  
+  # Endpoints configuration
+  endpoints:
+    - port: http  # Name of the port in the Service definition
+      path: /actuator/prometheus  # Prometheus metrics endpoint exposed by Spring Boot Actuator
+      interval: 30s  # Scrape metrics every 30 seconds
+      scrapeTimeout: 10s  # Timeout for each scrape attempt
+      
+      # Relabeling configuration to add custom labels to metrics
+      relabelings:
+        # Add environment label from pod labels
+        - sourceLabels: [__meta_kubernetes_pod_label_environment]
+          targetLabel: environment
+          action: replace
+        
+        # Add service name label
+        - sourceLabels: [__meta_kubernetes_service_name]
+          targetLabel: service
+          action: replace
+        
+        # Add namespace label
+        - sourceLabels: [__meta_kubernetes_namespace]
+          targetLabel: namespace
+          action: replace
+        
+        # Add pod name label
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: pod
+          action: replace
+        
+        # Add node name label
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
+          targetLabel: node
+          action: replace
+      
+      # Metric relabeling (applied after scraping, before storing)
+      metricRelabelings:
+        # Drop metrics with high cardinality that aren't useful
+        - sourceLabels: [__name__]
+          regex: 'jvm_gc_pause_seconds_(count|sum)'
+          action: drop

@@ -130,6 +130,12 @@ public class RecipeController {
             isFreeTier
         );
         
+        // Set menu selling price if provided
+        if (request.getMenuSellingPrice() != null) {
+            recipe.setMenuSellingPrice(request.getMenuSellingPrice());
+            recipeRepository.save(recipe);
+        }
+        
         // Add ingredient lines if provided
         if (request.getIngredientLines() != null && !request.getIngredientLines().isEmpty()) {
             for (IngredientLineRequest lineReq : request.getIngredientLines()) {
@@ -551,6 +557,21 @@ public class RecipeController {
         response.setFoodCostPercentage(recipe.getFoodCostPercentage());
         response.setCreatedAt(recipe.getCreatedAt());
         response.setUpdatedAt(recipe.getUpdatedAt());
+        
+        // Build ingredient lines list
+        List<RecipeIngredientLineResponse> ingredientLineResponses = new ArrayList<>();
+        for (RecipeIngredientLine line : lines) {
+            RecipeIngredientLineResponse lineResponse = new RecipeIngredientLineResponse();
+            lineResponse.setId(line.getId() != null ? line.getId().toString() : null);
+            lineResponse.setRecipeId(line.getRecipeId() != null ? line.getRecipeId().toString() : null);
+            lineResponse.setIngredientId(line.getIngredientId() != null ? line.getIngredientId().toString() : null);
+            lineResponse.setSubRecipeId(line.getSubRecipeId() != null ? line.getSubRecipeId().toString() : null);
+            lineResponse.setQuantityUsed(line.getQuantityUsed());
+            lineResponse.setUnitOfMeasure(line.getUnitOfMeasure());
+            lineResponse.setLineCost(line.getLineCost());
+            ingredientLineResponses.add(lineResponse);
+        }
+        response.setIngredientLines(ingredientLineResponses);
         
         // Build cost breakdown for each line
         List<CostBreakdownLineResponse> breakdownLines = new ArrayList<>();

@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,12 @@ import java.nio.charset.StandardCharsets;
 /**
  * REST controller for authentication operations via AWS Cognito.
  * Requirements: 6.1 (registration), 6.2 (login), 6.3 (refresh), 6.7 (password reset), 8.3 (Google OAuth), 8.4 (Apple OAuth)
+ * 
+ * NOTE: This controller is disabled when spring.profiles.active=local (uses TestAuthController instead)
  */
 @RestController
 @RequestMapping("/api/v1/auth")
+@Profile("!local")
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
