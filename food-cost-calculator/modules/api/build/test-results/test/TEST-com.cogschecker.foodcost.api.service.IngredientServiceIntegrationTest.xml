@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.082">
+  <properties/>
+  <testcase name="getAllIngredients_ReturnsOnlyVenueIngredients()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.023"/>
+  <testcase name="updateIngredient_RecalculatesCosts()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.008"/>
+  <testcase name="createIngredient_DuplicateNameCaseInsensitive_ThrowsException()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.005"/>
+  <testcase name="searchIngredients_CaseInsensitivePartialMatch()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.011"/>
+  <testcase name="createAndRetrieveIngredient_SuccessfulRoundTrip()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.005"/>
+  <testcase name="deleteIngredient_WithRecipeReferences_RequiresConfirmation()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.021"/>
+  <testcase name="deleteIngredient_NotReferenced_DeletesImmediately()" classname="com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest" time="0.008"/>
+  <system-out><![CDATA[2026-06-07 17:05:42.843 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils [NO_CORRELATION_ID] - Could not detect default configuration classes for test class [com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest]: IngredientServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-07 17:05:42.851 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper [NO_CORRELATION_ID] - Found @SpringBootConfiguration com.cogschecker.foodcost.api.ApiApplication for test class com.cogschecker.foodcost.api.service.IngredientServiceIntegrationTest
+17:05:42,861 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [JSON_CONSOLE] not referenced. Skipping further processing.
+17:05:42,861 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+17:05:42,861 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+17:05:42,861 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+17:05:42,862 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+17:05:42,862 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@11c41920 - Propagating INFO level on Logger[ROOT] onto the JUL framework
+17:05:42,862 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+17:05:42,862 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.cogschecker.foodcost] to DEBUG
+17:05:42,862 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@11c41920 - Propagating DEBUG level on Logger[com.cogschecker.foodcost] onto the JUL framework
+17:05:42,862 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.security] to DEBUG
+17:05:42,862 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@11c41920 - Propagating DEBUG level on Logger[org.springframework.security] onto the JUL framework
+17:05:42,862 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@322417e1 - End of configuration.
+17:05:42,862 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@3cd2d8ad - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2026-06-07 17:05:42.863 [Test worker] INFO  c.c.f.a.s.IngredientServiceIntegrationTest [NO_CORRELATION_ID] - Starting IngredientServiceIntegrationTest using Java 21.0.11 with PID 42087 (started by vicky in /Users/vicky/cogschecker/food-cost-calculator/modules/api)
+2026-06-07 17:05:42.863 [Test worker] DEBUG c.c.f.a.s.IngredientServiceIntegrationTest [NO_CORRELATION_ID] - Running with Spring Boot v3.3.2, Spring v6.1.11
+2026-06-07 17:05:42.863 [Test worker] INFO  c.c.f.a.s.IngredientServiceIntegrationTest [NO_CORRELATION_ID] - The following 1 profile is active: "local"
+2026-06-07 17:05:42.896 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [NO_CORRELATION_ID] - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-07 17:05:42.896 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [NO_CORRELATION_ID] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-07 17:05:42.906 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [NO_CORRELATION_ID] - Finished Spring Data repository scanning in 10 ms. Found 16 JPA repository interfaces.
+2026-06-07 17:05:42.911 [Test worker] INFO  o.s.b.t.a.j.TestDatabaseAutoConfiguration$EmbeddedDataSourceBeanFactoryPostProcessor [NO_CORRELATION_ID] - Replacing 'dataSource' DataSource bean with embedded version
+2026-06-07 17:05:42.920 [Test worker] INFO  o.s.j.d.e.EmbeddedDatabaseFactory [NO_CORRELATION_ID] - Starting embedded database: url='jdbc:h2:mem:aeaa793f-78c1-4daf-8460-7d714928299e;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-06-07 17:05:42.929 [Test worker] INFO  o.h.jpa.internal.util.LogHelper [NO_CORRELATION_ID] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-07 17:05:42.930 [Test worker] INFO  o.h.c.i.RegionFactoryInitiator [NO_CORRELATION_ID] - HHH000026: Second-level cache disabled
+2026-06-07 17:05:42.934 [Test worker] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [NO_CORRELATION_ID] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-07 17:05:42.935 [Test worker] WARN  org.hibernate.dialect.Dialect [NO_CORRELATION_ID] - HHH000511: The 2.2.224 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2026-06-07 17:05:42.935 [Test worker] WARN  org.hibernate.orm.deprecation [NO_CORRELATION_ID] - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-07 17:05:43.003 [Test worker] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator [NO_CORRELATION_ID] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table if exists invoice_line_items 
+       drop constraint if exists FK62yq0tvg2ma4y8plfgx34bd3l
+Hibernate: 
+    drop table if exists ai_insights cascade
+Hibernate: 
+    drop table if exists ingredients cascade
+Hibernate: 
+    drop table if exists invoice_line_items cascade
+Hibernate: 
+    drop table if exists invoices cascade
+Hibernate: 
+    drop table if exists organisations cascade
+Hibernate: 
+    drop table if exists recipe_ingredient_lines cascade
+Hibernate: 
+    drop table if exists recipes cascade
+Hibernate: 
+    drop table if exists square_connections cascade
+Hibernate: 
+    drop table if exists square_unmatched_items cascade
+Hibernate: 
+    drop table if exists subscription_history cascade
+Hibernate: 
+    drop table if exists subscriptions cascade
+Hibernate: 
+    drop table if exists system_config cascade
+Hibernate: 
+    drop table if exists user_organisation_roles cascade
+Hibernate: 
+    drop table if exists user_venue_roles cascade
+Hibernate: 
+    drop table if exists users cascade
+Hibernate: 
+    drop table if exists venues cascade
+Hibernate: 
+    create table ai_insights (
+        created_at timestamp(6) with time zone not null,
+        generated_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null,
+        status varchar(20) not null check (status in ('ACTIVE','ACTIONED','DISMISSED')),
+        insight_type varchar(50) not null check (insight_type in ('RECIPE_PROFITABILITY','SUPPLIER_COST')),
+        explanation TEXT,
+        recommended_action TEXT,
+        title varchar(255) not null,
+        supporting_data jsonb,
+        primary key (id)
+    )
+2026-06-07 17:05:43.005 [Test worker] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl [NO_CORRELATION_ID] - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create table ai_insights (
+        created_at timestamp(6) with time zone not null,
+        generated_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null,
+        status varchar(20) not null check (status in ('ACTIVE','ACTIONED','DISMISSED')),
+        insight_type varchar(50) not null check (insight_type in ('RECIPE_PROFITABILITY','SUPPLIER_COST')),
+        explanation TEXT,
+        recommended_action TEXT,
+        title varchar(255) not null,
+        supporting_data jsonb,
+        primary key (id)
+    )" via JDBC [Unknown data type: "JSONB";]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create table ai_insights (
+        created_at timestamp(6) with time zone not null,
+        generated_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null,
+        status varchar(20) not null check (status in ('ACTIVE','ACTIONED','DISMISSED')),
+        insight_type varchar(50) not null check (insight_type in ('RECIPE_PROFITABILITY','SUPPLIER_COST')),
+        explanation TEXT,
+        recommended_action TEXT,
+        title varchar(255) not null,
+        supporting_data jsonb,
+        primary key (id)
+    )" via JDBC [Unknown data type: "JSONB";]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:428)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:344)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:239)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:172)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1463)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:142)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:98)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:163)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:378)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:290)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:279)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:278)
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:106)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:105)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:124)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "JSONB"; SQL statement:
+
+    create table ai_insights (
+        created_at timestamp(6) with time zone not null,
+        generated_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null,
+        status varchar(20) not null check (status in ('ACTIVE','ACTIONED','DISMISSED')),
+        insight_type varchar(50) not null check (insight_type in ('RECIPE_PROFITABILITY','SUPPLIER_COST')),
+        explanation TEXT,
+        recommended_action TEXT,
+        title varchar(255) not null,
+        supporting_data jsonb,
+        primary key (id)
+    ) [50004-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5866)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5704)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5686)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5565)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8999)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8939)
+	at org.h2.command.Parser.parseCreate(Parser.java:6404)
+	at org.h2.command.Parser.parsePrepared(Parser.java:666)
+	at org.h2.command.Parser.parse(Parser.java:592)
+	at org.h2.command.Parser.parse(Parser.java:564)
+	at org.h2.command.Parser.prepareCommand(Parser.java:483)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 129 common frames omitted
+Hibernate: 
+    create table ingredients (
+        cost_per_unit numeric(10,4),
+        effective_cost_per_usable_unit numeric(10,4),
+        purchase_price numeric(10,2) not null,
+        purchase_quantity numeric(10,4) not null,
+        yield_percentage numeric(5,2) not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        unit_of_measure varchar(10) not null,
+        id uuid not null,
+        venue_id uuid not null,
+        name varchar(100) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table invoice_line_items (
+        confidence_score numeric(4,3),
+        extracted_price numeric(10,2),
+        extracted_quantity numeric(10,4),
+        is_low_confidence boolean not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        invoice_id uuid not null,
+        matched_ingredient_id uuid,
+        status varchar(20) not null check (status in ('PENDING','CONFIRMED','DISMISSED')),
+        extracted_unit varchar(50),
+        extracted_name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table invoices (
+        extracted_item_count integer,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        upload_date timestamp(6) with time zone not null,
+        id uuid not null,
+        uploaded_by uuid,
+        venue_id uuid not null,
+        processing_status varchar(20) not null check (processing_status in ('PENDING','PROCESSING','REVIEW','CONFIRMED','FAILED')),
+        s3_key varchar(1024) not null,
+        file_name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table organisations (
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        name varchar(100) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table recipe_ingredient_lines (
+        line_cost numeric(10,4),
+        quantity_used numeric(10,4) not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        unit_of_measure varchar(10) not null,
+        id uuid not null,
+        ingredient_id uuid,
+        recipe_id uuid not null,
+        sub_recipe_id uuid,
+        primary key (id)
+    )
+Hibernate: 
+    create table recipes (
+        food_cost_per_portion numeric(10,2),
+        food_cost_percentage numeric(5,1),
+        menu_selling_price numeric(10,2),
+        portion_count integer not null,
+        total_batch_cost numeric(10,2),
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null,
+        name varchar(100) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table square_connections (
+        created_at timestamp(6) with time zone not null,
+        last_synced_at timestamp(6) with time zone,
+        token_expires_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        venue_id uuid not null unique,
+        square_merchant_id varchar(255) not null,
+        sync_status varchar(255) not null check (sync_status in ('IDLE','SYNCING','ERROR')),
+        access_token_encrypted bytea not null,
+        refresh_token_encrypted bytea not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table square_unmatched_items (
+        square_item_price numeric(10,2),
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        mapped_recipe_id uuid,
+        venue_id uuid not null,
+        square_item_name varchar(255) not null,
+        status varchar(255) not null check (status in ('PENDING','MAPPED','DISMISSED')),
+        primary key (id)
+    )
+Hibernate: 
+    create table subscription_history (
+        created_at timestamp(6) with time zone not null,
+        id uuid not null,
+        organisation_id uuid not null,
+        from_tier varchar(20) check (from_tier in ('FREE','PRO','PRO_PLUS')),
+        to_tier varchar(20) check (to_tier in ('FREE','PRO','PRO_PLUS')),
+        event_type varchar(50) not null check (event_type in ('CREATED','UPGRADED','DOWNGRADED','DOWNGRADE_SCHEDULED','DOWNGRADE_CANCELLED','PAYMENT_SUCCEEDED','PAYMENT_FAILED','PAYMENT_RECOVERED')),
+        description varchar(500),
+        stripe_event_id varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table subscriptions (
+        created_at timestamp(6) with time zone not null,
+        current_period_end timestamp(6) with time zone,
+        payment_failed_at timestamp(6) with time zone,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        organisation_id uuid not null unique,
+        pending_downgrade_tier varchar(20) check (pending_downgrade_tier in ('FREE','PRO','PRO_PLUS')),
+        tier varchar(20) not null check (tier in ('FREE','PRO','PRO_PLUS')),
+        stripe_customer_id varchar(255),
+        stripe_subscription_id varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table system_config (
+        target_food_cost_percentage numeric(5,1) not null,
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        venue_id uuid not null,
+        primary key (venue_id)
+    )
+Hibernate: 
+    create table user_organisation_roles (
+        is_admin boolean not null,
+        id uuid not null,
+        organisation_id uuid not null,
+        user_id uuid not null,
+        primary key (id),
+        unique (user_id, organisation_id)
+    )
+Hibernate: 
+    create table user_venue_roles (
+        id uuid not null,
+        user_id uuid not null,
+        venue_id uuid not null,
+        role varchar(20) not null check (role in ('ADMIN','MANAGER','STAFF')),
+        primary key (id),
+        unique (user_id, venue_id)
+    )
+Hibernate: 
+    create table users (
+        created_at timestamp(6) with time zone not null,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        display_name varchar(100),
+        email varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table venues (
+        created_at timestamp(6) with time zone not null,
+        deleted_at timestamp(6) with time zone,
+        updated_at timestamp(6) with time zone not null,
+        id uuid not null,
+        organisation_id uuid not null,
+        name varchar(100) not null,
+        address varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists invoice_line_items 
+       add constraint FK62yq0tvg2ma4y8plfgx34bd3l 
+       foreign key (invoice_id) 
+       references invoices
+2026-06-07 17:05:43.013 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [NO_CORRELATION_ID] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-07 17:05:43.113 [Test worker] INFO  c.c.f.a.s.IngredientServiceIntegrationTest [NO_CORRELATION_ID] - Started IngredientServiceIntegrationTest in 0.259 seconds (process running for 15.722)
+2026-06-07 17:05:43.116 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Ingredient 1' for venue db9215f0-776b-412a-bf65-fc62caf1f7d3
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.128 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Ingredient 1 with ID d205931d-b3ad-4d2b-a5b8-52d7edbcdf36
+2026-06-07 17:05:43.128 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Ingredient 2' for venue db9215f0-776b-412a-bf65-fc62caf1f7d3
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.130 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Ingredient 2 with ID 7cd31acb-609e-4692-a22b-a82f8f6543ab
+2026-06-07 17:05:43.130 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Ingredient 3' for venue dd627e51-608b-4cd1-a0e7-ef939f1557d6
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.131 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Ingredient 3 with ID 1a7598c3-011f-44d7-beb4-5c2f0bed7efa
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=?
+2026-06-07 17:05:43.137 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Flour' for venue af670b46-9637-421c-9a21-6be498bcf8e3
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.139 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Flour with ID 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-06-07 17:05:43.140 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea for venue af670b46-9637-421c-9a21-6be498bcf8e3
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+2026-06-07 17:05:43.144 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea - new costPerUnit: 2.5000, effectiveCostPerUsableUnit: 2.6316
+2026-06-07 17:05:43.144 [Test worker] INFO  c.c.f.a.s.CostPropagationService [NO_CORRELATION_ID] - Enqueuing cost propagation job for ingredient 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea in venue af670b46-9637-421c-9a21-6be498bcf8e3
+2026-06-07 17:05:43.144 [Test worker] DEBUG c.c.f.a.s.CostPropagationService [NO_CORRELATION_ID] - Successfully enqueued cost propagation job for ingredient 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea
+2026-06-07 17:05:43.144 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient 46aa34a8-bbdf-4bc0-a4eb-c632cb8e76ea
+2026-06-07 17:05:43.146 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken Breast' for venue 51a3748a-f121-4b54-bc55-a7e376672a7b
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.147 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Chicken Breast with ID dbc892c7-7b1d-4856-a8ee-84ed0adca49a
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-06-07 17:05:43.148 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'CHICKEN BREAST' for venue 51a3748a-f121-4b54-bc55-a7e376672a7b
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.151 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken Breast' for venue a0ec1a65-c4e9-4cbf-8e20-b45f5dcd8a7d
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.152 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Chicken Breast with ID a54c2fd2-0019-4264-a99e-4bb571d98538
+2026-06-07 17:05:43.153 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken Thigh' for venue a0ec1a65-c4e9-4cbf-8e20-b45f5dcd8a7d
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.154 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Chicken Thigh with ID 0f2bb210-fc12-4828-8bb9-73843276150f
+2026-06-07 17:05:43.154 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Beef Mince' for venue a0ec1a65-c4e9-4cbf-8e20-b45f5dcd8a7d
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.155 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Beef Mince with ID 5ba395be-cca0-47c5-b33b-ab10f8ec0ebb
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-06-07 17:05:43.156 [Test worker] DEBUG c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Searching ingredients in venue a0ec1a65-c4e9-4cbf-8e20-b45f5dcd8a7d with query 'chicken'
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and upper(i1_0.name) like upper(?) escape '\'
+2026-06-07 17:05:43.162 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Olive Oil' for venue 41cf41aa-022d-4856-8b76-40e1f5d3c08f
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.163 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Olive Oil with ID 325244f5-2bb7-4fea-8ee8-eb77473edcff
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+2026-06-07 17:05:43.167 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Tomato' for venue bfe6f9a4-e01c-473b-a5a1-dadbd79e1313
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.169 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Tomato with ID 0f4f0b75-0a2c-4e32-ba5d-a84172b8f07f
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        recipes
+        (created_at, food_cost_per_portion, food_cost_percentage, menu_selling_price, name, portion_count, total_batch_cost, updated_at, venue_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        recipe_ingredient_lines
+        (created_at, ingredient_id, line_cost, quantity_used, recipe_id, sub_recipe_id, unit_of_measure, updated_at, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-06-07 17:05:43.171 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 0f4f0b75-0a2c-4e32-ba5d-a84172b8f07f for venue bfe6f9a4-e01c-473b-a5a1-dadbd79e1313 (confirmed: false)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+Hibernate: 
+    select
+        distinct r1_0.name 
+    from
+        recipes r1_0 
+    join
+        recipe_ingredient_lines ril1_0 
+            on ril1_0.recipe_id=r1_0.id 
+    where
+        ril1_0.ingredient_id=? 
+    order by
+        r1_0.name
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+2026-06-07 17:05:43.176 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 0f4f0b75-0a2c-4e32-ba5d-a84172b8f07f for venue bfe6f9a4-e01c-473b-a5a1-dadbd79e1313 (confirmed: true)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+Hibernate: 
+    select
+        distinct r1_0.name 
+    from
+        recipes r1_0 
+    join
+        recipe_ingredient_lines ril1_0 
+            on ril1_0.recipe_id=r1_0.id 
+    where
+        ril1_0.ingredient_id=? 
+    order by
+        r1_0.name
+2026-06-07 17:05:43.177 [Test worker] WARN  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 0f4f0b75-0a2c-4e32-ba5d-a84172b8f07f which is used in 1 recipes (user confirmed)
+2026-06-07 17:05:43.181 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleted ingredient 0f4f0b75-0a2c-4e32-ba5d-a84172b8f07f (Tomato)
+Hibernate: 
+    delete 
+    from
+        ingredients 
+    where
+        id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+2026-06-07 17:05:43.189 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Salt' for venue 9623edf2-580a-46e6-ab2a-2a723c93e4d8
+Hibernate: 
+    select
+        case 
+            when count(i1_0.id)>0 
+                then true 
+            else false 
+    end 
+from
+    ingredients i1_0 
+where
+    i1_0.venue_id=? 
+    and lower(i1_0.name)=lower(?)
+2026-06-07 17:05:43.190 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Salt with ID c25ffb7b-67ec-41ec-99f8-2ae750657d48
+Hibernate: 
+    insert 
+    into
+        ingredients
+        (cost_per_unit, created_at, effective_cost_per_usable_unit, name, purchase_price, purchase_quantity, unit_of_measure, updated_at, venue_id, yield_percentage, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-06-07 17:05:43.191 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient c25ffb7b-67ec-41ec-99f8-2ae750657d48 for venue 9623edf2-580a-46e6-ab2a-2a723c93e4d8 (confirmed: false)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+Hibernate: 
+    select
+        distinct r1_0.name 
+    from
+        recipes r1_0 
+    join
+        recipe_ingredient_lines ril1_0 
+            on ril1_0.recipe_id=r1_0.id 
+    where
+        ril1_0.ingredient_id=? 
+    order by
+        r1_0.name
+2026-06-07 17:05:43.193 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleted ingredient c25ffb7b-67ec-41ec-99f8-2ae750657d48 (Salt)
+Hibernate: 
+    delete 
+    from
+        ingredients 
+    where
+        id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.cost_per_unit,
+        i1_0.created_at,
+        i1_0.effective_cost_per_usable_unit,
+        i1_0.name,
+        i1_0.purchase_price,
+        i1_0.purchase_quantity,
+        i1_0.unit_of_measure,
+        i1_0.updated_at,
+        i1_0.venue_id,
+        i1_0.yield_percentage 
+    from
+        ingredients i1_0 
+    where
+        i1_0.venue_id=? 
+        and i1_0.id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

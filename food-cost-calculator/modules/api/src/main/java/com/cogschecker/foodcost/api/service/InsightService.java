@@ -1,15 +1,23 @@
 package com.cogschecker.foodcost.api.service;
 
 import com.cogschecker.foodcost.api.domain.AiInsight;
+import com.cogschecker.foodcost.api.domain.SquareConnection;
+import com.cogschecker.foodcost.api.dto.InsightDataAvailabilityResponse;
 import com.cogschecker.foodcost.api.exception.ResourceNotFoundException;
 import com.cogschecker.foodcost.api.repository.AiInsightRepository;
+import com.cogschecker.foodcost.api.repository.SquareConnectionRepository;
 import com.cogschecker.foodcost.shared.ErrorCodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -20,11 +28,15 @@ import java.util.UUID;
 public class InsightService {
     
     private static final Logger logger = LoggerFactory.getLogger(InsightService.class);
+    private static final int MINIMUM_DAYS_REQUIRED = 30;
     
     private final AiInsightRepository insightRepository;
+    private final SquareConnectionRepository squareConnectionRepository;
     
-    public InsightService(AiInsightRepository insightRepository) {
+    public InsightService(AiInsightRepository insightRepository, 
+                         SquareConnectionRepository squareConnectionRepository) {
         this.insightRepository = insightRepository;
+        this.squareConnectionRepository = squareConnectionRepository;
     }
     
     /**
@@ -123,5 +135,81 @@ public class InsightService {
         }
         
         return insight;
+    }
+    
+    /**
+     * Check if sufficient sales data is available to generate insights.
+     * Requirements: 13.1, 13.6
+     * 
+     * Returns availability status including:
+     * - Whether sufficient data exists (30+ days)
+     * - Days of data currently available
+     * - Estimated date when insights will be available
+     * - Informational message
+     * 
+     * @param venueId the venue ID
+     * @return availability status
+     */
+    @Transactional(readOnly = true)
+    public InsightDataAvailabilityResponse checkDataAvailability(UUID venueId) {
+        logger.info("Checking data availability for venue: {}", venueId);
+        
+        // Check if venue has a Square connection
+        Optional<SquareConnection> connection = squareConnectionRepository.findByVenueId(venueId);
+        
+        if (connection.isEmpty()) {
+            // No Square connection - no data available
+            return new InsightDataAvailabilityResponse(
+                false,
+                0,
+                null,
+                "To generate AI insights, connect your Square POS account to sync sales data. " +
+                "Once connected, insights will be available after 30 days of sales data has been collected."
+            );
+        }
+        
+        SquareConnection conn = connection.get();
+        
+        // Check if data has been synced
+        if (conn.getLastSyncedAt() == null) {
+            // Square connected but no sync yet
+            return new InsightDataAvailabilityResponse(
+                false,
+                0,
+                LocalDate.now().plusDays(MINIMUM_DAYS_REQUIRED),
+                "Square POS connected. Waiting for initial data sync. " +
+                "AI insights will be available after 30 days of sales data has been collected."
+            );
+        }
+        
+        // Calculate days of data available
+        Instant firstSyncDate = conn.getCreatedAt(); // Use creation date as proxy for first data point
+        long daysOfData = ChronoUnit.DAYS.between(firstSyncDate, Instant.now());
+        
+        if (daysOfData < MINIMUM_DAYS_REQUIRED) {
+            // Insufficient data
+            long daysRemaining = MINIMUM_DAYS_REQUIRED - daysOfData;
+            LocalDate estimatedDate = LocalDate.now().plusDays(daysRemaining);
+            
+            return new InsightDataAvailabilityResponse(
+                false,
+                (int) daysOfData,
+                estimatedDate,
+                String.format(
+                    "AI insights require at least 30 days of sales data. You currently have %d days. " +
+                    "Insights will be available on approximately %s.",
+                    daysOfData,
+                    estimatedDate
+                )
+            );
+        }
+        
+        // Sufficient data available
+        return new InsightDataAvailabilityResponse(
+            true,
+            (int) daysOfData,
+            null,
+            String.format("You have %d days of sales data. AI insights are being generated and will appear below.", daysOfData)
+        );
     }
 }

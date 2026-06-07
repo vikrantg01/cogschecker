@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.controller.InsightControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:34" hostname="Vikrants-MacBook-Pro-2.local" time="0.11">
+  <properties/>
+  <testcase name="testUpdateInsightStatusToActioned()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.065"/>
+  <testcase name="testUpdateInsightStatusAlreadyActioned()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.006"/>
+  <testcase name="testUpdateInsightStatusToDismissed()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.003"/>
+  <testcase name="testUpdateInsightStatusInvalidStatus()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.006"/>
+  <testcase name="testCheckDataAvailabilityInsufficientData()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.007"/>
+  <testcase name="testGetInsightsEmpty()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.005"/>
+  <testcase name="testUpdateInsightStatusNotFound()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.003"/>
+  <testcase name="testCheckDataAvailabilityNoSquareConnection()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.003"/>
+  <testcase name="testCheckDataAvailabilitySufficientData()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.002"/>
+  <testcase name="testGetInsights()" classname="com.cogschecker.foodcost.api.controller.InsightControllerTest" time="0.004"/>
+  <system-out><![CDATA[2026-06-07 17:05:34.021 [Test worker] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils [NO_CORRELATION_ID] - Could not detect default configuration classes for test class [com.cogschecker.foodcost.api.controller.InsightControllerTest]: InsightControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-07 17:05:34.025 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper [NO_CORRELATION_ID] - Found @SpringBootConfiguration com.cogschecker.foodcost.api.ApiApplication for test class com.cogschecker.foodcost.api.controller.InsightControllerTest
+17:05:34,039 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [JSON_CONSOLE] not referenced. Skipping further processing.
+17:05:34,039 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+17:05:34,039 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+17:05:34,039 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+17:05:34,040 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+17:05:34,040 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@5f16d90c - Propagating INFO level on Logger[ROOT] onto the JUL framework
+17:05:34,040 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+17:05:34,040 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.cogschecker.foodcost] to DEBUG
+17:05:34,040 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@5f16d90c - Propagating DEBUG level on Logger[com.cogschecker.foodcost] onto the JUL framework
+17:05:34,040 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.security] to DEBUG
+17:05:34,040 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@5f16d90c - Propagating DEBUG level on Logger[org.springframework.security] onto the JUL framework
+17:05:34,040 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@2c79d050 - End of configuration.
+17:05:34,040 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@474bf60c - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2026-06-07 17:05:34.042 [Test worker] INFO  c.c.f.a.c.InsightControllerTest [NO_CORRELATION_ID] - Starting InsightControllerTest using Java 21.0.11 with PID 42087 (started by vicky in /Users/vicky/cogschecker/food-cost-calculator/modules/api)
+2026-06-07 17:05:34.042 [Test worker] DEBUG c.c.f.a.c.InsightControllerTest [NO_CORRELATION_ID] - Running with Spring Boot v3.3.2, Spring v6.1.11
+2026-06-07 17:05:34.042 [Test worker] INFO  c.c.f.a.c.InsightControllerTest [NO_CORRELATION_ID] - The following 1 profile is active: "local"
+2026-06-07 17:05:34.226 [Test worker] DEBUG c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-07 17:05:34.226 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext [NO_CORRELATION_ID] - Initializing Spring TestDispatcherServlet ''
+2026-06-07 17:05:34.226 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet [NO_CORRELATION_ID] - Initializing Servlet ''
+2026-06-07 17:05:34.227 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet [NO_CORRELATION_ID] - Completed initialization in 1 ms
+2026-06-07 17:05:34.229 [Test worker] INFO  c.c.f.a.c.InsightControllerTest [NO_CORRELATION_ID] - Started InsightControllerTest in 0.202 seconds (process running for 6.839)
+2026-06-07 17:05:34.266 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - PATCH /venues/c966f6d9-0e2a-4912-808a-caa65285f8b1/insights/53419238-1e80-47e4-aa0c-15d2eee32db1/status - updating to: actioned
+2026-06-07 17:05:34.299 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - PATCH /venues/dffb38b9-f2a0-4e27-8f28-f39e4cbd9cf6/insights/b82bb296-d8c9-45ea-b74a-aaa2c403946a/status - updating to: dismissed
+2026-06-07 17:05:34.300 [Test worker] WARN  c.c.f.a.e.GlobalExceptionHandler [NO_CORRELATION_ID] - Illegal argument: Can only update status of ACTIVE insights
+2026-06-07 17:05:34.306 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - PATCH /venues/1036d101-876b-4a51-885b-88d998d963d7/insights/6cd5b8ac-487c-4c3c-a5c3-126cf26ca7c2/status - updating to: dismissed
+2026-06-07 17:05:34.312 [Test worker] WARN  c.c.f.a.e.GlobalExceptionHandler [NO_CORRELATION_ID] - Validation failed for request /api/v1/venues/a6a4c6a5-648a-4f80-b13d-ea7574eb9a33/insights/9619f463-b312-4f35-856c-99e61f14033f/status: {status=Status must be 'actioned' or 'dismissed'}
+2026-06-07 17:05:34.316 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - GET /venues/9abee53e-a3d4-4524-b44e-bac4ccc6d95c/insights/availability
+2026-06-07 17:05:34.323 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - GET /venues/bbfdedea-b2b8-4475-8027-eb4f723dd160/insights
+2026-06-07 17:05:34.329 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - PATCH /venues/0e7fcb6d-3843-4a8b-8723-500abc235c51/insights/650b10f8-1c74-409f-bb53-aeb48eb5830c/status - updating to: actioned
+2026-06-07 17:05:34.330 [Test worker] WARN  c.c.f.a.e.GlobalExceptionHandler [NO_CORRELATION_ID] - Domain exception: INSIGHT_8013 - Insight not found
+2026-06-07 17:05:34.332 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - GET /venues/0ec9886c-2044-471c-8188-2f6209b670de/insights/availability
+2026-06-07 17:05:34.336 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - GET /venues/7bd47eb9-757e-4a46-80d2-cdfca7b02cf9/insights/availability
+2026-06-07 17:05:34.339 [Test worker] INFO  c.c.f.a.controller.InsightController [NO_CORRELATION_ID] - GET /venues/e8dc2962-8d34-4b61-be47-ee83a91d3199/insights
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

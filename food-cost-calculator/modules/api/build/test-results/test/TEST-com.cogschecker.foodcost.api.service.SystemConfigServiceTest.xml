@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:44" hostname="Vikrants-MacBook-Pro-2.local" time="0.006">
+  <properties/>
+  <testcase name="updateConfig_ZeroPercentage_ThrowsIllegalArgumentException()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.001"/>
+  <testcase name="updateConfig_NegativePercentage_ThrowsIllegalArgumentException()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.001"/>
+  <testcase name="updateConfig_BoundaryValue1_Accepts()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.001"/>
+  <testcase name="getConfig_ConfigDoesNotExist_ReturnsDefaultConfig()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <testcase name="updateConfig_BoundaryValue100_Accepts()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <testcase name="updateConfig_ConfigDoesNotExist_CreatesNewConfigWithValue()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <testcase name="getConfig_ConfigExists_ReturnsExistingConfig()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <testcase name="updateConfig_ValidPercentage_UpdatesAndReturnsConfig()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.001"/>
+  <testcase name="updateConfig_PercentageAboveMaximum_ThrowsIllegalArgumentException()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <testcase name="updateConfig_NullPercentage_ThrowsIllegalArgumentException()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.001"/>
+  <testcase name="updateConfig_PercentageBelowMinimum_ThrowsIllegalArgumentException()" classname="com.cogschecker.foodcost.api.service.SystemConfigServiceTest" time="0.0"/>
+  <system-out><![CDATA[2026-06-07 17:05:44.167 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 324b7dd5-c94e-4b71-80d2-98932b9736f8: targetFoodCostPercentage=0
+2026-06-07 17:05:44.168 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue cec659d3-4995-4917-90fd-302eba8c991a: targetFoodCostPercentage=-5.0
+2026-06-07 17:05:44.169 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue d09d2c96-e5a3-4783-88fa-88dc190f43c3: targetFoodCostPercentage=1.0
+2026-06-07 17:05:44.169 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Creating new config for venue d09d2c96-e5a3-4783-88fa-88dc190f43c3
+2026-06-07 17:05:44.169 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updated config for venue d09d2c96-e5a3-4783-88fa-88dc190f43c3: targetFoodCostPercentage=1.0
+2026-06-07 17:05:44.169 [Test worker] DEBUG c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Getting config for venue 14e349c6-66c6-4628-8356-32932c5c15bb
+2026-06-07 17:05:44.169 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - No config found for venue 14e349c6-66c6-4628-8356-32932c5c15bb, returning default
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 99f428b9-4d56-4f7b-84c2-c4bc51f3506e: targetFoodCostPercentage=100.0
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Creating new config for venue 99f428b9-4d56-4f7b-84c2-c4bc51f3506e
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updated config for venue 99f428b9-4d56-4f7b-84c2-c4bc51f3506e: targetFoodCostPercentage=100.0
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 8d62310e-bb9f-49da-af33-a8564b0aeb30: targetFoodCostPercentage=40.0
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Creating new config for venue 8d62310e-bb9f-49da-af33-a8564b0aeb30
+2026-06-07 17:05:44.170 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updated config for venue 8d62310e-bb9f-49da-af33-a8564b0aeb30: targetFoodCostPercentage=40.0
+2026-06-07 17:05:44.171 [Test worker] DEBUG c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Getting config for venue be26a565-c55f-4817-aa0c-b50fa1856cfe
+2026-06-07 17:05:44.171 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 72662de7-7f3d-4b76-9382-d3a4fdd84a65: targetFoodCostPercentage=35.5
+2026-06-07 17:05:44.171 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updated config for venue 72662de7-7f3d-4b76-9382-d3a4fdd84a65: targetFoodCostPercentage=35.5
+2026-06-07 17:05:44.172 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 47da74d8-ac60-45cb-8724-2ab3540d2c80: targetFoodCostPercentage=100.1
+2026-06-07 17:05:44.172 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 008ad9f1-bff4-4cec-8658-58373224bbb0: targetFoodCostPercentage=null
+2026-06-07 17:05:44.172 [Test worker] INFO  c.c.f.a.service.SystemConfigService [NO_CORRELATION_ID] - Updating config for venue 07feaea2-40ec-4c14-9c88-53a3a92c709f: targetFoodCostPercentage=0.9
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

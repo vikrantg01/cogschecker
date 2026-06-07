@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - IngredientServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>IngredientServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.service.html">com.cogschecker.foodcost.api.service</a> &gt; IngredientServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">17</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.047s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">createIngredient_DefaultYieldPercentage_SetsTo100()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createIngredient_DuplicateName_ThrowsDuplicateResourceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createIngredient_InvalidInputs_ThrowsIllegalArgumentException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createIngredient_ValidInputs_SuccessfullyCreatesWithComputedFields()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteIngredient_NotReferencedConfirmed_DeletesSuccessfully()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteIngredient_ReferencedAndConfirmed_DeletesSuccessfully()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteIngredient_ReferencedNotConfirmed_ThrowsDeleteConflictException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllIngredients_ReturnsAllForVenue()</td>
+<td class="success">0.036s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getIngredient_ExistingIngredient_ReturnsIngredient()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getIngredient_NonExistent_ThrowsResourceNotFoundException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">searchIngredients_EmptyQuery_ReturnsAllIngredients()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">searchIngredients_WithQuery_ReturnsMatchingIngredients()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateIngredient_ChangeCostAffectingFields_TriggersCostPropagation()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateIngredient_ChangeNameOnly_DoesNotTriggerCostPropagation()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateIngredient_ChangePriceAndQuantity_RecalculatesCosts()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateIngredient_ChangeYieldPercentage_RecalculatesEffectiveCost()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateIngredient_DuplicateName_ThrowsDuplicateResourceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-06-07 17:05:43.233 [Test worker] DEBUG c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Searching ingredients in venue 3bae503c-bfb3-4bf3-874f-2d27528e5f97 with query ''
+2026-06-07 17:05:43.234 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 96693db0-3095-445a-b37a-6588a2d9c8f4 for venue 055c0e4d-842b-4a87-8d2d-fcd841a30f07 (confirmed: true)
+2026-06-07 17:05:43.234 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleted ingredient 96693db0-3095-445a-b37a-6588a2d9c8f4 (Test Ingredient)
+2026-06-07 17:05:43.235 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient 707e4a87-caf5-47ed-a510-1a178d8acead for venue 26351fb9-926d-4318-bdcc-17e46ade4422
+2026-06-07 17:05:43.235 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient 707e4a87-caf5-47ed-a510-1a178d8acead - new costPerUnit: 15.0000, effectiveCostPerUsableUnit: 17.6471
+2026-06-07 17:05:43.236 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient 707e4a87-caf5-47ed-a510-1a178d8acead
+2026-06-07 17:05:43.237 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken Breast' for venue 2cb5ab18-cdb2-438d-bc10-ce865aa95c42
+2026-06-07 17:05:43.238 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 6bb64c21-5cef-4884-b3f0-efba32e6d357 for venue 3c6609b3-cd93-4692-a5b6-0c30433fe827 (confirmed: false)
+2026-06-07 17:05:43.239 [Test worker] DEBUG c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Searching ingredients in venue 903cc951-a8ac-477d-9a62-8cb7df0f6af0 with query 'chicken'
+2026-06-07 17:05:43.240 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient f6f65f00-f7a3-4bee-834b-4c2562063d23 for venue c1f50731-7b9d-432c-b219-185298fac291
+2026-06-07 17:05:43.242 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient '' for venue b68cb3ab-3a2c-4656-a538-2c4656d9818b
+2026-06-07 17:05:43.242 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken' for venue b68cb3ab-3a2c-4656-a538-2c4656d9818b
+2026-06-07 17:05:43.242 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken' for venue b68cb3ab-3a2c-4656-a538-2c4656d9818b
+2026-06-07 17:05:43.242 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken' for venue b68cb3ab-3a2c-4656-a538-2c4656d9818b
+2026-06-07 17:05:43.243 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Chicken Breast' for venue e1ad51f5-b1cd-44c2-a06e-c240097e709e
+2026-06-07 17:05:43.243 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Chicken Breast with ID 5201ba13-d14c-464a-bcb5-945b40109bac
+2026-06-07 17:05:43.243 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient c186f85a-c2ea-4314-8972-2f38d6332e60 for venue 14954071-d84a-479c-9486-a2109dedfb21
+2026-06-07 17:05:43.244 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient c186f85a-c2ea-4314-8972-2f38d6332e60 - new costPerUnit: 10.0000, effectiveCostPerUsableUnit: 12.5000
+2026-06-07 17:05:43.244 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient c186f85a-c2ea-4314-8972-2f38d6332e60
+2026-06-07 17:05:43.244 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient fc9e16dd-0154-4a46-b40b-c5cde5d199f4 for venue 4209ed82-d9d1-450d-b9d9-da677ecd5fc5
+2026-06-07 17:05:43.244 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient fc9e16dd-0154-4a46-b40b-c5cde5d199f4 - new costPerUnit: 10.0000, effectiveCostPerUsableUnit: 10.0000
+2026-06-07 17:05:43.245 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 64f901ba-b8db-4034-a3ea-8e3ff9d1df9a for venue 4e4f6ed7-e38e-4579-ac2e-2379a69676d2 (confirmed: true)
+2026-06-07 17:05:43.245 [Test worker] WARN  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleting ingredient 64f901ba-b8db-4034-a3ea-8e3ff9d1df9a which is used in 1 recipes (user confirmed)
+2026-06-07 17:05:43.245 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Deleted ingredient 64f901ba-b8db-4034-a3ea-8e3ff9d1df9a (Test Ingredient)
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient 2f477752-9083-4fa2-87e1-ba682594d367 for venue b7e9b6fb-8b45-43f4-a270-ead2dff593b9
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient 2f477752-9083-4fa2-87e1-ba682594d367 - new costPerUnit: 20.0000, effectiveCostPerUsableUnit: 20.0000
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient 2f477752-9083-4fa2-87e1-ba682594d367
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient 2f477752-9083-4fa2-87e1-ba682594d367 for venue b7e9b6fb-8b45-43f4-a270-ead2dff593b9
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient 2f477752-9083-4fa2-87e1-ba682594d367 - new costPerUnit: 10.0000, effectiveCostPerUsableUnit: 10.0000
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient 2f477752-9083-4fa2-87e1-ba682594d367
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updating ingredient 2f477752-9083-4fa2-87e1-ba682594d367 for venue b7e9b6fb-8b45-43f4-a270-ead2dff593b9
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Updated ingredient 2f477752-9083-4fa2-87e1-ba682594d367 - new costPerUnit: 10.0000, effectiveCostPerUsableUnit: 11.1111
+2026-06-07 17:05:43.246 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Triggered cost propagation for ingredient 2f477752-9083-4fa2-87e1-ba682594d367
+2026-06-07 17:05:43.247 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Creating ingredient 'Sugar' for venue bfbd6325-cce1-4a3f-ae39-b8f259db0921
+2026-06-07 17:05:43.247 [Test worker] INFO  c.c.f.api.service.IngredientService [NO_CORRELATION_ID] - Created ingredient Sugar with ID 6e7dfaaa-dc43-4938-bade-0f3f7a066074
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

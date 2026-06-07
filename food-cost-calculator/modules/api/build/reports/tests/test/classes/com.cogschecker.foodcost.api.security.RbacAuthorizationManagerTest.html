@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RbacAuthorizationManagerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RbacAuthorizationManagerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.security.html">com.cogschecker.foodcost.api.security</a> &gt; RbacAuthorizationManagerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">17</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.003s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">hasMinimumVenueRole_RoleHierarchy_AdminCanAccessManagerEndpoints()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_RoleHierarchy_ManagerCannotAccessAdminEndpoints()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_RoleHierarchy_StaffCannotAccessManagerOrAdminEndpoints()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_WithExactRole_ShouldReturnTrue()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_WithHigherRole_ShouldReturnTrue()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_WithLowerRole_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_WithNoAccessToVenue_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasMinimumVenueRole_WithNullAuthentication_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithAdminRole_ShouldMatch()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithCaseInsensitiveRole_ShouldMatch()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithDifferentRole_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithMatchingRole_ShouldReturnTrue()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithMultipleVenues_ShouldCheckCorrectVenue()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithNoAccessToVenue_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithNonCognitoAuth_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithNullAuthentication_ShouldReturnFalse()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">hasVenueRole_WithStaffRole_ShouldMatch()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-06-07 17:05:40.744 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: no authentication present
+2026-06-07 17:05:40.744 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role STAFF for venue venue-1, required role MANAGER, result: false
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has no role for venue venue-2
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: no authentication present
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-1, required role MANAGER, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-1, required role MANAGER, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-1, required role MANAGER, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role ADMIN for venue venue-1, required role ADMIN, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-2, required role MANAGER, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role STAFF for venue venue-3, required role STAFF, result: true
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role ADMIN for venue venue-1, required role MANAGER, result: false
+2026-06-07 17:05:40.745 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-2, required role ADMIN, result: false
+2026-06-07 17:05:40.746 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role STAFF for venue venue-1, required role STAFF, result: true
+2026-06-07 17:05:40.746 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role MANAGER for venue venue-1, required role MANAGER, result: true
+2026-06-07 17:05:40.746 [Test worker] DEBUG c.c.f.a.s.RbacAuthorizationManager [NO_CORRELATION_ID] - hasVenueRole: user user-1 has role ADMIN for venue venue-1, required role ADMIN, result: true
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

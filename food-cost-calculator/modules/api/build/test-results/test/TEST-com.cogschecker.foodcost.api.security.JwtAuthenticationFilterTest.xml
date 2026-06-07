@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:40" hostname="Vikrants-MacBook-Pro-2.local" time="0.006">
+  <properties/>
+  <testcase name="doFilterInternal_WithInvalidAuthorizationHeaderFormat_ShouldNotSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <testcase name="doFilterInternal_WithValidToken_ShouldSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <testcase name="doFilterInternal_WithValidToken_ShouldExtractCustomClaims()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <testcase name="doFilterInternal_WithNoAuthorizationHeader_ShouldNotSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.0"/>
+  <testcase name="doFilterInternal_WithInvalidToken_ShouldNotSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <testcase name="doFilterInternal_WithEmptyBearerToken_ShouldNotSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <testcase name="doFilterInternal_WithExpiredToken_ShouldNotSetAuthentication()" classname="com.cogschecker.foodcost.api.security.JwtAuthenticationFilterTest" time="0.001"/>
+  <system-out><![CDATA[2026-06-07 17:05:40.739 [Test worker] DEBUG c.c.f.a.security.CognitoJwtConverter [NO_CORRELATION_ID] - Converted JWT for user user-123 with org org-456 and 1 venue roles
+2026-06-07 17:05:40.739 [Test worker] DEBUG c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - Successfully authenticated user: user-123
+2026-06-07 17:05:40.739 [Test worker] DEBUG c.c.f.a.security.CognitoJwtConverter [NO_CORRELATION_ID] - Converted JWT for user user-789 with org org-999 and 3 venue roles
+2026-06-07 17:05:40.739 [Test worker] DEBUG c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - Successfully authenticated user: user-789
+2026-06-07 17:05:40.741 [Test worker] ERROR c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - JWT validation failed: Invalid token
+2026-06-07 17:05:40.742 [Test worker] ERROR c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - JWT validation failed: Token expired
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

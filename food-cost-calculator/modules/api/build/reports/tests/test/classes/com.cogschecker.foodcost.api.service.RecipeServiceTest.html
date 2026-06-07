@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RecipeServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RecipeServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.service.html">com.cogschecker.foodcost.api.service</a> &gt; RecipeServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">24</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.012s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">createRecipe_DuplicateName_ThrowsDuplicateResourceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_FreeTierLimitExceeded_ThrowsTierLimitExceededException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_InvalidLineQuantity_ThrowsValidationException()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_InvalidName_ThrowsValidationException()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_InvalidPortionCount_ThrowsValidationException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_MultipleValidationErrors_CollectsAllErrors()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_ProTierNotLimited_AllowsMoreThan25Recipes()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_ValidInputs_SuccessfullyCreates()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createRecipe_WhitespaceName_ThrowsValidationException()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteRecipe_NotReferencedConfirmed_DeletesSuccessfully()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteRecipe_UsedAsSubRecipeAndConfirmed_DeletesSuccessfully()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteRecipe_UsedAsSubRecipeNotConfirmed_ThrowsDeleteConflictException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">duplicateRecipe_FreeTierLimitExceeded_ThrowsTierLimitExceededException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">duplicateRecipe_NameAlreadyExists_AppendsNumber()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">duplicateRecipe_ValidRecipe_CreatesCopyWithPrefix()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllRecipes_ReturnsAllForVenue()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getRecipe_ExistingRecipe_ReturnsRecipe()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getRecipe_NonExistent_ThrowsResourceNotFoundException()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">searchRecipes_EmptyQuery_ReturnsAllRecipes()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">searchRecipes_WithQuery_ReturnsMatchingRecipes()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateRecipe_DuplicateName_ThrowsDuplicateResourceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateRecipe_InvalidPortionCount_ThrowsValidationException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateRecipe_ValidName_UpdatesSuccessfully()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateRecipe_ValidPortionCount_UpdatesSuccessfully()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-06-07 17:05:43.566 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Test Recipe' for venue b72a38c8-bb74-4818-8ae7-9baaa713175c
+2026-06-07 17:05:43.567 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Test Recipe' for venue b72a38c8-bb74-4818-8ae7-9baaa713175c
+2026-06-07 17:05:43.568 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Duplicating recipe 938f2c32-1c77-4d0b-89e1-7ba7f4b61e6d for venue e29338e0-a159-468d-aba8-6a6fc1eb3fb3
+2026-06-07 17:05:43.569 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe '' for venue 02ae6eb7-d266-4b90-a01c-99617f448a0a
+2026-06-07 17:05:43.570 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Chicken Curry' for venue 796f9026-d594-42f7-8bfc-bfa11e0e81f1
+2026-06-07 17:05:43.570 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Created recipe Chicken Curry with ID d26f4e40-617b-4b6a-9c66-507eda9d7666
+2026-06-07 17:05:43.571 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleting recipe 71ddf7f0-3e08-4f63-a525-7dfd2ebd3e0d for venue ea76151f-a6b6-409f-b6bc-9183ddbb7c6a (confirmed: true)
+2026-06-07 17:05:43.571 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleted recipe 71ddf7f0-3e08-4f63-a525-7dfd2ebd3e0d (Test Recipe)
+2026-06-07 17:05:43.571 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Duplicating recipe 81678ba1-83ec-451a-8c5d-4121789250f3 for venue 23c9217c-68ae-4cb1-8e45-713c2c4be4ba
+2026-06-07 17:05:43.571 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Duplicated recipe 81678ba1-83ec-451a-8c5d-4121789250f3 -&gt; Copy of Original Recipe with ID b2cc938a-5f7b-4878-8719-174fed910ff9
+2026-06-07 17:05:43.572 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleting recipe 5f3ad9f1-e7fc-4bdc-a488-94b64bad45f2 for venue ab1064b2-7ada-4fb4-a24c-903e368949f2 (confirmed: true)
+2026-06-07 17:05:43.572 [Test worker] WARN  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleting recipe 5f3ad9f1-e7fc-4bdc-a488-94b64bad45f2 which is used as sub-recipe in 1 recipes (user confirmed)
+2026-06-07 17:05:43.572 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleted recipe 5f3ad9f1-e7fc-4bdc-a488-94b64bad45f2 (Test Recipe)
+2026-06-07 17:05:43.572 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe '' for venue 6aea3027-0a10-42ee-8133-af73912c4d93
+2026-06-07 17:05:43.573 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Recipe 26' for venue 6688c56f-6cfc-49fb-b6f8-133cbbb24e7b
+2026-06-07 17:05:43.573 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Created recipe Recipe 26 with ID 8cbd7b75-a9d0-4ed0-aa27-74b741b8826a
+2026-06-07 17:05:43.573 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updating recipe d65b8aa0-d559-43cd-81b7-c0afd0ec2b28 for venue 824a08ab-3462-4bd1-b2f7-3bdf4f3741e1
+2026-06-07 17:05:43.573 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updated recipe d65b8aa0-d559-43cd-81b7-c0afd0ec2b28 (New Name)
+2026-06-07 17:05:43.574 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updating recipe 65aeeed1-e9ce-43d1-9711-e8a07fffa7cb for venue 46b1770b-9607-4bfa-b187-91fef6522b1e
+2026-06-07 17:05:43.574 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updated recipe 65aeeed1-e9ce-43d1-9711-e8a07fffa7cb (Test Recipe)
+2026-06-07 17:05:43.574 [Test worker] DEBUG c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Searching recipes in venue 732b250f-dfca-4d89-b70b-ed2e5bc840f6 with query ''
+2026-06-07 17:05:43.575 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Deleting recipe a6fce33e-16d7-4afb-a17e-d8c509b2397a for venue 77e8f565-6d6c-485f-a7bb-af4c8e7423be (confirmed: false)
+2026-06-07 17:05:43.576 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Duplicating recipe ab07ea67-8934-440a-9248-955622c6b383 for venue 36df5e5b-7f04-4f50-b0d2-35c31b6d42ef
+2026-06-07 17:05:43.576 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Duplicated recipe ab07ea67-8934-440a-9248-955622c6b383 -&gt; Copy of Original Recipe (1) with ID 9207c61f-0d62-460c-8ff4-305778df2c5e
+2026-06-07 17:05:43.578 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updating recipe 374b0770-0ae9-4006-9c2d-14310f99d35b for venue 70656327-170a-4471-83d4-e29649c9720d
+2026-06-07 17:05:43.578 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Updating recipe 81aa91d1-a6da-4889-8d83-0befb56a0285 for venue 3a14b753-2cfb-4791-9c3b-8e53bd47e3cd
+2026-06-07 17:05:43.579 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Existing Recipe' for venue 1da9a92c-7e02-4c5d-ba15-bd3998c63cbf
+2026-06-07 17:05:43.580 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'New Recipe' for venue e4974f3a-17c5-4497-905d-27e683c38f8a
+2026-06-07 17:05:43.581 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe 'Test Recipe' for venue b945d9b2-670f-4890-a963-f62563dd8645
+2026-06-07 17:05:43.581 [Test worker] DEBUG c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Searching recipes in venue 6d115bc3-64b7-4807-830a-d1c8330adfc3 with query 'curry'
+2026-06-07 17:05:43.582 [Test worker] INFO  c.c.f.api.service.RecipeService [NO_CORRELATION_ID] - Creating recipe '   ' for venue 7a5110d1-325e-4d16-89fc-052e49121ce2
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

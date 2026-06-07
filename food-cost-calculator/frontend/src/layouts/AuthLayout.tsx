@@ -2,29 +2,27 @@ import { Outlet } from 'react-router-dom';
 
 export const AuthLayout = () => {
   return (
-    <div className="auth-layout min-h-screen flex" style={{ background: 'var(--bg-secondary)' }}>
+    <div className="auth-layout min-h-screen" style={{ background: '#f3f4f6', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
       {/* Left side - Form */}
       <div 
-        className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12"
+        className="flex items-center justify-center py-12"
         style={{
-          flex: '1 1 0',
-          minWidth: 0,
-          maxWidth: '100%',
+          background: 'white',
+          padding: '3rem 4rem',
         }}
       >
-        <div className="w-full fade-in" style={{ maxWidth: '480px' }}>
+        <div className="w-full fade-in" style={{ maxWidth: '520px' }}>
           <Outlet />
         </div>
       </div>
       
-      {/* Right side - Branding (hidden on tablets and below) */}
+      {/* Right side - Branding */}
       <div 
-        className="hidden xl:flex items-center justify-center p-12 relative overflow-hidden"
+        className="flex items-center justify-center relative overflow-hidden"
         style={{
-          flex: '1 1 0',
-          minWidth: 0,
-          background: 'var(--gradient-brand)',
+          background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)',
           position: 'relative',
+          padding: '4rem 3rem',
         }}
       >
         {/* Decorative circles - responsive sizes */}

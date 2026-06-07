@@ -57,8 +57,20 @@ public class TestAuthController {
     public ResponseEntity<Map<String, Object>> mockLogin(@Valid @RequestBody LoginRequest request) {
         logger.info("MOCK: Logging in user: {}", request.getEmail());
         
-        // Generate mock tokens
-        String mockAccessToken = "mock-access-token-" + System.currentTimeMillis();
+        // Generate a mock JWT token that the frontend can decode
+        // Format: header.payload.signature (all base64-encoded)
+        // We'll create a simple JWT with the necessary claims
+        String header = java.util.Base64.getEncoder().encodeToString("{\"alg\":\"none\",\"typ\":\"JWT\"}".getBytes());
+        String payload = java.util.Base64.getEncoder().encodeToString(
+            ("{\"sub\":\"00000000-0000-0000-0000-000000000002\"," +
+             "\"email\":\"" + request.getEmail() + "\"," +
+             "\"custom:org_id\":\"00000000-0000-0000-0000-000000000002\"," +
+             "\"custom:tier\":\"PRO\"," +
+             "\"custom:venue_roles\":\"{}\"}").getBytes()
+        );
+        String signature = "mock-signature";
+        String mockAccessToken = header + "." + payload + "." + signature;
+        
         String mockRefreshToken = "mock-refresh-token-" + System.currentTimeMillis();
         
         // Create mock user object with organisation_id
@@ -66,7 +78,7 @@ public class TestAuthController {
             "id", "00000000-0000-0000-0000-000000000002",
             "email", request.getEmail(),
             "displayName", "Test User",
-            "organisationId", "00000000-0000-0000-0000-000000000001"
+            "organisationId", "00000000-0000-0000-0000-000000000002"
         );
         
         // Return response matching frontend expectations

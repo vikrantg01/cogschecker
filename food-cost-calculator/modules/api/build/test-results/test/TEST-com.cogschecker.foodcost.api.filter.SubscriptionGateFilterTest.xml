@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:39" hostname="Vikrants-MacBook-Pro-2.local" time="0.196">
+  <properties/>
+  <testcase name="shouldAllowAccessWhenUserHasRequiredTier()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.18"/>
+  <testcase name="shouldReturn402WhenFreeTierTriesToAccessProPlusFeature()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.003"/>
+  <testcase name="shouldAllowFreeTierEndpointsForAllUsers()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldContinueWhenNoRequiresTierAnnotation()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.0"/>
+  <testcase name="shouldIncludeUpgradePathInResponse()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.002"/>
+  <testcase name="shouldIncludeCurrentAndRequiredTierInResponse()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldContinueWhenNoAuthentication()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldReturn402WhenProTierTriesToAccessProPlusFeature()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldAllowAccessWhenUserHasHigherTierThanRequired()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldContinueWhenNoHandlerMethodFound()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.0"/>
+  <testcase name="shouldContinueWhenAuthenticationIsNotCognitoType()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldHandleNullUserTierAsFreeTier()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.001"/>
+  <testcase name="shouldReturn402WhenUserTierIsInsufficient()" classname="com.cogschecker.foodcost.api.filter.SubscriptionGateFilterTest" time="0.002"/>
+  <system-out><![CDATA[2026-06-07 17:05:39.786 [Test worker] DEBUG c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - Subscription gate validation passed for user user-1 with tier 'pro' accessing endpoint requiring 'pro'
+2026-06-07 17:05:39.787 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'free' attempted to access endpoint requiring tier 'pro_plus'
+2026-06-07 17:05:39.790 [Test worker] DEBUG c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - Subscription gate validation passed for user user-1 with tier 'free' accessing endpoint requiring 'free'
+2026-06-07 17:05:39.792 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'free' attempted to access endpoint requiring tier 'pro'
+2026-06-07 17:05:39.793 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'free' attempted to access endpoint requiring tier 'pro'
+2026-06-07 17:05:39.795 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'pro' attempted to access endpoint requiring tier 'pro_plus'
+2026-06-07 17:05:39.796 [Test worker] DEBUG c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - Subscription gate validation passed for user user-1 with tier 'pro_plus' accessing endpoint requiring 'pro'
+2026-06-07 17:05:39.799 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'null' attempted to access endpoint requiring tier 'pro'
+2026-06-07 17:05:39.801 [Test worker] WARN  c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - User user-1 with tier 'free' attempted to access endpoint requiring tier 'pro'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

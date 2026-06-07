@@ -1,8 +1,11 @@
 package com.cogschecker.foodcost.api.service;
 
 import com.cogschecker.foodcost.api.domain.AiInsight;
+import com.cogschecker.foodcost.api.domain.SquareConnection;
+import com.cogschecker.foodcost.api.dto.InsightDataAvailabilityResponse;
 import com.cogschecker.foodcost.api.exception.ResourceNotFoundException;
 import com.cogschecker.foodcost.api.repository.AiInsightRepository;
+import com.cogschecker.foodcost.api.repository.SquareConnectionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +34,9 @@ class InsightServiceTest {
     
     @Mock
     private AiInsightRepository insightRepository;
+    
+    @Mock
+    private SquareConnectionRepository squareConnectionRepository;
     
     @InjectMocks
     private InsightService insightService;
@@ -242,5 +248,110 @@ class InsightServiceTest {
         });
         
         verify(insightRepository, times(1)).findById(insightId);
+    }
+    
+    /**
+     * Test checkDataAvailability when no Square connection exists.
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    void testCheckDataAvailabilityNoSquareConnection() {
+        when(squareConnectionRepository.findByVenueId(venueId)).thenReturn(Optional.empty());
+        
+        InsightDataAvailabilityResponse result = insightService.checkDataAvailability(venueId);
+        
+        assertNotNull(result);
+        assertFalse(result.isHasSufficientData());
+        assertEquals(0, result.getDaysOfData());
+        assertNull(result.getEstimatedAvailableDate());
+        assertTrue(result.getMessage().contains("connect your Square POS account"));
+        verify(squareConnectionRepository, times(1)).findByVenueId(venueId);
+    }
+    
+    /**
+     * Test checkDataAvailability when Square connected but not synced yet.
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    void testCheckDataAvailabilityNotSyncedYet() {
+        SquareConnection connection = new SquareConnection(
+            venueId,
+            "merchant-123",
+            new byte[0],
+            new byte[0],
+            Instant.now().plusSeconds(3600)
+        );
+        connection.setLastSyncedAt(null); // Not synced yet
+        
+        when(squareConnectionRepository.findByVenueId(venueId)).thenReturn(Optional.of(connection));
+        
+        InsightDataAvailabilityResponse result = insightService.checkDataAvailability(venueId);
+        
+        assertNotNull(result);
+        assertFalse(result.isHasSufficientData());
+        assertEquals(0, result.getDaysOfData());
+        assertNotNull(result.getEstimatedAvailableDate());
+        assertTrue(result.getMessage().contains("Waiting for initial data sync"));
+        verify(squareConnectionRepository, times(1)).findByVenueId(venueId);
+    }
+    
+    /**
+     * Test checkDataAvailability when insufficient data (< 30 days).
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    void testCheckDataAvailabilityInsufficientData() {
+        Instant createdAt = Instant.now().minus(15, java.time.temporal.ChronoUnit.DAYS);
+        
+        SquareConnection connection = new SquareConnection(
+            venueId,
+            "merchant-123",
+            new byte[0],
+            new byte[0],
+            Instant.now().plusSeconds(3600)
+        );
+        connection.setCreatedAt(createdAt);
+        connection.setLastSyncedAt(Instant.now());
+        
+        when(squareConnectionRepository.findByVenueId(venueId)).thenReturn(Optional.of(connection));
+        
+        InsightDataAvailabilityResponse result = insightService.checkDataAvailability(venueId);
+        
+        assertNotNull(result);
+        assertFalse(result.isHasSufficientData());
+        assertTrue(result.getDaysOfData() >= 14 && result.getDaysOfData() <= 16); // Around 15 days
+        assertNotNull(result.getEstimatedAvailableDate());
+        assertTrue(result.getMessage().contains("at least 30 days"));
+        verify(squareConnectionRepository, times(1)).findByVenueId(venueId);
+    }
+    
+    /**
+     * Test checkDataAvailability when sufficient data (>= 30 days).
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    void testCheckDataAvailabilitySufficientData() {
+        Instant createdAt = Instant.now().minus(35, java.time.temporal.ChronoUnit.DAYS);
+        
+        SquareConnection connection = new SquareConnection(
+            venueId,
+            "merchant-123",
+            new byte[0],
+            new byte[0],
+            Instant.now().plusSeconds(3600)
+        );
+        connection.setCreatedAt(createdAt);
+        connection.setLastSyncedAt(Instant.now());
+        
+        when(squareConnectionRepository.findByVenueId(venueId)).thenReturn(Optional.of(connection));
+        
+        InsightDataAvailabilityResponse result = insightService.checkDataAvailability(venueId);
+        
+        assertNotNull(result);
+        assertTrue(result.isHasSufficientData());
+        assertTrue(result.getDaysOfData() >= 34 && result.getDaysOfData() <= 36); // Around 35 days
+        assertNull(result.getEstimatedAvailableDate());
+        assertTrue(result.getMessage().contains("AI insights are being generated"));
+        verify(squareConnectionRepository, times(1)).findByVenueId(venueId);
     }
 }

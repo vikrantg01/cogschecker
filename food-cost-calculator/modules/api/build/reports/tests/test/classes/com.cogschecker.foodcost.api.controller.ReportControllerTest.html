@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - ReportControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>ReportControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.controller.html">com.cogschecker.foodcost.api.controller</a> &gt; ReportControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">7</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.039s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">85%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="exportCostingReport_AsStaff_IsForbidden()"></a>
+<h3 class="failures">exportCostingReport_AsStaff_IsForbidden()</h3>
+<span class="code">
+<pre>java.lang.AssertionError: Status expected:&lt;403&gt; but was:&lt;200&gt;
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:637)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.cogschecker.foodcost.api.controller.ReportControllerTest.exportCostingReport_AsStaff_IsForbidden(ReportControllerTest.java:167)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">exportCostingReport_AsAdmin_CanExport()</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">exportCostingReport_AsStaff_IsForbidden()</td>
+<td class="failures">0.003s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">exportCostingReport_ReturnsCsvFile()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">exportCostingReport_WithFilter_ExportsOnlyFilteredRows()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCostingReport_AsStaff_CanAccessReport()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCostingReport_ReturnsRecipes()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCostingReport_WithSortAndFilter_PassesParametersToService()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>17:05:38,835 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [JSON_CONSOLE] not referenced. Skipping further processing.
+17:05:38,835 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+17:05:38,835 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+17:05:38,835 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+17:05:38,836 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+17:05:38,836 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@10eada68 - Propagating INFO level on Logger[ROOT] onto the JUL framework
+17:05:38,836 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+17:05:38,836 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.cogschecker.foodcost] to DEBUG
+17:05:38,836 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@10eada68 - Propagating DEBUG level on Logger[com.cogschecker.foodcost] onto the JUL framework
+17:05:38,836 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.security] to DEBUG
+17:05:38,836 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@10eada68 - Propagating DEBUG level on Logger[org.springframework.security] onto the JUL framework
+17:05:38,836 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@6a82b6fd - End of configuration.
+17:05:38,836 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@2bbef8ff - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2026-06-07 17:05:38.838 [Test worker] INFO  c.c.f.a.c.ReportControllerTest [NO_CORRELATION_ID] - Starting ReportControllerTest using Java 21.0.11 with PID 42087 (started by vicky in /Users/vicky/cogschecker/food-cost-calculator/modules/api)
+2026-06-07 17:05:38.838 [Test worker] DEBUG c.c.f.a.c.ReportControllerTest [NO_CORRELATION_ID] - Running with Spring Boot v3.3.2, Spring v6.1.11
+2026-06-07 17:05:38.838 [Test worker] INFO  c.c.f.a.c.ReportControllerTest [NO_CORRELATION_ID] - The following 1 profile is active: &quot;local&quot;
+2026-06-07 17:05:38.952 [Test worker] DEBUG o.s.s.c.a.a.c.AuthenticationConfiguration$DefaultPasswordEncoderAuthenticationManagerBuilder [NO_CORRELATION_ID] - No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2026-06-07 17:05:38.963 [Test worker] WARN  o.s.aop.framework.CglibAopProxy [NO_CORRELATION_ID] - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(jakarta.servlet.ServletRequest,jakarta.servlet.ServletResponse,jakarta.servlet.FilterChain) throws jakarta.servlet.ServletException,java.io.IOException] because it is marked as final, consider using interface-based JDK proxies instead.
+2026-06-07 17:05:38.963 [Test worker] WARN  o.s.aop.framework.CglibAopProxy [NO_CORRELATION_ID] - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2026-06-07 17:05:38.971 [Test worker] DEBUG o.s.s.web.DefaultSecurityFilterChain [NO_CORRELATION_ID] - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter$$SpringCGLIB$$0, VenueScopeFilter, SubscriptionGateFilter$$SpringCGLIB$$0, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-06-07 17:05:38.981 [Test worker] DEBUG c.c.f.a.s.JwtAuthenticationFilter [NO_CORRELATION_ID] - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-07 17:05:38.981 [Test worker] DEBUG c.c.f.api.filter.VenueScopeFilter [NO_CORRELATION_ID] - Filter 'venueScopeFilter' configured for use
+2026-06-07 17:05:38.981 [Test worker] DEBUG c.c.f.a.f.SubscriptionGateFilter [NO_CORRELATION_ID] - Filter 'subscriptionGateFilter' configured for use
+2026-06-07 17:05:38.981 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext [NO_CORRELATION_ID] - Initializing Spring TestDispatcherServlet ''
+2026-06-07 17:05:38.981 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet [NO_CORRELATION_ID] - Initializing Servlet ''
+2026-06-07 17:05:38.981 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet [NO_CORRELATION_ID] - Completed initialization in 0 ms
+2026-06-07 17:05:38.983 [Test worker] INFO  c.c.f.a.c.ReportControllerTest [NO_CORRELATION_ID] - Started ReportControllerTest in 0.159 seconds (process running for 11.593)
+2026-06-07 17:05:38.990 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/89f724a7-3f80-4a20-92a5-f81e6e485d04/reports/costing/export
+2026-06-07 17:05:38.994 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/89f724a7-3f80-4a20-92a5-f81e6e485d04/reports/costing/export
+2026-06-07 17:05:38.995 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/89f724a7-3f80-4a20-92a5-f81e6e485d04/reports/costing/export - sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:38.996 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - CSV export completed successfully for venue 89f724a7-3f80-4a20-92a5-f81e6e485d04
+2026-06-07 17:05:38.999 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/3ddf37d9-f7a7-49a8-af8e-987d55dcd797/reports/costing/export
+2026-06-07 17:05:38.999 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/3ddf37d9-f7a7-49a8-af8e-987d55dcd797/reports/costing/export
+2026-06-07 17:05:39.000 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/3ddf37d9-f7a7-49a8-af8e-987d55dcd797/reports/costing/export - sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:39.000 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - CSV export completed successfully for venue 3ddf37d9-f7a7-49a8-af8e-987d55dcd797
+2026-06-07 17:05:39.004 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/04203c3f-8ec8-43dd-bca0-a34fc638aeed/reports/costing
+2026-06-07 17:05:39.004 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/04203c3f-8ec8-43dd-bca0-a34fc638aeed/reports/costing
+2026-06-07 17:05:39.004 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/04203c3f-8ec8-43dd-bca0-a34fc638aeed/reports/costing - sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:39.007 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/78af90b7-617f-4c69-a389-b78eca6b6e23/reports/costing
+2026-06-07 17:05:39.008 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/78af90b7-617f-4c69-a389-b78eca6b6e23/reports/costing
+2026-06-07 17:05:39.010 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/78af90b7-617f-4c69-a389-b78eca6b6e23/reports/costing - sortColumn=foodCostPerPortion, sortDir=desc, filter=exceedsThreshold
+2026-06-07 17:05:39.012 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/cdc2eb2f-5ce5-4f8c-a473-7fba52a324f2/reports/costing/export
+2026-06-07 17:05:39.013 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/cdc2eb2f-5ce5-4f8c-a473-7fba52a324f2/reports/costing/export
+2026-06-07 17:05:39.013 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/cdc2eb2f-5ce5-4f8c-a473-7fba52a324f2/reports/costing/export - sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:39.013 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - CSV export completed successfully for venue cdc2eb2f-5ce5-4f8c-a473-7fba52a324f2
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/venues/cdc2eb2f-5ce5-4f8c-a473-7fba52a324f2/reports/costing/export
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.cogschecker.foodcost.api.controller.ReportController
+           Method = com.cogschecker.foodcost.api.controller.ReportController#exportCostingReport(UUID, String, String, String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;text/csv&quot;, Content-Disposition:&quot;attachment; filename=&quot;recipe-costing-report.csv&quot;&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = text/csv
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2026-06-07 17:05:39.016 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/36419c5c-1760-4866-82bb-9a4868075c88/reports/costing
+2026-06-07 17:05:39.016 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/36419c5c-1760-4866-82bb-9a4868075c88/reports/costing
+2026-06-07 17:05:39.016 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/36419c5c-1760-4866-82bb-9a4868075c88/reports/costing - sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:39.025 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Securing GET /api/v1/venues/697d4856-3664-4f13-a857-9ca042de0d3c/reports/costing/export
+2026-06-07 17:05:39.025 [Test worker] DEBUG o.s.security.web.FilterChainProxy [NO_CORRELATION_ID] - Secured GET /api/v1/venues/697d4856-3664-4f13-a857-9ca042de0d3c/reports/costing/export
+2026-06-07 17:05:39.026 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - GET /venues/697d4856-3664-4f13-a857-9ca042de0d3c/reports/costing/export - sortColumn=null, sortDir=null, filter=exceedsThreshold
+2026-06-07 17:05:39.026 [Test worker] INFO  c.c.f.a.controller.ReportController [NO_CORRELATION_ID] - CSV export completed successfully for venue 697d4856-3664-4f13-a857-9ca042de0d3c
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.VenueServiceTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:44" hostname="Vikrants-MacBook-Pro-2.local" time="0.009">
+  <properties/>
+  <testcase name="createVenue_freeTierLimit_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="getVenue_notFound_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="renameVenue_sameNameNoChange_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="createVenue_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="createVenue_emptyName_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.0"/>
+  <testcase name="createVenue_duplicateName_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="getVenue_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.0"/>
+  <testcase name="createVenue_proTier_noLimit()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="renameVenue_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.0"/>
+  <testcase name="createVenue_nameTooLong_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.0"/>
+  <testcase name="deleteVenue_notFound_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="deleteVenue_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="renameVenue_duplicateName_throwsException()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.001"/>
+  <testcase name="updateVenueAddress_success()" classname="com.cogschecker.foodcost.api.service.VenueServiceTest" time="0.0"/>
+  <system-out><![CDATA[2026-06-07 17:05:44.174 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue 'Third Cafe' for organisation 1d3cdae6-551c-42ac-8651-2291a211eaf7
+2026-06-07 17:05:44.175 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Renaming venue f15cd999-216f-4db1-89cc-7049a8b3a457 to 'Same Cafe' for organisation fd6e8556-b31a-4959-83aa-68663ed29a55
+2026-06-07 17:05:44.176 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue 'Main Cafe' for organisation d16dddf4-3190-418f-b1e8-c182b11b3915
+2026-06-07 17:05:44.176 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Created venue Main Cafe with ID null
+2026-06-07 17:05:44.177 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue '' for organisation bf00aff0-ebaa-4619-b976-750fac95fd0f
+2026-06-07 17:05:44.177 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue '   ' for organisation bf00aff0-ebaa-4619-b976-750fac95fd0f
+2026-06-07 17:05:44.177 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue 'Duplicate Cafe' for organisation badc0d3a-20fc-489a-88d4-3db2badc887e
+2026-06-07 17:05:44.178 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue 'Tenth Cafe' for organisation 45a76074-eaee-407d-a4ed-dfafdb647c40
+2026-06-07 17:05:44.178 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Created venue Tenth Cafe with ID null
+2026-06-07 17:05:44.178 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Renaming venue 28b47748-6bba-49d9-97a6-9620a9dc9369 to 'Renamed Cafe' for organisation 3e6dcc82-45ae-42af-8241-508ad383fc03
+2026-06-07 17:05:44.178 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Renamed venue 28b47748-6bba-49d9-97a6-9620a9dc9369 to 'Renamed Cafe'
+2026-06-07 17:05:44.179 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Creating venue 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' for organisation 7d3a7151-529b-4a06-a50b-d2afd621f307
+2026-06-07 17:05:44.179 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Soft-deleting venue 01ee2773-dcfa-4983-b6ef-ea6984ca5123 for organisation bc7314b7-4e16-47e3-954a-c86aa77dbf3c
+2026-06-07 17:05:44.180 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Soft-deleting venue f8b0eff1-9403-4aaf-b607-cb00091229af for organisation 536e4bbb-a083-4ba6-adcf-b4a95ad955b5
+2026-06-07 17:05:44.180 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Soft-deleted venue f8b0eff1-9403-4aaf-b607-cb00091229af (Test Cafe)
+2026-06-07 17:05:44.181 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Renaming venue 726afd1e-f6ed-4908-b095-e155400f4974 to 'Existing Cafe' for organisation c1c68cec-92bb-48db-b237-b67ca8bd08ba
+2026-06-07 17:05:44.182 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Updating address for venue bfdc26ab-e28d-4efd-a9d1-7d0fff9e14d6 in organisation de37ff96-759e-4b36-993d-744d04388153
+2026-06-07 17:05:44.182 [Test worker] INFO  c.c.f.api.service.VenueService [NO_CORRELATION_ID] - Updated address for venue bfdc26ab-e28d-4efd-a9d1-7d0fff9e14d6
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RecipeIngredientLineServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RecipeIngredientLineServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.service.html">com.cogschecker.foodcost.api.service</a> &gt; RecipeIngredientLineServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">9</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.006s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">deleteIngredientLine_DeletesSuccessfully()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getIngredientLines_ReturnsLinesForRecipe()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">saveIngredientLine_DirectSelfReference_ThrowsCircularReferenceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">saveIngredientLine_TransitiveCircularReference_ThrowsCircularReferenceException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">saveIngredientLine_WithRegularIngredient_SuccessfullySaves()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">saveIngredientLine_WithValidSubRecipe_SuccessfullySaves()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validateNoCircularReference_CircleDetected_ThrowsException()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validateNoCircularReference_NoCircle_PassesValidation()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validateNoCircularReference_SelfReference_ThrowsException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-06-07 17:05:43.560 [Test worker] INFO  c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Deleted ingredient line 3a7d037d-d071-424b-bebc-006903986dc3
+2026-06-07 17:05:43.561 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=ac87618c-9287-4795-937c-c5a1e39c4b6f, candidate=afe242b9-f000-41a0-a8e0-739a65a15761
+2026-06-07 17:05:43.561 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - No circular reference detected
+2026-06-07 17:05:43.562 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=a83ec310-cbc8-4354-a1aa-93d042f20734, candidate=bc37172e-f622-464c-8634-954dbad5823d
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=6391ab8e-c018-4ea0-94ef-532f814958b0, candidate=bf251f88-4279-4657-9062-aeedcf5eb2b0
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - No circular reference detected
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=bd45a810-e042-4b44-9ed1-e72fa10b65c9, candidate=bd45a810-e042-4b44-9ed1-e72fa10b65c9
+2026-06-07 17:05:43.564 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=358c4184-9aa5-4d6e-9f6f-388e5e304fd6, candidate=358c4184-9aa5-4d6e-9f6f-388e5e304fd6
+2026-06-07 17:05:43.565 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=a155e63a-d7e1-4894-b378-e6e78d3665f6, candidate=925a6251-963c-4f32-9067-589bd0f99f4a
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

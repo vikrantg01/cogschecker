@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.InvoiceServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.221">
+  <properties/>
+  <testcase name="uploadInvoice_withFileSizeExceeded_shouldThrowException()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.2"/>
+  <testcase name="uploadInvoice_shouldGenerateUniqueS3Key()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.014"/>
+  <testcase name="uploadInvoice_withExactly10MB_shouldSucceed()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.001"/>
+  <testcase name="uploadInvoice_shouldEnqueueOCRMessage()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.001"/>
+  <testcase name="uploadInvoice_withValidPdf_shouldSucceed()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.001"/>
+  <testcase name="uploadInvoice_withValidJpeg_shouldSucceed()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.001"/>
+  <testcase name="uploadInvoice_withValidPng_shouldSucceed()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.0"/>
+  <testcase name="uploadInvoice_withMixedCaseExtension_shouldSucceed()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.0"/>
+  <testcase name="uploadInvoice_withInvalidFileType_shouldThrowException()" classname="com.cogschecker.foodcost.api.service.InvoiceServiceTest" time="0.002"/>
+  <system-out><![CDATA[2026-06-07 17:05:43.536 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 01cf0589-112f-494e-abc8-323929ce47af: filename=large-invoice.pdf, size=11534336, contentType=application/pdf
+2026-06-07 17:05:43.536 [Test worker] WARN  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - File size exceeds limit: 11534336 bytes (max: 10485760)
+2026-06-07 17:05:43.545 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue c85786c9-cf06-4d16-ad03-62ab83f108c2: filename=invoice.pdf, size=1024, contentType=application/pdf
+2026-06-07 17:05:43.545 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/c85786c9-cf06-4d16-ad03-62ab83f108c2/1780815943545-b0396f84-invoice.pdf
+2026-06-07 17:05:43.551 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/c85786c9-cf06-4d16-ad03-62ab83f108c2/1780815943545-b0396f84-invoice.pdf
+2026-06-07 17:05:43.552 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=eae83b23-c418-43ec-b7e4-0ee71b0d6e60
+2026-06-07 17:05:43.552 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=eae83b23-c418-43ec-b7e4-0ee71b0d6e60, queue=test-ocr-queue
+2026-06-07 17:05:43.553 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 2ff29d3c-2226-4bfd-9962-6f955a1c140f: filename=max-size-invoice.pdf, size=10485760, contentType=application/pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/2ff29d3c-2226-4bfd-9962-6f955a1c140f/1780815943553-5d7a90d1-max-size-invoice.pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/2ff29d3c-2226-4bfd-9962-6f955a1c140f/1780815943553-5d7a90d1-max-size-invoice.pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=f758aeb4-ce97-48e6-802e-6bc34047836a
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=f758aeb4-ce97-48e6-802e-6bc34047836a, queue=test-ocr-queue
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 07ef116a-8b2b-4202-ac3f-e22549a6f36b: filename=invoice.pdf, size=1024, contentType=application/pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/07ef116a-8b2b-4202-ac3f-e22549a6f36b/1780815943554-e66a8518-invoice.pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/07ef116a-8b2b-4202-ac3f-e22549a6f36b/1780815943554-e66a8518-invoice.pdf
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=4f202d85-2dc1-4251-8c0d-7289662b2a3d
+2026-06-07 17:05:43.554 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=4f202d85-2dc1-4251-8c0d-7289662b2a3d, queue=test-ocr-queue
+2026-06-07 17:05:43.555 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 72fb58b1-f481-4067-a151-50e141569b93: filename=invoice.pdf, size=16, contentType=application/pdf
+2026-06-07 17:05:43.555 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/72fb58b1-f481-4067-a151-50e141569b93/1780815943555-681f02eb-invoice.pdf
+2026-06-07 17:05:43.555 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/72fb58b1-f481-4067-a151-50e141569b93/1780815943555-681f02eb-invoice.pdf
+2026-06-07 17:05:43.555 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=1ba96c7a-9f37-4dfe-b7e6-77d1a6a34469
+2026-06-07 17:05:43.555 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=1ba96c7a-9f37-4dfe-b7e6-77d1a6a34469, queue=test-ocr-queue
+2026-06-07 17:05:43.556 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 6b27f14b-015f-4c6f-95d8-39b32593217a: filename=invoice.jpg, size=1024, contentType=image/jpeg
+2026-06-07 17:05:43.556 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/6b27f14b-015f-4c6f-95d8-39b32593217a/1780815943556-6e6d94c9-invoice.jpg
+2026-06-07 17:05:43.556 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/6b27f14b-015f-4c6f-95d8-39b32593217a/1780815943556-6e6d94c9-invoice.jpg
+2026-06-07 17:05:43.556 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=243894ba-9e72-4046-bfc4-85e32d42a63f
+2026-06-07 17:05:43.556 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=243894ba-9e72-4046-bfc4-85e32d42a63f, queue=test-ocr-queue
+2026-06-07 17:05:43.557 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue fd02dbc2-9ade-430c-931c-86956d8f109c: filename=invoice.png, size=1024, contentType=image/png
+2026-06-07 17:05:43.557 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/fd02dbc2-9ade-430c-931c-86956d8f109c/1780815943557-8c19a077-invoice.png
+2026-06-07 17:05:43.557 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/fd02dbc2-9ade-430c-931c-86956d8f109c/1780815943557-8c19a077-invoice.png
+2026-06-07 17:05:43.557 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=dc2c4662-439b-47e0-a183-32cdac9facbc
+2026-06-07 17:05:43.557 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=dc2c4662-439b-47e0-a183-32cdac9facbc, queue=test-ocr-queue
+2026-06-07 17:05:43.558 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 2b26ff69-5dd9-43cc-818f-f1031d1d4328: filename=invoice.PDF, size=1024, contentType=application/pdf
+2026-06-07 17:05:43.558 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Generated S3 key: invoices/2b26ff69-5dd9-43cc-818f-f1031d1d4328/1780815943558-7d392140-invoice.PDF
+2026-06-07 17:05:43.558 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Successfully uploaded file to S3: bucket=test-invoices-bucket, key=invoices/2b26ff69-5dd9-43cc-818f-f1031d1d4328/1780815943558-7d392140-invoice.PDF
+2026-06-07 17:05:43.558 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Created invoice record: id=2b7307df-c2b1-4215-8a94-5de71fd7118c
+2026-06-07 17:05:43.558 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Enqueued OCR processing message: invoiceId=2b7307df-c2b1-4215-8a94-5de71fd7118c, queue=test-ocr-queue
+2026-06-07 17:05:43.559 [Test worker] INFO  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Uploading invoice for venue 646bee10-7257-4d7a-ab59-a0a6ff81ba26: filename=invoice.txt, size=12, contentType=text/plain
+2026-06-07 17:05:43.559 [Test worker] WARN  c.c.f.api.service.InvoiceService [NO_CORRELATION_ID] - Invalid file type: contentType=text/plain, filename=invoice.txt
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

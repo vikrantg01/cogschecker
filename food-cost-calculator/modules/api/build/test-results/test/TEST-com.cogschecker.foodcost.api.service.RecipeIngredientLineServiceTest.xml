@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.006">
+  <properties/>
+  <testcase name="deleteIngredientLine_DeletesSuccessfully()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <testcase name="saveIngredientLine_WithRegularIngredient_SuccessfullySaves()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.0"/>
+  <testcase name="saveIngredientLine_WithValidSubRecipe_SuccessfullySaves()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <testcase name="saveIngredientLine_TransitiveCircularReference_ThrowsCircularReferenceException()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <testcase name="validateNoCircularReference_NoCircle_PassesValidation()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.0"/>
+  <testcase name="validateNoCircularReference_SelfReference_ThrowsException()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <testcase name="saveIngredientLine_DirectSelfReference_ThrowsCircularReferenceException()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <testcase name="validateNoCircularReference_CircleDetected_ThrowsException()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.0"/>
+  <testcase name="getIngredientLines_ReturnsLinesForRecipe()" classname="com.cogschecker.foodcost.api.service.RecipeIngredientLineServiceTest" time="0.001"/>
+  <system-out><![CDATA[2026-06-07 17:05:43.560 [Test worker] INFO  c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Deleted ingredient line 3a7d037d-d071-424b-bebc-006903986dc3
+2026-06-07 17:05:43.561 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=ac87618c-9287-4795-937c-c5a1e39c4b6f, candidate=afe242b9-f000-41a0-a8e0-739a65a15761
+2026-06-07 17:05:43.561 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - No circular reference detected
+2026-06-07 17:05:43.562 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=a83ec310-cbc8-4354-a1aa-93d042f20734, candidate=bc37172e-f622-464c-8634-954dbad5823d
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=6391ab8e-c018-4ea0-94ef-532f814958b0, candidate=bf251f88-4279-4657-9062-aeedcf5eb2b0
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - No circular reference detected
+2026-06-07 17:05:43.563 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=bd45a810-e042-4b44-9ed1-e72fa10b65c9, candidate=bd45a810-e042-4b44-9ed1-e72fa10b65c9
+2026-06-07 17:05:43.564 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=358c4184-9aa5-4d6e-9f6f-388e5e304fd6, candidate=358c4184-9aa5-4d6e-9f6f-388e5e304fd6
+2026-06-07 17:05:43.565 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=a155e63a-d7e1-4894-b378-e6e78d3665f6, candidate=925a6251-963c-4f32-9067-589bd0f99f4a
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

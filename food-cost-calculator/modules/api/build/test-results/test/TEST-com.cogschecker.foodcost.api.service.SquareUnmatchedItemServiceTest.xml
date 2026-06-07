@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.046">
+  <properties/>
+  <testcase name="updateUnmatchedItem_dismiss_success()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.041"/>
+  <testcase name="updateUnmatchedItem_mapWithoutRecipeId_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.0"/>
+  <testcase name="updateUnmatchedItem_recipeNotFound_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.001"/>
+  <testcase name="updateUnmatchedItem_invalidStatus_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.001"/>
+  <testcase name="updateUnmatchedItem_mapToRecipe_success()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.001"/>
+  <testcase name="updateUnmatchedItem_wrongVenue_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.001"/>
+  <testcase name="updateUnmatchedItem_recipeWrongVenue_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.0"/>
+  <testcase name="updateUnmatchedItem_unmatchedItemNotFound_throwsException()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.001"/>
+  <testcase name="getUnmatchedItems_success()" classname="com.cogschecker.foodcost.api.service.SquareUnmatchedItemServiceTest" time="0.0"/>
+  <system-out><![CDATA[2026-06-07 17:05:43.796 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item 5accf6e3-0248-4ebd-8f76-fcf5a7611a18 for venue 6700d205-3b46-4ed0-86cc-9bb4d45bdc94
+2026-06-07 17:05:43.796 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Dismissed unmatched item 5accf6e3-0248-4ebd-8f76-fcf5a7611a18
+2026-06-07 17:05:43.797 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item c0c30054-0d19-42a4-9ebb-8ddf3665f52f for venue dc8d2fd5-b2b4-40bd-8245-90456d35befa
+2026-06-07 17:05:43.797 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item b711c4ec-27f4-43b8-87ed-6bd41e6debcb for venue cc41e6a2-c2c4-47f3-aa2d-39beb056b04e
+2026-06-07 17:05:43.798 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item fa81e670-e701-41cd-bc21-4bb2ebf32fd5 for venue 41b6694d-47b6-416b-a3f3-340f9568a07f
+2026-06-07 17:05:43.799 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item 525b0aa6-1999-403f-82f0-d568066372a0 for venue b6f7f53a-bfc0-46c6-ad9f-b1030902161c
+2026-06-07 17:05:43.799 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Mapped unmatched item 525b0aa6-1999-403f-82f0-d568066372a0 to recipe b2618dd7-8495-44b5-b4d9-c13698263aa1
+2026-06-07 17:05:43.800 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item 2124f276-22d0-446d-9539-d36ae80e58c5 for venue 8e5a1007-66c7-46a9-86e6-217672bc436a
+2026-06-07 17:05:43.801 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item 4f4be0ad-b49b-44d9-b697-038f80d92153 for venue 7a20c433-01bf-4bf4-874b-eddf27a62760
+2026-06-07 17:05:43.801 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Updating unmatched item 1a9d76c4-f8bb-4f71-b6e6-4f5cb6c0a53a for venue 14b3a334-2852-44a8-b651-072dd56692f5
+2026-06-07 17:05:43.802 [Test worker] INFO  c.c.f.a.s.SquareUnmatchedItemService [NO_CORRELATION_ID] - Fetching unmatched items for venue acff9105-1aec-4782-b507-8b0c42af24aa
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

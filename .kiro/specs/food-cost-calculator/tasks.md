@@ -486,7 +486,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - _Requirements: 5.1–5.7_
 
 - [ ] 24. Frontend multi-venue management screens
-  - [ ] 24.1 Implement venue selector in application header (always visible when authenticated), venue creation/rename/delete pages, cross-venue summary report page
+  - [x] 24.1 Implement venue selector in application header (always visible when authenticated), venue creation/rename/delete pages, cross-venue summary report page
     - Free tier upgrade prompt on attempt to create third venue
     - _Requirements: 10.1–10.11_
 

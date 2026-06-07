@@ -210,18 +210,18 @@ export const ReportsPage = () => {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+          <div style={{ overflow: 'auto', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+            <table style={{ minWidth: '100%', borderCollapse: 'collapse' }}>
+              <thead style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)' }}>
                 <tr>
                   {/* Recipe Name - Sortable */}
                   <th
                     onClick={() => handleSort('name')}
-                    className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-all duration-150 select-none group"
+                    style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', borderRight: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', userSelect: 'none' }}
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="group-hover:text-gray-900">Recipe Name</span>
-                      <div className="opacity-70 group-hover:opacity-100 transition-opacity">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span>Recipe Name</span>
+                      <div>
                         {renderSortIcon('name')}
                       </div>
                     </div>
@@ -230,11 +230,11 @@ export const ReportsPage = () => {
                   {/* Food Cost Per Portion - Sortable */}
                   <th
                     onClick={() => handleSort('foodCostPerPortion')}
-                    className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-all duration-150 select-none group"
+                    style={{ padding: '1rem 1.5rem', textAlign: 'right', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', borderRight: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', userSelect: 'none' }}
                   >
-                    <div className="flex items-center justify-end gap-2">
-                      <span className="group-hover:text-gray-900">Food Cost / Portion</span>
-                      <div className="opacity-70 group-hover:opacity-100 transition-opacity">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                      <span>Food Cost / Portion</span>
+                      <div>
                         {renderSortIcon('foodCostPerPortion')}
                       </div>
                     </div>
@@ -243,11 +243,11 @@ export const ReportsPage = () => {
                   {/* Menu Price - Sortable */}
                   <th
                     onClick={() => handleSort('menuSellingPrice')}
-                    className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-all duration-150 select-none group"
+                    style={{ padding: '1rem 1.5rem', textAlign: 'right', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', borderRight: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', userSelect: 'none' }}
                   >
-                    <div className="flex items-center justify-end gap-2">
-                      <span className="group-hover:text-gray-900">Menu Price</span>
-                      <div className="opacity-70 group-hover:opacity-100 transition-opacity">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                      <span>Menu Price</span>
+                      <div>
                         {renderSortIcon('menuSellingPrice')}
                       </div>
                     </div>
@@ -256,75 +256,80 @@ export const ReportsPage = () => {
                   {/* Food Cost % - Sortable */}
                   <th
                     onClick={() => handleSort('foodCostPercentage')}
-                    className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-all duration-150 select-none group"
+                    style={{ padding: '1rem 1.5rem', textAlign: 'right', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', borderRight: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer', userSelect: 'none' }}
                   >
-                    <div className="flex items-center justify-end gap-2">
-                      <span className="group-hover:text-gray-900">Food Cost %</span>
-                      <div className="opacity-70 group-hover:opacity-100 transition-opacity">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                      <span>Food Cost %</span>
+                      <div>
                         {renderSortIcon('foodCostPercentage')}
                       </div>
                     </div>
                   </th>
 
                   {/* Portions - Not sortable */}
-                  <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'center', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', borderRight: '1px solid rgba(255,255,255,0.2)' }}>
                     Portions
                   </th>
 
                   {/* Threshold Indicator */}
-                  <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'center', fontSize: '0.75rem', fontWeight: '700', color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-100">
+              <tbody style={{ background: 'white' }}>
                 {reportData.map((recipe, index) => (
                   <tr 
-                    key={recipe.id} 
-                    className="hover:bg-blue-50 transition-all duration-150 group"
+                    key={recipe.id}
                     style={{ 
-                      animation: `fadeIn 0.3s ease-out ${index * 0.03}s both` 
+                      background: index % 2 === 0 ? 'white' : '#f9fafb',
+                      transition: 'background-color 0.15s',
+                      borderTop: '1px solid #e5e7eb'
                     }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#eff6ff'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = index % 2 === 0 ? 'white' : '#f9fafb'}
                   >
                     {/* Recipe Name */}
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors">{recipe.name}</div>
+                    <td style={{ padding: '1.25rem 1.5rem', borderRight: '1px solid #e5e7eb' }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#111827' }}>{recipe.name}</div>
                     </td>
 
                     {/* Food Cost Per Portion */}
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', borderRight: '1px solid #e5e7eb' }}>
                       <CostBadge value={recipe.foodCostPerPortion} />
                     </td>
 
                     {/* Menu Price */}
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', borderRight: '1px solid #e5e7eb' }}>
                       <CostBadge value={recipe.menuSellingPrice || null} />
                     </td>
 
                     {/* Food Cost Percentage */}
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', borderRight: '1px solid #e5e7eb' }}>
                       {recipe.foodCostPercentage !== null && recipe.foodCostPercentage !== undefined ? (
-                        <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-bold font-mono bg-gray-100 text-gray-900 group-hover:bg-blue-100 group-hover:text-blue-900 transition-colors">
+                        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0.375rem 0.75rem', minWidth: '4rem', borderRadius: '0.375rem', fontSize: '0.875rem', fontWeight: '700', fontFamily: 'monospace', background: '#e0e7ff', color: '#312e81' }}>
                           {recipe.foodCostPercentage.toFixed(1)}%
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-mono bg-gray-50 text-gray-400">N/A</span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0.375rem 0.75rem', minWidth: '4rem', borderRadius: '0.375rem', fontSize: '0.875rem', fontFamily: 'monospace', background: '#f3f4f6', color: '#9ca3af' }}>N/A</span>
                       )}
                     </td>
 
                     {/* Portions */}
-                    <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold bg-gray-100 text-gray-700 group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors">
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'center', borderRight: '1px solid #e5e7eb' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0.375rem 0.75rem', minWidth: '3rem', borderRadius: '0.375rem', fontSize: '0.875rem', fontWeight: '600', background: '#dbeafe', color: '#1e3a8a' }}>
                         {recipe.portionCount}
                       </span>
                     </td>
 
                     {/* Status Indicator */}
-                    <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <ThresholdIndicator
-                        foodCostPercentage={recipe.foodCostPercentage}
-                        threshold={threshold}
-                      />
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'center' }}>
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <ThresholdIndicator
+                          foodCostPercentage={recipe.foodCostPercentage}
+                          threshold={threshold}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -343,8 +348,8 @@ export const ReportsPage = () => {
                 <div className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">Total Recipes</div>
                 <div className="text-3xl font-extrabold text-gray-900">{reportData.length}</div>
               </div>
-              <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
-                <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
@@ -358,8 +363,8 @@ export const ReportsPage = () => {
                   {reportData.filter((r) => r.foodCostPercentage && r.foodCostPercentage > threshold).length}
                 </div>
               </div>
-              <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center">
-                <svg className="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
@@ -373,8 +378,8 @@ export const ReportsPage = () => {
                   {reportData.filter((r) => r.foodCostPercentage && r.foodCostPercentage <= threshold).length}
                 </div>
               </div>
-              <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>

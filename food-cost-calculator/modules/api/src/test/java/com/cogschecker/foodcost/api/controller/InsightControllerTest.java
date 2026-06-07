@@ -2,6 +2,7 @@ package com.cogschecker.foodcost.api.controller;
 
 import com.cogschecker.foodcost.api.config.InsightControllerTestConfig;
 import com.cogschecker.foodcost.api.domain.AiInsight;
+import com.cogschecker.foodcost.api.dto.InsightDataAvailabilityResponse;
 import com.cogschecker.foodcost.api.dto.UpdateInsightStatusRequest;
 import com.cogschecker.foodcost.api.exception.ResourceNotFoundException;
 import com.cogschecker.foodcost.api.service.InsightService;
@@ -243,5 +244,86 @@ class InsightControllerTest {
             .andExpect(status().isBadRequest());
         
         verify(insightService, times(1)).updateInsightStatus(venueId, insightId, AiInsight.Status.DISMISSED);
+    }
+    
+    /**
+     * Test GET /venues/:venueId/insights/availability - no Square connection.
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    @WithMockUser
+    void testCheckDataAvailabilityNoSquareConnection() throws Exception {
+        InsightDataAvailabilityResponse availability = new InsightDataAvailabilityResponse(
+            false,
+            0,
+            null,
+            "To generate AI insights, connect your Square POS account to sync sales data."
+        );
+        
+        when(insightService.checkDataAvailability(venueId)).thenReturn(availability);
+        
+        mockMvc.perform(get("/api/v1/venues/{venueId}/insights/availability", venueId))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.hasSufficientData").value(false))
+            .andExpect(jsonPath("$.daysOfData").value(0))
+            .andExpect(jsonPath("$.minimumDaysRequired").value(30))
+            .andExpect(jsonPath("$.estimatedAvailableDate").doesNotExist())
+            .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("connect your Square POS")));
+        
+        verify(insightService, times(1)).checkDataAvailability(venueId);
+    }
+    
+    /**
+     * Test GET /venues/:venueId/insights/availability - insufficient data.
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    @WithMockUser
+    void testCheckDataAvailabilityInsufficientData() throws Exception {
+        InsightDataAvailabilityResponse availability = new InsightDataAvailabilityResponse(
+            false,
+            15,
+            java.time.LocalDate.now().plusDays(15),
+            "AI insights require at least 30 days of sales data. You currently have 15 days."
+        );
+        
+        when(insightService.checkDataAvailability(venueId)).thenReturn(availability);
+        
+        mockMvc.perform(get("/api/v1/venues/{venueId}/insights/availability", venueId))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.hasSufficientData").value(false))
+            .andExpect(jsonPath("$.daysOfData").value(15))
+            .andExpect(jsonPath("$.minimumDaysRequired").value(30))
+            .andExpect(jsonPath("$.estimatedAvailableDate").exists())
+            .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("at least 30 days")));
+        
+        verify(insightService, times(1)).checkDataAvailability(venueId);
+    }
+    
+    /**
+     * Test GET /venues/:venueId/insights/availability - sufficient data.
+     * Requirement: 13.1, 13.6
+     */
+    @Test
+    @WithMockUser
+    void testCheckDataAvailabilitySufficientData() throws Exception {
+        InsightDataAvailabilityResponse availability = new InsightDataAvailabilityResponse(
+            true,
+            35,
+            null,
+            "You have 35 days of sales data. AI insights are being generated and will appear below."
+        );
+        
+        when(insightService.checkDataAvailability(venueId)).thenReturn(availability);
+        
+        mockMvc.perform(get("/api/v1/venues/{venueId}/insights/availability", venueId))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.hasSufficientData").value(true))
+            .andExpect(jsonPath("$.daysOfData").value(35))
+            .andExpect(jsonPath("$.minimumDaysRequired").value(30))
+            .andExpect(jsonPath("$.estimatedAvailableDate").doesNotExist())
+            .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("being generated")));
+        
+        verify(insightService, times(1)).checkDataAvailability(venueId);
     }
 }

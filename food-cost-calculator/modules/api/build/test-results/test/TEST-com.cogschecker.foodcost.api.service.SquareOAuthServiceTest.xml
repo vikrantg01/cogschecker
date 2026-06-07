@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.159">
+  <properties/>
+  <testcase name="disconnect_shouldDeleteConnection()" classname="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" time="0.148"/>
+  <testcase name="getAuthorizationUrl_shouldGenerateSandboxUrl()" classname="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" time="0.006"/>
+  <testcase name="isConnected_shouldReturnTrueWhenConnectionExists()" classname="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" time="0.0"/>
+  <testcase name="isConnected_shouldReturnFalseWhenNoConnection()" classname="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" time="0.001"/>
+  <testcase name="exchangeCodeForTokens_shouldCreateNewConnection()" classname="com.cogschecker.foodcost.api.service.SquareOAuthServiceTest" time="0.002"/>
+  <system-out><![CDATA[2026-06-07 17:05:43.745 [Test worker] INFO  c.c.f.api.service.SquareOAuthService [NO_CORRELATION_ID] - Disconnected Square for venue 6c06b893-f32f-41e4-b327-7d7524568f22
+2026-06-07 17:05:43.752 [Test worker] INFO  c.c.f.api.service.SquareOAuthService [NO_CORRELATION_ID] - Successfully loaded Square OAuth credentials from Secrets Manager
+2026-06-07 17:05:43.752 [Test worker] INFO  c.c.f.api.service.SquareOAuthService [NO_CORRELATION_ID] - Generated Square OAuth authorization URL for venue 0f1b4603-5f79-453f-b44d-e142d703939b
+2026-06-07 17:05:43.755 [Test worker] INFO  c.c.f.api.service.SquareOAuthService [NO_CORRELATION_ID] - Successfully loaded Square OAuth credentials from Secrets Manager
+2026-06-07 17:05:43.755 [Test worker] INFO  c.c.f.api.service.SquareOAuthService [NO_CORRELATION_ID] - Successfully connected Square merchant merchant-789 for venue f4689804-b694-46cd-8151-a556330d3186
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

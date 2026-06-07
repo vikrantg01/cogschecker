@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.repository.VenueDataIsolationPropertyTestSimple" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:44" hostname="Vikrants-MacBook-Pro-2.local" time="0.351">
+  <properties/>
+  <testcase name="P20: venue data is strictly isolated between venues" classname="com.cogschecker.foodcost.api.repository.VenueDataIsolationPropertyTestSimple" time="0.351"/>
+  <system-out><![CDATA[2026-06-07 17:05:44.254 [Test worker] INFO  n.j.e.p.RandomizedShrinkablesGenerator [NO_CORRELATION_ID] - Edge case generation exceeds number of tries. Stopped after 500 generated cases.
+timestamp = 2026-06-07T17:05:44.547955, VenueDataIsolationPropertyTestSimple:P20: venue data is strictly isolated between venues = 
+                              |-----------------------jqwik-----------------------
+tries = 500                   | # of calls to property
+checks = 500                  | # of not rejected calls
+generation = RANDOMIZED       | parameters are randomly generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 500        | # of all combined edge cases
+edge-cases#tried = 72         | # of edge cases tried in current run
+seed = -612416022662227419    | random seed to reproduce generated values
+
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

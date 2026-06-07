@@ -2,6 +2,7 @@ package com.cogschecker.foodcost.api.controller;
 
 import com.cogschecker.foodcost.api.domain.AiInsight;
 import com.cogschecker.foodcost.api.dto.AiInsightResponse;
+import com.cogschecker.foodcost.api.dto.InsightDataAvailabilityResponse;
 import com.cogschecker.foodcost.api.dto.UpdateInsightStatusRequest;
 import com.cogschecker.foodcost.api.security.RequiresTier;
 import com.cogschecker.foodcost.api.service.InsightService;
@@ -57,6 +58,29 @@ public class InsightController {
                 .collect(Collectors.toList());
         
         return ResponseEntity.ok(response);
+    }
+    
+    /**
+     * Check if sufficient sales data is available to generate insights.
+     * Requirements: 13.1, 13.6
+     * 
+     * GET /api/v1/venues/:venueId/insights/availability
+     * 
+     * Returns availability status including days of data and estimated availability date.
+     * Only accessible to Pro+ tier users with MANAGER or ADMIN roles.
+     * 
+     * @param venueId the venue ID
+     * @return data availability status
+     */
+    @GetMapping("/availability")
+    @RequiresTier("pro_plus")
+    @PreAuthorize("hasVenueRole('MANAGER', #venueId) or hasVenueRole('ADMIN', #venueId)")
+    public ResponseEntity<InsightDataAvailabilityResponse> checkDataAvailability(@PathVariable UUID venueId) {
+        logger.info("GET /venues/{}/insights/availability", venueId);
+        
+        InsightDataAvailabilityResponse availability = insightService.checkDataAvailability(venueId);
+        
+        return ResponseEntity.ok(availability);
     }
     
     /**

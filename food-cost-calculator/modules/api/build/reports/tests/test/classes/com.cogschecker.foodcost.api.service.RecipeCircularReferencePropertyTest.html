@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RecipeCircularReferencePropertyTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RecipeCircularReferencePropertyTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.cogschecker.foodcost.api.service.html">com.cogschecker.foodcost.api.service</a> &gt; RecipeCircularReferencePropertyTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.006s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">P6: Circular sub-recipe reference is always prevented</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-06-07 17:06:19.978 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=0b881950-9c00-4387-98d9-3ed3a48bc663, candidate=0b881950-9c00-4387-98d9-3ed3a48bc663
+2026-06-07 17:06:19.981 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=1e735a79-3d0e-4d56-9dfb-a64dc31e2ec1, candidate=1e735a79-3d0e-4d56-9dfb-a64dc31e2ec1
+2026-06-07 17:06:19.981 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=a3fe6e9e-754a-4b16-ac35-3a54f9a21ced, candidate=a3fe6e9e-754a-4b16-ac35-3a54f9a21ced
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=d3d9da0f-5c3f-4d36-a4b6-5da3976ca2b3, candidate=d3d9da0f-5c3f-4d36-a4b6-5da3976ca2b3
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=b1e16153-8533-432b-ae5e-ad2d73d47826, candidate=b1e16153-8533-432b-ae5e-ad2d73d47826
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=00fbc34e-6df0-4c45-b8d4-3a764c7583a3, candidate=00fbc34e-6df0-4c45-b8d4-3a764c7583a3
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=6a397126-9a16-42b1-8421-f71d03c36e88, candidate=6a397126-9a16-42b1-8421-f71d03c36e88
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=932e4ff7-f46e-4fec-82c2-ab48dfd54351, candidate=932e4ff7-f46e-4fec-82c2-ab48dfd54351
+2026-06-07 17:06:19.982 [Test worker] DEBUG c.c.f.a.s.RecipeIngredientLineService [NO_CORRELATION_ID] - Checking circular reference: parent=d9ef381b-259f-421a-8910-05f074a32493, candidate=d9ef381b-259f-421a-8910-05f074a32493
+timestamp = 2026-06-07T17:06:19.982759, RecipeCircularReferencePropertyTest:P6: Circular sub-recipe reference is always prevented = 
+                              |-----------------------jqwik-----------------------
+tries = 9                     | # of calls to property
+checks = 9                    | # of not rejected calls
+generation = EXHAUSTIVE       | parameters are exhaustively generated
+after-failure = SAMPLE_FIRST  | try previously failed sample, then previous seed
+when-fixed-seed = ALLOW       | fixing the random seed is allowed
+edge-cases#mode = MIXIN       | edge cases are mixed in
+edge-cases#total = 0          | # of all combined edge cases
+edge-cases#tried = 0          | # of edge cases tried in current run
+seed = 3186343267683139778    | random seed to reproduce generated values
+
+
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.11.1</a> at Jun 7, 2026, 5:13:44 PM</p>
+</div>
+</div>
+</body>
+</html>

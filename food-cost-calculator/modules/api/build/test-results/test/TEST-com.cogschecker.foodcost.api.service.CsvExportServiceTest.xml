@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.CsvExportServiceTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:42" hostname="Vikrants-MacBook-Pro-2.local" time="0.004">
+  <properties/>
+  <testcase name="export_ZeroValues_DisplaysCorrectly()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.001"/>
+  <testcase name="export_MultipleRecipes_ProducesMultipleRows()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_HeaderRow_HasCorrectColumnNames()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_EmptyList_ReturnsHeaderOnly()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_RecipeNameWithComma_EscapesFieldInQuotes()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.001"/>
+  <testcase name="export_RecipeNameWithNewline_EscapesFieldInQuotes()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_RecipeNameWithQuotes_EscapesQuotesCorrectly()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_RecipeWithNullMenuPrice_DisplaysEmptyFieldForPrice()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.001"/>
+  <testcase name="export_FilteredRecipes_ExportsOnlyProvidedRecipes()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_RecipeWithNullFoodCostPerPortion_DisplaysEmptyField()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_RoundingEdgeCases_RoundsCorrectly()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <testcase name="export_LargeDecimalValues_RoundsAndFormatsCorrectly()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.001"/>
+  <testcase name="export_SingleRecipe_ProducesCorrectlyCsvWithCorrectRounding()" classname="com.cogschecker.foodcost.api.service.CsvExportServiceTest" time="0.0"/>
+  <system-out><![CDATA[2026-06-07 17:05:42.667 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.667 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.667 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 3 recipes
+2026-06-07 17:05:42.667 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 0 recipes
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 0 recipes
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.668 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 2 recipes
+2026-06-07 17:05:42.669 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 5 recipes
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - Generating CSV export for 1 recipes
+2026-06-07 17:05:42.670 [Test worker] INFO  c.c.f.api.service.CsvExportService [NO_CORRELATION_ID] - CSV export generated successfully
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

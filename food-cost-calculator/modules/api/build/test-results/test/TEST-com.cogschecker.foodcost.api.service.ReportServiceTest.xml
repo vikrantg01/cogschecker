@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.ReportServiceTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:43" hostname="Vikrants-MacBook-Pro-2.local" time="0.013">
+  <properties/>
+  <testcase name="getCostingReport_SortWithNullValues_NullsComeLast()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.002"/>
+  <testcase name="getCostingReport_SortByFoodCostPerPortion_Ascending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_NoRecipesExceedThreshold_ReturnsEmptyList()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_SortByName_Ascending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_NoSortSpecified_SortsByNameAscending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_ExceedsThresholdFilter_ExcludesAtOrBelowThreshold()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_SortByName_Descending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_RecipeWithNegativeMenuPrice_ExcludesFromReport()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_SortByMenuSellingPrice_Ascending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_NoRecipesAtAll_ReturnsEmptyList()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_RecipesWithThresholdStatus_IncludesCorrectStatus()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_RecipeWithNullCostsAndPrices_IncludesInReport()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_ExceedsThresholdFilter_OnlyIncludesExceedingRecipes()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_SortByFoodCostPerPortion_Descending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_SortAndFilter_BothAppliedCorrectly()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.001"/>
+  <testcase name="getCostingReport_EmptySortColumn_SortsByNameAscending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_AllValidRecipes_ReturnsAllRecipes()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_RecipeWithEmptyName_ExcludesFromReport()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_SortByFoodCostPercentage_Ascending()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_ExceedsThresholdFilter_ExcludesRecipesWithoutMenuPrice()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <testcase name="getCostingReport_RecipeWithNegativeFoodCost_ExcludesFromReport()" classname="com.cogschecker.foodcost.api.service.ReportServiceTest" time="0.0"/>
+  <system-out><![CDATA[2026-06-07 17:05:43.583 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue e7aee630-3500-4c83-8186-4939059c95a1: sortColumn=foodCostPerPortion, sortDir=asc, filter=null
+2026-06-07 17:05:43.584 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.585 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue dd01c357-0059-4d7f-8397-da199a48aaa4: sortColumn=foodCostPerPortion, sortDir=asc, filter=null
+2026-06-07 17:05:43.585 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.585 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 745e5483-ec92-4b31-ba7e-e731cf2f0945: sortColumn=null, sortDir=null, filter=exceedsThreshold
+2026-06-07 17:05:43.586 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 0 recipes in costing report
+2026-06-07 17:05:43.586 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 27d1f968-9851-4acd-95dd-1cb3328be094: sortColumn=name, sortDir=asc, filter=null
+2026-06-07 17:05:43.586 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.587 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 8d1662df-ee04-42f2-a649-dcd754f24395: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.587 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.587 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 86b643fb-968a-40a4-93ac-d94611b323ce: sortColumn=null, sortDir=null, filter=exceedsThreshold
+2026-06-07 17:05:43.587 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 0 recipes in costing report
+2026-06-07 17:05:43.588 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 68d12e9c-2709-4493-8cfa-a99492f792c4: sortColumn=name, sortDir=desc, filter=null
+2026-06-07 17:05:43.588 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.588 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 030cdba6-b594-439f-a261-a0d28f0ad457: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.588 [Test worker] WARN  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Recipe 8afc101c-9684-4e9a-a713-a7185bd19c81 excluded from report: negative menu selling price
+2026-06-07 17:05:43.588 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 1 recipes in costing report
+2026-06-07 17:05:43.589 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 3288311c-a538-4ef6-b58a-4ef3892e885e: sortColumn=menuSellingPrice, sortDir=asc, filter=null
+2026-06-07 17:05:43.589 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.590 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue cc475039-9b5e-44c5-bde4-78c6c7c75099: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.590 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 0 recipes in costing report
+2026-06-07 17:05:43.590 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 3075b84a-07fc-45ac-affe-26db54a10cd9: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.590 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.591 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 3a84c917-9cc0-4f84-b39e-5c1c9f23e506: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.591 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 1 recipes in costing report
+2026-06-07 17:05:43.591 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue aa7ff275-49de-4417-890e-dbee577ee2aa: sortColumn=null, sortDir=null, filter=exceedsThreshold
+2026-06-07 17:05:43.591 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 2 recipes in costing report
+2026-06-07 17:05:43.592 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 36bc09a0-74a0-407c-9cad-012de6fcdb98: sortColumn=foodCostPerPortion, sortDir=desc, filter=null
+2026-06-07 17:05:43.592 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.593 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 1a2ae643-8a76-4a78-967c-47ad4c24ff40: sortColumn=name, sortDir=asc, filter=exceedsThreshold
+2026-06-07 17:05:43.593 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 2 recipes in costing report
+2026-06-07 17:05:43.593 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue dcd5451e-55c3-489d-b14c-cde6ae386f17: sortColumn=, sortDir=null, filter=null
+2026-06-07 17:05:43.594 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 2 recipes in costing report
+2026-06-07 17:05:43.594 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 063760e9-5469-4286-84a2-a611fb98cab4: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.594 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.594 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 7282c1ca-4f6b-4297-83eb-3a09dcfecadf: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.594 [Test worker] WARN  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Recipe 6cb8303e-c78d-4357-a87f-cbef0edc5c3d excluded from report: empty name
+2026-06-07 17:05:43.594 [Test worker] WARN  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Recipe 2b908e44-4028-4d30-8f0f-8f4afadedbae excluded from report: empty name
+2026-06-07 17:05:43.594 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 1 recipes in costing report
+2026-06-07 17:05:43.595 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 183841c0-94fd-4506-9376-e3361947b08d: sortColumn=foodCostPercentage, sortDir=asc, filter=null
+2026-06-07 17:05:43.595 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 3 recipes in costing report
+2026-06-07 17:05:43.595 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue 549b93d5-5ab7-42b2-a85a-9f60047225cd: sortColumn=null, sortDir=null, filter=exceedsThreshold
+2026-06-07 17:05:43.595 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 1 recipes in costing report
+2026-06-07 17:05:43.596 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Generating costing report for venue e5c9a7f3-6a69-42e5-9426-4c90ef92f1dc: sortColumn=null, sortDir=null, filter=null
+2026-06-07 17:05:43.596 [Test worker] WARN  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Recipe f5cdca6f-2e26-4ac7-a908-77b25f4ab6de excluded from report: negative food cost per portion
+2026-06-07 17:05:43.596 [Test worker] INFO  c.c.f.api.service.ReportService [NO_CORRELATION_ID] - Returning 1 recipes in costing report
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

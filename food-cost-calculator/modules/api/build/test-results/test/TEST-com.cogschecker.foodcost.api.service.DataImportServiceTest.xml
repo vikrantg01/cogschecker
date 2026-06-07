@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cogschecker.foodcost.api.service.DataImportServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:42" hostname="Vikrants-MacBook-Pro-2.local" time="0.12">
+  <properties/>
+  <testcase name="importData_withValidJson_shouldImportSuccessfully()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.09"/>
+  <testcase name="importData_withNeitherIngredientIdNorSubRecipeId_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.004"/>
+  <testcase name="importData_withMissingIngredientLineId_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.003"/>
+  <testcase name="importData_onValidationFailure_shouldNotModifyData()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.003"/>
+  <testcase name="importData_withMalformedJson_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_withMissingIngredientName_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_withMissingVenue_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_withInvalidUom_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_shouldDeleteExistingDataBeforeImport()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_withMissingVersion_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.003"/>
+  <testcase name="importData_withBothIngredientIdAndSubRecipeId_shouldThrowInvalidImportSchemaException()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.002"/>
+  <testcase name="importData_withSubRecipe_shouldImportCorrectly()" classname="com.cogschecker.foodcost.api.service.DataImportServiceTest" time="0.003"/>
+  <system-out><![CDATA[2026-06-07 17:05:42.807 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.810 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - JSON schema validation passed for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.810 [Test worker] DEBUG c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted 0 recipes and their lines for venue 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.810 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted existing venue data for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.811 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 1 ingredients for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.811 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 1 recipes for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.811 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported ingredient lines for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.811 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Successfully imported all data for venueId: 262bd95c-9e9b-42f3-bb53-e50ff530f23b
+2026-06-07 17:05:42.813 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 3699ebe9-81c8-4175-9279-864af02ebd95
+2026-06-07 17:05:42.816 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: c8198114-4c3b-4f74-bb24-df4d2582581e
+2026-06-07 17:05:42.819 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: c4b20daf-c624-4f4d-8f48-74f7fb153b43
+2026-06-07 17:05:42.822 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 7b0bc5aa-39dd-479e-9732-ae0a0fcd36b1
+2026-06-07 17:05:42.824 [Test worker] ERROR c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - JSON parsing failed
+com.fasterxml.jackson.core.JsonParseException: Unexpected character ('t' (code 116)): was expecting double-quote to start field name
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 3]
+	at com.fasterxml.jackson.core.JsonParser._constructReadException(JsonParser.java:2648)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:685)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddName(ReaderBasedJsonParser.java:1910)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:709)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:177)
+	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:342)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4905)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3848)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3816)
+	at com.cogschecker.foodcost.api.service.DataImportService.parseAndValidate(DataImportService.java:110)
+	at com.cogschecker.foodcost.api.service.DataImportService.importData(DataImportService.java:73)
+	at com.cogschecker.foodcost.api.service.DataImportServiceTest.lambda$importData_withMalformedJson_shouldThrowInvalidImportSchemaException$4(DataImportServiceTest.java:179)
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:63)
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:892)
+	at org.assertj.core.api.Assertions.catchThrowable(Assertions.java:1365)
+	at org.assertj.core.api.Assertions.assertThatThrownBy(Assertions.java:1209)
+	at com.cogschecker.foodcost.api.service.DataImportServiceTest.importData_withMalformedJson_shouldThrowInvalidImportSchemaException(DataImportServiceTest.java:179)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:124)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+2026-06-07 17:05:42.825 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 5d2db030-a2f6-4578-bfa4-9054265ea7e2
+2026-06-07 17:05:42.828 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 7328cb7b-b2db-4a33-86e3-bc6544c4b50b
+2026-06-07 17:05:42.830 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 65610d7b-0227-4d5a-9e37-dde61cf92737
+2026-06-07 17:05:42.832 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.833 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - JSON schema validation passed for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.833 [Test worker] DEBUG c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted 1 recipes and their lines for venue 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.834 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted existing venue data for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.834 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 0 ingredients for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.834 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 0 recipes for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.834 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported ingredient lines for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.834 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Successfully imported all data for venueId: 86ffab37-ce91-4c1a-a9ea-11716ad8eb27
+2026-06-07 17:05:42.835 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 0d089636-b33e-4690-9e73-dc05e201c604
+2026-06-07 17:05:42.837 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: 285ee05b-e40c-4127-ba08-65cf72e45a04
+2026-06-07 17:05:42.840 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Starting data import for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - JSON schema validation passed for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] DEBUG c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted 0 recipes and their lines for venue d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Deleted existing venue data for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 0 ingredients for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported 2 recipes for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Imported ingredient lines for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+2026-06-07 17:05:42.841 [Test worker] INFO  c.c.f.api.service.DataImportService [NO_CORRELATION_ID] - Successfully imported all data for venueId: d576e106-76bf-44d6-bf65-484f9a52ab1d
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
