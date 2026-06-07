@@ -92,7 +92,7 @@ export const UomSelect: FC<UomSelectProps> = ({
       onChange={handleChange}
       disabled={disabled}
       required={required}
-      className={`px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed ${className}`}
+      className={`form-input ${className}`}
     >
       {Object.entries(UOM_GROUPS).map(([groupName, units]) => (
         <optgroup key={groupName} label={groupName}>

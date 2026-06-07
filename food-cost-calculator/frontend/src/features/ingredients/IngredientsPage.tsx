@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { apiClient } from '../../lib/api';
 import { useVenueStore } from '../../store/venueSlice';
 import { UomSelect } from '../../shared/components/UomSelect';
@@ -25,6 +26,7 @@ interface DeleteConflictError {
 export const IngredientsPage = () => {
   const currentVenueId = useVenueStore((state) => state.currentVenueId);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   // Search state with debouncing
   const [searchQuery, setSearchQuery] = useState('');
@@ -238,8 +240,17 @@ export const IngredientsPage = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      {/* Header */}
+      {/* Header with Back Button */}
       <div className="mb-6">
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 mb-3 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Back</span>
+        </button>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Ingredient Library</h1>
         <p className="text-gray-600">
           Manage your ingredient costs and pricing for accurate recipe calculations.
