@@ -364,14 +364,48 @@ export const RecipesPage = () => {
         )}
       </div>
 
-      {/* Delete Confirmation Dialog */}
+      {/* Delete Confirmation Modal */}
       {deleteConfirmation && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 fade-in">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 slide-in-right">
-            <div className="flex items-start mb-4">
-              <div className="flex-shrink-0">
+        <div 
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            zIndex: 9999,
+            animation: 'fadeIn 0.2s ease-out'
+          }}
+          onClick={() => setDeleteConfirmation(null)}
+        >
+          <div 
+            style={{
+              background: 'white',
+              borderRadius: '0.75rem',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+              maxWidth: '32rem',
+              width: '100%',
+              padding: '2rem',
+              animation: 'slideInUp 0.3s ease-out',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Warning Icon Circle */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+              <div style={{
+                width: '4rem',
+                height: '4rem',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
                 <svg
-                  className="h-6 w-6 text-red-600"
+                  style={{ width: '2.5rem', height: '2.5rem', color: '#dc2626' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -384,59 +418,137 @@ export const RecipesPage = () => {
                   />
                 </svg>
               </div>
-              <div className="ml-3 flex-1">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Delete Recipe
-                </h3>
-                <div className="mt-2 text-sm text-gray-500">
-                  <p>
-                    Are you sure you want to delete <strong>{deleteConfirmation.recipe.name}</strong>?
-                  </p>
-                  {deleteConfirmation.affectedRecipes && deleteConfirmation.affectedRecipes.length > 0 && (
-                    <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded">
-                      <p className="font-medium text-yellow-800 mb-2">
-                        ⚠️ This recipe is used as a sub-recipe in the following recipes:
-                      </p>
-                      <ul className="list-disc list-inside text-yellow-700">
-                        {deleteConfirmation.affectedRecipes.map((recipeName, index) => (
-                          <li key={index}>{recipeName}</li>
-                        ))}
-                      </ul>
-                      <p className="mt-2 text-yellow-700">
-                        Deleting this recipe will affect these parent recipes' cost calculations.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
-            <div className="mt-5 flex gap-3 justify-end">
+
+            {/* Title */}
+            <h3 style={{
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: '#111827',
+              textAlign: 'center',
+              marginBottom: '0.75rem'
+            }}>
+              Delete Recipe?
+            </h3>
+
+            {/* Message */}
+            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '0.9375rem', color: '#6b7280', marginBottom: '0.5rem' }}>
+                Are you sure you want to delete
+              </p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111827', marginBottom: '0.5rem' }}>
+                "{deleteConfirmation.recipe.name}"?
+              </p>
+              <p style={{ fontSize: '0.875rem', color: '#9ca3af' }}>
+                This action cannot be undone.
+              </p>
+            </div>
+
+            {/* Warning for affected recipes */}
+            {deleteConfirmation.affectedRecipes && deleteConfirmation.affectedRecipes.length > 0 && (
+              <div style={{
+                marginBottom: '1.5rem',
+                padding: '1rem',
+                background: '#fffbeb',
+                border: '1px solid #fbbf24',
+                borderRadius: '0.5rem'
+              }}>
+                <p style={{ fontWeight: '600', color: '#92400e', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                  ⚠️ This recipe is used as a sub-recipe in:
+                </p>
+                <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', color: '#b45309', fontSize: '0.875rem' }}>
+                  {deleteConfirmation.affectedRecipes.map((recipeName, index) => (
+                    <li key={index} style={{ marginBottom: '0.25rem' }}>{recipeName}</li>
+                  ))}
+                </ul>
+                <p style={{ marginTop: '0.5rem', color: '#92400e', fontSize: '0.8125rem' }}>
+                  Deleting will affect these parent recipes' cost calculations.
+                </p>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
               <button
                 onClick={() => setDeleteConfirmation(null)}
                 className="btn btn-secondary"
                 disabled={deleteMutation.isPending}
+                style={{ flex: 1, padding: '0.75rem 1.5rem', fontSize: '1rem', fontWeight: '600' }}
               >
                 Cancel
               </button>
               <button
                 onClick={confirmDelete}
-                className="btn btn-primary"
-                style={{ background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' }}
                 disabled={deleteMutation.isPending}
+                style={{
+                  flex: 1,
+                  padding: '0.75rem 1.5rem',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: deleteMutation.isPending 
+                    ? '#9ca3af' 
+                    : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                  border: 'none',
+                  borderRadius: '0.5rem',
+                  cursor: deleteMutation.isPending ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  transition: 'all 0.2s',
+                  boxShadow: deleteMutation.isPending 
+                    ? 'none' 
+                    : '0 4px 6px -1px rgba(220, 38, 38, 0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  if (!deleteMutation.isPending) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 8px -1px rgba(220, 38, 38, 0.4)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!deleteMutation.isPending) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(220, 38, 38, 0.3)';
+                  }
+                }}
               >
                 {deleteMutation.isPending ? (
                   <>
-                    <span className="spinner"></span>
+                    <span className="spinner" style={{ width: '1.25rem', height: '1.25rem' }}></span>
                     Deleting...
                   </>
                 ) : (
-                  'Delete Recipe'
+                  <>
+                    <svg style={{ width: '1.25rem', height: '1.25rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Delete Recipe
+                  </>
                 )}
               </button>
             </div>
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 };
