@@ -51,6 +51,11 @@ export const IngredientsPage = () => {
     confirmed?: boolean;
   } | null>(null);
 
+  // Bulk import state
+  const [showBulkImport, setShowBulkImport] = useState(false);
+  const [bulkImportText, setBulkImportText] = useState('');
+  const [bulkImportErrors, setBulkImportErrors] = useState<string[]>([]);
+
   // Debounce search query
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -134,6 +139,35 @@ export const IngredientsPage = () => {
     },
   });
 
+  // Bulk import mutation
+  const bulkImportMutation = useMutation({
+    mutationFn: async (ingredients: Omit<Ingredient, 'id' | 'venueId' | 'costPerUnit' | 'effectiveCostPerUsableUnit' | 'createdAt' | 'updatedAt'>[]) => {
+      // Import one by one
+      const results = await Promise.allSettled(
+        ingredients.map((data) =>
+          apiClient.post<Ingredient>(`/venues/${currentVenueId}/ingredients`, data)
+        )
+      );
+      return results;
+    },
+    onSuccess: (results) => {
+      queryClient.invalidateQueries({ queryKey: ['ingredients', currentVenueId] });
+      const successCount = results.filter((r) => r.status === 'fulfilled').length;
+      const failCount = results.filter((r) => r.status === 'rejected').length;
+      
+      if (failCount === 0) {
+        setBulkImportText('');
+        setShowBulkImport(false);
+        setBulkImportErrors([]);
+      } else {
+        const errors = results
+          .map((r, i) => r.status === 'rejected' ? `Row ${i + 2}: ${r.reason?.response?.data?.message || 'Failed'}` : null)
+          .filter(Boolean) as string[];
+        setBulkImportErrors([`${successCount} succeeded, ${failCount} failed:`, ...errors]);
+      }
+    },
+  });
+
   const handleFormError = (error: any) => {
     if (error.response?.data?.errors) {
       setFormErrors(error.response.data.errors);
@@ -179,6 +213,77 @@ export const IngredientsPage = () => {
         confirmed: deleteConfirmation.affectedRecipes ? true : undefined,
       });
     }
+  };
+
+  const handleBulkImport = () => {
+    setBulkImportErrors([]);
+    
+    if (!bulkImportText.trim()) {
+      setBulkImportErrors(['Please paste CSV data']);
+      return;
+    }
+
+    // Parse CSV (simple implementation)
+    const lines = bulkImportText.trim().split('\n');
+    const ingredients: Omit<Ingredient, 'id' | 'venueId' | 'costPerUnit' | 'effectiveCostPerUsableUnit' | 'createdAt' | 'updatedAt'>[] = [];
+    const errors: string[] = [];
+
+    // Skip header if it exists
+    const startIndex = lines[0].toLowerCase().includes('name') ? 1 : 0;
+
+    for (let i = startIndex; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      const parts = line.split(',').map((p) => p.trim());
+      
+      if (parts.length < 4) {
+        errors.push(`Row ${i + 1}: Invalid format (need at least 4 columns: name,price,quantity,unit)`);
+        continue;
+      }
+
+      const [name, priceStr, quantityStr, unit, yieldStr] = parts;
+      const price = parseFloat(priceStr);
+      const quantity = parseFloat(quantityStr);
+      const yieldPercentage = yieldStr ? parseFloat(yieldStr) : 100;
+
+      if (!name) {
+        errors.push(`Row ${i + 1}: Name is required`);
+        continue;
+      }
+      if (isNaN(price) || price <= 0) {
+        errors.push(`Row ${i + 1}: Invalid price "${priceStr}"`);
+        continue;
+      }
+      if (isNaN(quantity) || quantity <= 0) {
+        errors.push(`Row ${i + 1}: Invalid quantity "${quantityStr}"`);
+        continue;
+      }
+      if (isNaN(yieldPercentage) || yieldPercentage < 1 || yieldPercentage > 100) {
+        errors.push(`Row ${i + 1}: Invalid yield percentage "${yieldStr}" (must be 1-100)`);
+        continue;
+      }
+
+      ingredients.push({
+        name,
+        purchasePrice: price,
+        purchaseQuantity: quantity,
+        unitOfMeasure: unit as UnitOfMeasure,
+        yieldPercentage,
+      });
+    }
+
+    if (errors.length > 0) {
+      setBulkImportErrors(errors);
+      return;
+    }
+
+    if (ingredients.length === 0) {
+      setBulkImportErrors(['No valid ingredients found']);
+      return;
+    }
+
+    bulkImportMutation.mutate(ingredients);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -268,19 +373,31 @@ export const IngredientsPage = () => {
             className="form-input"
           />
         </div>
-        <button
-          onClick={() => {
-            resetForm();
-            setIsFormVisible(true);
-          }}
-          className="btn btn-primary"
-          style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Add Ingredient
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
+          <button
+            onClick={() => setShowBulkImport(true)}
+            className="btn btn-secondary"
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Bulk Import
+          </button>
+          <button
+            onClick={() => {
+              resetForm();
+              setIsFormVisible(true);
+            }}
+            className="btn btn-primary"
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Add Ingredient
+          </button>
+        </div>
       </div>
 
       {/* Inline Form */}
@@ -422,6 +539,87 @@ export const IngredientsPage = () => {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Bulk Import Box */}
+      {showBulkImport && (
+        <div className="card mb-6 fade-in">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold">Bulk Import Ingredients</h3>
+            <button
+              onClick={() => {
+                setShowBulkImport(false);
+                setBulkImportText('');
+                setBulkImportErrors([]);
+              }}
+              className="text-gray-500 hover:text-gray-700"
+              disabled={bulkImportMutation.isPending}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-2">
+              Paste CSV data with columns: <strong>name,price,quantity,unit,yield</strong>
+            </p>
+            <p className="text-xs text-gray-500 mb-3">
+              Example: Chicken Breast,12.50,1000,g,95
+            </p>
+            <textarea
+              value={bulkImportText}
+              onChange={(e) => setBulkImportText(e.target.value)}
+              className="form-input font-mono text-sm"
+              rows={8}
+              placeholder="name,price,quantity,unit,yield
+Chicken Breast,12.50,1000,g,95
+Olive Oil,8.99,500,ml,100
+Flour,3.50,1000,g,100"
+              disabled={bulkImportMutation.isPending}
+            />
+          </div>
+
+          {bulkImportErrors.length > 0 && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded">
+              <p className="font-medium text-red-800 mb-1">Errors:</p>
+              <ul className="list-disc list-inside text-sm text-red-700">
+                {bulkImportErrors.map((error, i) => (
+                  <li key={i}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="flex gap-3 justify-end">
+            <button
+              onClick={() => {
+                setShowBulkImport(false);
+                setBulkImportText('');
+                setBulkImportErrors([]);
+              }}
+              className="btn btn-secondary"
+              disabled={bulkImportMutation.isPending}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleBulkImport}
+              className="btn btn-primary"
+              disabled={bulkImportMutation.isPending}
+            >
+              {bulkImportMutation.isPending ? (
+                <>
+                  <span className="spinner"></span>
+                  Importing...
+                </>
+              ) : (
+                'Import Ingredients'
+              )}
+            </button>
+          </div>
         </div>
       )}
 
