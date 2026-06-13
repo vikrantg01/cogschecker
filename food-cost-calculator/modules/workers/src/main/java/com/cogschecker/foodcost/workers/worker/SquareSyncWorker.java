@@ -64,6 +64,7 @@ public class SquareSyncWorker {
     private final SecretsManagerClient secretsManagerClient;
     private final String squareOAuthSecretName;
     private final String squareEnvironment;
+    private final String squareApiBaseUrl; // For testing with WireMock
     
     // Cached Square OAuth credentials
     private String applicationId;
@@ -79,6 +80,23 @@ public class SquareSyncWorker {
             SecretsManagerClient secretsManagerClient,
             @Value("${square.oauth.secret-name:}") String squareOAuthSecretName,
             @Value("${square.environment:sandbox}") String squareEnvironment) {
+        this(squareConnectionRepository, recipeRepository, squareUnmatchedItemRepository,
+                encryptionService, restTemplate, objectMapper, secretsManagerClient,
+                squareOAuthSecretName, squareEnvironment, null);
+    }
+    
+    // Package-private constructor for testing with custom base URL
+    SquareSyncWorker(
+            SquareConnectionRepository squareConnectionRepository,
+            RecipeRepository recipeRepository,
+            SquareUnmatchedItemRepository squareUnmatchedItemRepository,
+            EncryptionService encryptionService,
+            RestTemplate restTemplate,
+            ObjectMapper objectMapper,
+            SecretsManagerClient secretsManagerClient,
+            String squareOAuthSecretName,
+            String squareEnvironment,
+            String squareApiBaseUrl) {
         this.squareConnectionRepository = squareConnectionRepository;
         this.recipeRepository = recipeRepository;
         this.squareUnmatchedItemRepository = squareUnmatchedItemRepository;
@@ -88,6 +106,7 @@ public class SquareSyncWorker {
         this.secretsManagerClient = secretsManagerClient;
         this.squareOAuthSecretName = squareOAuthSecretName;
         this.squareEnvironment = squareEnvironment;
+        this.squareApiBaseUrl = squareApiBaseUrl;
     }
     
     /**

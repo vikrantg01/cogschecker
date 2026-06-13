@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.cogschecker.foodcost.api.service.CostPropagationServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-06-07T07:05:42" hostname="Vikrants-MacBook-Pro-2.local" time="0.058">
-  <properties/>
-  <testcase name="enqueue_ValidVenueAndIngredient_SendsMessageToSqs()" classname="com.cogschecker.foodcost.api.service.CostPropagationServiceTest" time="0.058"/>
-  <system-out><![CDATA[2026-06-07 17:05:42.610 [Test worker] INFO  c.c.f.a.s.CostPropagationService [NO_CORRELATION_ID] - Enqueuing cost propagation job for ingredient 0e0236d4-d8f3-46cc-8ec8-cb888850f32a in venue 7a27ddab-d6aa-4ead-ac22-0560b0b1fa7c
-2026-06-07 17:05:42.614 [Test worker] DEBUG c.c.f.a.s.CostPropagationService [NO_CORRELATION_ID] - Successfully enqueued cost propagation job for ingredient 0e0236d4-d8f3-46cc-8ec8-cb888850f32a
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

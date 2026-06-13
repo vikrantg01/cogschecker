@@ -48,10 +48,14 @@ dependencies {
     implementation 'com.amazonaws:aws-xray-recorder-sdk-spring:2.15.1'
     implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2:2.15.1'
     implementation 'com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2-instrumentor:2.15.1'
+    
+    // AspectJ for SQS message tracing interceptor
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'net.jqwik:jqwik:1.9.0'
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.wiremock:wiremock-standalone:3.3.1'
     testRuntimeOnly 'com.h2database:h2'
 }

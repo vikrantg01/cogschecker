@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "description": "Cost propagation jobs - sample all to track performance",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "*cost-propagation*",
+      "fixed_target": 1,
+      "rate": 1.0
+    },
+    {
+      "description": "OCR processing jobs - sample all for quality tracking",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "*ocr*",
+      "fixed_target": 1,
+      "rate": 1.0
+    },
+    {
+      "description": "AI insights jobs - sample all to monitor latency",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "*ai-insights*",
+      "fixed_target": 1,
+      "rate": 1.0
+    },
+    {
+      "description": "Square sync jobs - sample at 50%",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "*square-sync*",
+      "fixed_target": 1,
+      "rate": 0.5
+    }
+  ],
+  "default": {
+    "fixed_target": 1,
+    "rate": 0.5
+  }
+}

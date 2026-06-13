@@ -442,7 +442,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - On malformed Bedrock response: log and discard; mark insights as `stale`
     - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.8_
 
-  - [ ] 18.2 Implement `InsightController` endpoints (`GET /venues/:venueId/insights`, `PATCH /:id/status`)
+  - [x] 18.2 Implement `InsightController` endpoints (`GET /venues/:venueId/insights`, `PATCH /:id/status`)
     - Status update: accept `actioned` or `dismissed`; dismissed insights are excluded from future active queries unless new data produces a materially different recommendation
     - If insufficient data (< 30 days or < 10 transactions), return informational message with estimated availability date
     - _Requirements: 13.5, 13.6, 13.7_
@@ -519,7 +519,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [ ] 28.4 Write integration tests for Square sync worker using WireMock for Square API; test matched price update, unmatched item logging, token refresh
     - _Requirements: 12.1–12.5_
 
-  - [ ] 28.5 Write integration tests for OCR pipeline using LocalStack S3, WireMock for Textract; test review flow and low-confidence field flagging
+  - [x] 28.5 Write integration tests for OCR pipeline using LocalStack S3, WireMock for Textract; test review flow and low-confidence field flagging
     - _Requirements: 12.6–12.10_
 
   - [ ] 28.6 Write integration tests for AI insights worker using WireMock for Bedrock; test insight upsert, Pro+ tier guard, and autonomy constraint (no recipe/ingredient modification)
@@ -536,18 +536,18 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - _Requirements: 8.3, 10.9, 11.3_
 
 - [ ] 30. CI/CD pipeline (GitHub Actions)
-  - [ ] 30.1 Implement GitHub Actions workflow `ci.yml`: on push/PR — run `./gradlew test` (all modules), run Vitest, build Docker images for `api` and `workers`, push to ECR, run `cdk diff`
+  - [x] 30.1 Implement GitHub Actions workflow `ci.yml`: on push/PR — run `./gradlew test` (all modules), run Vitest, build Docker images for `api` and `workers`, push to ECR, run `cdk diff`
     - Use GitHub OIDC + AWS IAM role for keyless ECR and CDK access
     - _Requirements: all_
 
   - [ ] 30.2 Implement GitHub Actions workflow `deploy.yml`: on merge to `main` — `cdk deploy --app "npx ts-node bin/app.ts" --require-approval never` to staging; run Playwright E2E; if pass, deploy to prod
     - _Requirements: all_
 
-- [ ] 31. Observability wiring
-  - [ ] 31.1 Add structured JSON logging to all Spring Boot services using Logback + `logstash-logback-encoder`; add correlation ID (`X-Request-ID`) propagation through MDC; enable AWS X-Ray SDK tracing on all outbound HTTP and SQS calls
+- [x] 31. Observability wiring
+  - [x] 31.1 Add structured JSON logging to all Spring Boot services using Logback + `logstash-logback-encoder`; add correlation ID (`X-Request-ID`) propagation through MDC; enable AWS X-Ray SDK tracing on all outbound HTTP and SQS calls
     - _Requirements: 3.3_
 
-  - [ ] 31.2 Expose Spring Boot Actuator metrics (`/actuator/prometheus`); configure Kubernetes `ServiceMonitor` or CloudWatch agent to scrape and publish to CloudWatch custom namespace
+  - [x] 31.2 Expose Spring Boot Actuator metrics (`/actuator/prometheus`); configure Kubernetes `ServiceMonitor` or CloudWatch agent to scrape and publish to CloudWatch custom namespace
     - _Requirements: 3.3_
 
 - [ ] 32. Final checkpoint — all tests pass

@@ -54,7 +54,9 @@ export const VenueDeletePage = () => {
     try {
       const orgId = user?.id || '00000000-0000-0000-0000-000000000001';
       
-      await apiClient.delete(`/organisations/${orgId}/venues/${venueId}`);
+      await apiClient.delete(`/organisations/${orgId}/venues/${venueId}`, {
+        data: { confirmed: true }
+      });
 
       // Remove venue from the store
       const updatedVenues = venues.filter(v => v.id !== venueId);

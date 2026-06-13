@@ -16,11 +16,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *   <li>AI insights generation with Bedrock (Requirement 13.4)</li>
  * </ul>
  * <p>
- * Spring MVC is explicitly excluded because workers expose no HTTP endpoints.
- * All work is triggered by SQS messages or scheduled jobs.
+ * Note: Spring MVC is enabled to expose actuator endpoints for metrics and health checks,
+ * but no business logic HTTP endpoints are exposed. All work is triggered by SQS messages or scheduled jobs.
  */
 @SpringBootApplication(
-    exclude = {WebMvcAutoConfiguration.class},
     scanBasePackages = {
         "com.cogschecker.foodcost.workers",
         "com.cogschecker.foodcost.api.service",

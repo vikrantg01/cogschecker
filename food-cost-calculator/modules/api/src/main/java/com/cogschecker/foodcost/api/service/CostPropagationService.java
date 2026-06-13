@@ -3,6 +3,7 @@ package com.cogschecker.foodcost.api.service;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,9 @@ public class CostPropagationService {
      * The message is sent to a FIFO queue with the ingredientId as the message group ID,
      * ensuring that updates to the same ingredient are processed in order.
      * <p>
+     * The correlation ID from the current request context (MDC) is propagated to the
+     * worker for distributed tracing.
+     * <p>
      * Requirements: 1.3, 3.3
      *
      * @param venueId      the venue ID
@@ -57,6 +61,12 @@ public class CostPropagationService {
             message.put("venueId", venueId.toString());
             message.put("ingredientId", ingredientId.toString());
             message.put("timestamp", String.valueOf(System.currentTimeMillis()));
+            
+            // Propagate correlation ID from current request context
+            String correlationId = MDC.get("correlationId");
+            if (correlationId != null) {
+                message.put("correlationId", correlationId);
+            }
 
             // Send to FIFO queue with message group ID = ingredientId
             // This ensures updates to the same ingredient are processed in order

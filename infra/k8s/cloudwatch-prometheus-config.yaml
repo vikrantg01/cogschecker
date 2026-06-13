@@ -1,0 +1,330 @@
+# CloudWatch Container Insights - Prometheus Metrics Configuration
+# This configuration enables Prometheus metrics scraping from Spring Boot Actuator endpoints
+# and publishes them to CloudWatch custom namespace for centralized monitoring.
+#
+# Architecture:
+#   Spring Boot Actuator (/actuator/prometheus) 
+#   -> Prometheus Server (scrapes via ServiceMonitor)
+#   -> CloudWatch Agent (remote_write)
+#   -> CloudWatch Custom Metrics Namespace (FoodCostCalculator)
+#
+# References:
+#   - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus.html
+#   - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Setup.html
+
+---
+# 1. Prometheus Server Configuration
+# This ConfigMap defines the Prometheus scrape configuration for Service Discovery
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: amazon-cloudwatch
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 30s
+      scrape_timeout: 10s
+      evaluation_interval: 30s
+    
+    # Remote write configuration to push metrics to CloudWatch
+    remote_write:
+      - url: http://localhost:9090/write
+        queue_config:
+          capacity: 2500
+          max_shards: 200
+          min_shards: 1
+          max_samples_per_send: 1000
+          batch_send_deadline: 5s
+          min_backoff: 30ms
+          max_backoff: 100ms
+    
+    # Scrape configurations
+    scrape_configs:
+      # Scrape configuration for Spring Boot API service
+      - job_name: 'food-cost-calculator-api'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - default
+        relabel_configs:
+          # Only scrape services with the 'app: food-cost-calculator-api' label
+          - source_labels: [__meta_kubernetes_service_label_app]
+            action: keep
+            regex: food-cost-calculator-api
+          
+          # Use the service name as the job label
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: job
+          
+          # Add namespace label
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          
+          # Add pod name
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          
+          # Add node name
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            target_label: node
+          
+          # Set the scrape path to /actuator/prometheus
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          
+          # Use the 'http' port
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+      
+      # Scrape configuration for Spring Boot Workers service
+      - job_name: 'food-cost-calculator-workers'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - default
+        relabel_configs:
+          # Only scrape services with the 'app: food-cost-calculator-workers' label
+          - source_labels: [__meta_kubernetes_service_label_app]
+            action: keep
+            regex: food-cost-calculator-workers
+          
+          # Use the service name as the job label
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: job
+          
+          # Add namespace label
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          
+          # Add pod name
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          
+          # Add node name
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            target_label: node
+          
+          # Set the scrape path to /actuator/prometheus
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          
+          # Use the 'http' port
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+
+---
+# 2. CloudWatch Agent Configuration
+# This ConfigMap configures the CloudWatch Agent to forward Prometheus metrics to CloudWatch
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cwagent-prometheus-config
+  namespace: amazon-cloudwatch
+data:
+  prometheus-config.json: |
+    {
+      "agent": {
+        "region": "ap-southeast-2",
+        "debug": false
+      },
+      "logs": {
+        "metrics_collected": {
+          "prometheus": {
+            "cluster_name": "food-cost-calculator-eks-staging",
+            "log_group_name": "/aws/containerinsights/food-cost-calculator-eks-staging/prometheus",
+            "prometheus_config_path": "/etc/prometheusconfig/prometheus.yml",
+            "emf_processor": {
+              "metric_declaration": [
+                {
+                  "source_labels": ["job"],
+                  "label_matcher": "^food-cost-calculator-(api|workers)$",
+                  "dimensions": [
+                    ["job", "namespace"],
+                    ["job", "pod"],
+                    ["job", "namespace", "pod"]
+                  ],
+                  "metric_selectors": [
+                    "^http_server_requests_seconds_(count|sum|max)$",
+                    "^http_server_requests_seconds_bucket$",
+                    "^jvm_memory_used_bytes$",
+                    "^jvm_memory_max_bytes$",
+                    "^jvm_threads_live_threads$",
+                    "^jvm_gc_memory_allocated_bytes_total$",
+                    "^jvm_gc_pause_seconds_(count|sum|max)$",
+                    "^process_cpu_usage$",
+                    "^system_cpu_usage$",
+                    "^hikaricp_connections_(active|idle|total|min|max)$",
+                    "^hikaricp_connections_acquire_seconds_(count|sum|max)$",
+                    "^spring_data_repository_invocations_seconds_(count|sum|max)$",
+                    "^spring_batch_job_seconds_(count|sum|max)$",
+                    "^spring_batch_step_seconds_(count|sum|max)$",
+                    "^lettuce_command_completion_seconds_(count|sum|max)$",
+                    "^sqs_listener_messages_(received|processed|failed)_total$"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "force_flush_interval": 15
+      }
+    }
+
+---
+# 3. Service Account for CloudWatch Agent
+# IRSA (IAM Roles for Service Accounts) configuration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cwagent-prometheus
+  namespace: amazon-cloudwatch
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::ACCOUNT_ID:role/EKS-CloudWatchAgent-Role
+
+---
+# 4. ClusterRole for CloudWatch Agent
+# Grants permissions to discover and scrape pods/services
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cwagent-prometheus-role
+rules:
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    verbs: ["get"]
+  - nonResourceURLs:
+      - /metrics
+    verbs: ["get"]
+
+---
+# 5. ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cwagent-prometheus-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: cwagent-prometheus
+    namespace: amazon-cloudwatch
+roleRef:
+  kind: ClusterRole
+  name: cwagent-prometheus-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# 6. CloudWatch Agent DaemonSet
+# Deploys the CloudWatch Agent on each node to collect and forward Prometheus metrics
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cwagent-prometheus
+  namespace: amazon-cloudwatch
+spec:
+  selector:
+    matchLabels:
+      name: cwagent-prometheus
+  template:
+    metadata:
+      labels:
+        name: cwagent-prometheus
+    spec:
+      serviceAccountName: cwagent-prometheus
+      containers:
+        - name: cloudwatch-agent
+          image: amazon/cloudwatch-agent:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          env:
+            - name: PROMETHEUS_CONFIG_CONTENT
+              valueFrom:
+                configMapKeyRef:
+                  name: cwagent-prometheus-config
+                  key: prometheus-config.json
+            - name: RUN_WITH_IRSA
+              value: "True"
+          volumeMounts:
+            - name: prometheus-config
+              mountPath: /etc/prometheusconfig
+              readOnly: true
+      volumes:
+        - name: prometheus-config
+          configMap:
+            name: prometheus-config
+
+---
+# 7. Alternative: Prometheus Remote Write to CloudWatch (via ADOT Collector)
+# If using AWS Distro for OpenTelemetry (ADOT) instead of CloudWatch Agent
+#
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: adot-collector-config
+#   namespace: amazon-cloudwatch
+# data:
+#   adot-config.yaml: |
+#     receivers:
+#       prometheus:
+#         config:
+#           scrape_configs:
+#             - job_name: 'food-cost-calculator-api'
+#               kubernetes_sd_configs:
+#                 - role: endpoints
+#               relabel_configs:
+#                 - source_labels: [__meta_kubernetes_service_label_app]
+#                   action: keep
+#                   regex: food-cost-calculator-api
+#     
+#     processors:
+#       batch:
+#         timeout: 60s
+#         send_batch_size: 1024
+#       
+#       resource:
+#         attributes:
+#           - key: ClusterName
+#             value: food-cost-calculator-eks-staging
+#             action: insert
+#     
+#     exporters:
+#       awsemf:
+#         namespace: FoodCostCalculator
+#         region: ap-southeast-2
+#         log_group_name: /aws/containerinsights/food-cost-calculator-eks-staging/prometheus
+#         resource_to_telemetry_conversion:
+#           enabled: true
+#     
+#     service:
+#       pipelines:
+#         metrics:
+#           receivers: [prometheus]
+#           processors: [batch, resource]
+#           exporters: [awsemf]

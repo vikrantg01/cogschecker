@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "description": "Health check endpoints - sample at 1% to reduce noise",
+      "service_name": "*",
+      "http_method": "GET",
+      "url_path": "/actuator/health*",
+      "fixed_target": 0,
+      "rate": 0.01
+    },
+    {
+      "description": "Metrics endpoints - sample at 1% to reduce noise",
+      "service_name": "*",
+      "http_method": "GET",
+      "url_path": "/actuator/prometheus*",
+      "fixed_target": 0,
+      "rate": 0.01
+    },
+    {
+      "description": "API endpoints - sample at higher rate in non-prod, lower in prod",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "/api/*",
+      "fixed_target": 1,
+      "rate": 0.1
+    },
+    {
+      "description": "Default rule - catch all remaining requests",
+      "service_name": "*",
+      "http_method": "*",
+      "url_path": "*",
+      "fixed_target": 1,
+      "rate": 0.05
+    }
+  ],
+  "default": {
+    "fixed_target": 1,
+    "rate": 0.1
+  }
+}

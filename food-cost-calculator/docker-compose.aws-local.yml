@@ -1,0 +1,80 @@
+# Docker Compose for testing AWS-like environment locally
+# Simulates ECS + RDS + ElastiCache setup
+
+version: '3.8'
+
+services:
+  # PostgreSQL (simulating RDS)
+  postgres:
+    image: postgres:15-alpine
+    container_name: foodcost-postgres-aws
+    environment:
+      POSTGRES_DB: foodcost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (simulating ElastiCache)
+  redis:
+    image: redis:7-alpine
+    container_name: foodcost-redis-aws
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Spring Boot API (simulating ECS Fargate task)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: foodcost-api-aws
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      DATABASE_URL: jdbc:postgresql://postgres:5432/foodcost
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      AWS_REGION: us-east-1
+      # Cognito settings (update with your values)
+      COGNITO_USER_POOL_ID: ${COGNITO_USER_POOL_ID:-us-east-1_XXXXXXX}
+      COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID:-xxxxxxxxxxxxx}
+      # JWT settings
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
+      JWT_EXPIRATION: 3600000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: foodcost-network
