@@ -30,8 +30,10 @@ else
       -e POSTGRES_USER=postgres \
       -e POSTGRES_PASSWORD=postgres \
       -p 5432:5432 \
+      -v foodcost-postgres-data:/var/lib/postgresql/data \
       postgres:15-alpine
     echo "✅ PostgreSQL container created and started"
+    echo "   Data volume: foodcost-postgres-data"
 fi
 
 # Wait for PostgreSQL to be ready
