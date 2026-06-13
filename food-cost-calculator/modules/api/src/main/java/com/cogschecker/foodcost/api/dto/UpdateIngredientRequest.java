@@ -1,6 +1,7 @@
 package com.cogschecker.foodcost.api.dto;
 
 import com.cogschecker.foodcost.shared.UomEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Size;
 
@@ -13,17 +14,22 @@ import java.math.BigDecimal;
  */
 public class UpdateIngredientRequest {
     
+    @JsonProperty("name")
     @Size(min = 1, max = 100, message = "Ingredient name must be between 1 and 100 characters")
     private String name;
     
+    @JsonProperty("purchasePrice")
     @DecimalMin(value = "0.01", message = "Purchase price must be greater than 0")
     private BigDecimal purchasePrice;
     
+    @JsonProperty("purchaseQuantity")
     @DecimalMin(value = "0.0001", message = "Purchase quantity must be greater than 0")
     private BigDecimal purchaseQuantity;
     
+    @JsonProperty("unitOfMeasure")
     private UomEnum unitOfMeasure;
     
+    @JsonProperty("yieldPercentage")
     @DecimalMin(value = "1.0", message = "Yield percentage must be between 1 and 100")
     private BigDecimal yieldPercentage;
     
