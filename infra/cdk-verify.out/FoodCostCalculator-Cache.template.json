@@ -1,0 +1,227 @@
+{
+ "Description": "Food Cost Calculator — ElastiCache Redis t4g.micro single-node",
+ "Resources": {
+  "RedisSubnetGroup": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "CacheSubnetGroupName": "fcc-redis-prod",
+    "Description": "ElastiCache Redis subnet group for Food Cost Calculator (prod)",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet1SubnetE62B1B9BEE029908"
+     },
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet2Subnet392170557C27A199"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Cache/RedisSubnetGroup"
+   }
+  },
+  "RedisParameterGroup": {
+   "Type": "AWS::ElastiCache::ParameterGroup",
+   "Properties": {
+    "CacheParameterGroupFamily": "redis7.cluster.on",
+    "Description": "Food Cost Calculator Redis 7 cluster parameters (prod)",
+    "Properties": {
+     "notify-keyspace-events": "AKE",
+     "maxmemory-policy": "allkeys-lru",
+     "timeout": "300"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Cache/RedisParameterGroup"
+   }
+  },
+  "RedisCluster": {
+   "Type": "AWS::ElastiCache::ReplicationGroup",
+   "Properties": {
+    "AtRestEncryptionEnabled": true,
+    "AutoMinorVersionUpgrade": true,
+    "AutomaticFailoverEnabled": true,
+    "CacheNodeType": "cache.r7g.large",
+    "CacheParameterGroupName": {
+     "Ref": "RedisParameterGroup"
+    },
+    "CacheSubnetGroupName": {
+     "Ref": "RedisSubnetGroup"
+    },
+    "Engine": "redis",
+    "EngineVersion": "7.1",
+    "LogDeliveryConfigurations": [
+     {
+      "DestinationDetails": {
+       "CloudWatchLogsDetails": {
+        "LogGroup": "/aws/elasticache/prod/redis/slow-log"
+       }
+      },
+      "DestinationType": "cloudwatch-logs",
+      "LogFormat": "json",
+      "LogType": "slow-log"
+     },
+     {
+      "DestinationDetails": {
+       "CloudWatchLogsDetails": {
+        "LogGroup": "/aws/elasticache/prod/redis/engine-log"
+       }
+      },
+      "DestinationType": "cloudwatch-logs",
+      "LogFormat": "json",
+      "LogType": "engine-log"
+     }
+    ],
+    "MultiAZEnabled": true,
+    "NumNodeGroups": 2,
+    "Port": 6379,
+    "PreferredMaintenanceWindow": "sun:03:00-sun:04:00",
+    "ReplicasPerNodeGroup": 2,
+    "ReplicationGroupDescription": "Food Cost Calculator Redis cluster (prod)",
+    "ReplicationGroupId": "fcc-redis-prod",
+    "SecurityGroupIds": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputFnGetAttRedisSecurityGroupB05951F6GroupIdECA64B37"
+     }
+    ],
+    "SnapshotRetentionLimit": 7,
+    "SnapshotWindow": "02:00-03:00",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "TransitEncryptionEnabled": true
+   },
+   "DependsOn": [
+    "RedisSubnetGroup"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Cache/RedisCluster"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/z3NQQrCMBAF0LO4T0YJBA/gwqXSHkCm6YjTpklIJroovbtRwdXnPz58A8Ye4bDDV9FunLXnAdZe0M2q0Y08FmGH7kGwnu6hr0MgOedYk2r1ihkXEsp/6Sj5theO4WvbBy9VUpVNhTgSTGX/NBZsO50Ks841CC8E3S/fe2lQBZEAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Cache/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "RedisConfigurationEndpoint": {
+   "Description": "ElastiCache Redis cluster configuration endpoint (address)",
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisCluster",
+     "ConfigurationEndPoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-RedisConfigurationEndpointAddress"
+   }
+  },
+  "RedisConfigurationEndpointPort": {
+   "Description": "ElastiCache Redis cluster configuration endpoint (port)",
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisCluster",
+     "ConfigurationEndPoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-RedisConfigurationEndpointPort"
+   }
+  },
+  "RedisReplicationGroupId": {
+   "Description": "ElastiCache Redis replication group ID",
+   "Value": "fcc-redis-prod",
+   "Export": {
+    "Name": "FoodCostCalculator-prod-RedisReplicationGroupId"
+   }
+  },
+  "ExportsOutputFnGetAttRedisClusterConfigurationEndPointAddress4A895782": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisCluster",
+     "ConfigurationEndPoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Cache:ExportsOutputFnGetAttRedisClusterConfigurationEndPointAddress4A895782"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

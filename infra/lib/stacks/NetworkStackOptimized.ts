@@ -165,6 +165,25 @@ export class NetworkStackOptimized extends cdk.Stack {
       exportName: `FoodCostCalculator-${envName}-VpcId`,
     });
 
+    // Export subnet IDs for dependent stacks (Requirement 2.10)
+    new cdk.CfnOutput(this, 'PublicSubnetIds', {
+      value: this.vpc.publicSubnets.map(subnet => subnet.subnetId).join(','),
+      description: 'Comma-separated list of public subnet IDs',
+      exportName: `FoodCostCalculator-${envName}-PublicSubnetIds`,
+    });
+
+    new cdk.CfnOutput(this, 'PrivateSubnetIds', {
+      value: this.vpc.privateSubnets.map(subnet => subnet.subnetId).join(','),
+      description: 'Comma-separated list of private subnet IDs (with NAT egress)',
+      exportName: `FoodCostCalculator-${envName}-PrivateSubnetIds`,
+    });
+
+    new cdk.CfnOutput(this, 'IsolatedSubnetIds', {
+      value: this.vpc.isolatedSubnets.map(subnet => subnet.subnetId).join(','),
+      description: 'Comma-separated list of isolated subnet IDs (RDS, Redis)',
+      exportName: `FoodCostCalculator-${envName}-IsolatedSubnetIds`,
+    });
+
     new cdk.CfnOutput(this, 'AlbSecurityGroupId', {
       value: this.albSecurityGroup.securityGroupId,
       description: 'ALB security group ID',

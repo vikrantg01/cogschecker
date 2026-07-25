@@ -4,7 +4,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     },
     {
@@ -20,19 +20,6 @@
         "new Vpc2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:855)",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "Object.<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
-        "Module.m._compile (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1618:23)",
-        "Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
-        "Object.require.extensions.<computed> [as .ts] (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1621:12)",
-        "Module.load (node:internal/modules/cjs/loader:1524:32)",
-        "Module._load (node:internal/modules/cjs/loader:1326:12)",
-        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
-        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
-        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
-        "phase4 (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:649:14)",
-        "bootstrap (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:95:10)",
-        "main (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:55:10)",
-        "Object.<anonymous> (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:800:3)",
         "Module._compile (node:internal/modules/cjs/loader:1803:14)",
         "Object.Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
         "Module.load (node:internal/modules/cjs/loader:1524:32)",
@@ -81,7 +68,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:162:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -95,7 +82,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:169:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -109,7 +96,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:175:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -123,7 +110,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:181:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -137,7 +124,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:187:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -151,7 +138,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:193:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -165,7 +152,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:199:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -179,7 +166,7 @@
       "data": [
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:205:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -220,7 +207,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -235,7 +222,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -250,7 +237,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -265,7 +252,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -280,7 +267,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -295,7 +282,7 @@
         "...new SecurityGroup2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:90:29)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -323,7 +310,7 @@
         "...new SecurityGroup2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:118:29)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -351,7 +338,7 @@
         "...new SecurityGroup2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:133:29)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -366,7 +353,7 @@
         "...new SecurityGroup2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:148:31)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -581,7 +568,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -596,7 +583,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -611,7 +598,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -670,7 +657,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ],
@@ -883,7 +870,7 @@
         "...new Vpc2 in aws-cdk-lib...",
         "new NetworkStackOptimized (/Users/vicky/cogschecker/infra/lib/stacks/NetworkStackOptimized.ts:60:16)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:54:22)",
-        "...node internals, ts-node..."
+        "...node internals..."
       ]
     }
   ]
