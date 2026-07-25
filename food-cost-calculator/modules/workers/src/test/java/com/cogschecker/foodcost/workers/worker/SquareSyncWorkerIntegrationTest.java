@@ -83,6 +83,9 @@ class SquareSyncWorkerIntegrationTest {
         wireMockServer.start();
         WireMock.configureFor("localhost", wireMockServer.port());
 
+        // Get WireMock base URL
+        String wireMockBaseUrl = "http://localhost:" + wireMockServer.port();
+        
         // Create RestTemplate pointing to WireMock
         RestTemplate restTemplate = new RestTemplate();
         
@@ -93,7 +96,8 @@ class SquareSyncWorkerIntegrationTest {
         when(secretsManagerClient.getSecretValue(any(GetSecretValueRequest.class)))
                 .thenReturn(secretResponse);
 
-        // Create worker instance with WireMock-backed RestTemplate
+        // Create worker instance with WireMock base URL - this is key for testing
+        // The package-private constructor allows us to override the Square API base URL
         worker = new SquareSyncWorker(
                 squareConnectionRepository,
                 recipeRepository,
@@ -103,15 +107,9 @@ class SquareSyncWorkerIntegrationTest {
                 objectMapper,
                 secretsManagerClient,
                 "test-square-secret",
-                "sandbox"
-        ) {
-            // Override to use WireMock URL instead of real Square API
-            @Override
-            public void syncVenue(UUID venueId) {
-                // This will be tested, but we need to mock Square API calls
-                super.syncVenue(venueId);
-            }
-        };
+                "sandbox",
+                wireMockBaseUrl  // Pass WireMock URL to override real Square API
+        );
 
         // Set up test data
         testVenueId = UUID.randomUUID();

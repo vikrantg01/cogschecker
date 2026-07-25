@@ -324,7 +324,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 10.4 Implement export/import controller endpoints (`GET /venues/:venueId/export`, `POST /venues/:venueId/import`) with Staff-write-block RBAC
     - _Requirements: 7.4, 7.5, 9.4_
 
-- [ ] 11. Checkpoint — core domain complete
+- [x] 11. Checkpoint — core domain complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [x] 12. User authentication (Cognito)
@@ -435,7 +435,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
     - Confirm: for each line, do case-insensitive name match against `ingredients`; update purchase price/quantity if matched; create new ingredient if no match; require all low-confidence fields to be explicitly confirmed before allowing confirm
     - _Requirements: 12.7, 12.8, 12.9, 12.10_
 
-- [ ] 18. AI insights pipeline
+- [x] 18. AI insights pipeline
   - [x] 18.1 Implement `AiInsightsWorker`: check Pro+ tier and ≥ 30 days sales data; build Bedrock prompt; call `InvokeModel`; validate JSON response against schema; upsert `ai_insights`
     - Triggered by EventBridge (24 h sweep) and SQS message after Square sync or invoice confirm
     - Never write to `recipes`, `ingredients`, or `recipe_ingredient_lines`
@@ -485,7 +485,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 23.1 Implement Recipe Costing Report page: sortable columns (click to toggle asc/desc), threshold filter toggle, empty-filter message, CSV export button
     - _Requirements: 5.1–5.7_
 
-- [ ] 24. Frontend multi-venue management screens
+- [x] 24. Frontend multi-venue management screens
   - [x] 24.1 Implement venue selector in application header (always visible when authenticated), venue creation/rename/delete pages, cross-venue summary report page
     - Free tier upgrade prompt on attempt to create third venue
     - _Requirements: 10.1–10.11_
@@ -501,46 +501,46 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 26.2 Implement AI Insights dashboard: insight cards with title, explanation, supporting data, recommended action; actioned/dismissed controls; insufficient-data message with estimated date
     - _Requirements: 13.1–13.8_
 
-- [ ] 27. Checkpoint — full stack wired
+- [x] 27. Checkpoint — full stack wired
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 28. Integration tests
-  - [ ] 28.1 Write Testcontainers integration tests for ingredient and recipe CRUD, cost propagation, and data export/import using PostgreSQL and LocalStack SQS
+- [x] 28. Integration tests
+  - [x] 28.1 Write Testcontainers integration tests for ingredient and recipe CRUD, cost propagation, and data export/import using PostgreSQL and LocalStack SQS
     - Cover: create ingredient → SQS message sent → worker recalculates → recipe updated within 2 s
     - Cover: export then import; assert round-trip equality on all fields
     - _Requirements: 1.1–1.10, 2.1–2.12, 3.1–3.4, 7.4–7.7_
 
-  - [ ] 28.2 Write integration tests for authentication flows using WireMock for Cognito JWKS endpoint; test JWT validation, password reset, session invalidation, and social login account linking
+  - [x] 28.2 Write integration tests for authentication flows using WireMock for Cognito JWKS endpoint; test JWT validation, password reset, session invalidation, and social login account linking
     - _Requirements: 8.1–8.10_
 
-  - [ ] 28.3 Write integration tests for RBAC filter chain: Admin, Manager, Staff tokens against all restricted endpoints; verify venue scope isolation
+  - [x] 28.3 Write integration tests for RBAC filter chain: Admin, Manager, Staff tokens against all restricted endpoints; verify venue scope isolation
     - _Requirements: 9.1–9.10, 10.3_
 
-  - [ ] 28.4 Write integration tests for Square sync worker using WireMock for Square API; test matched price update, unmatched item logging, token refresh
+  - [x] 28.4 Write integration tests for Square sync worker using WireMock for Square API; test matched price update, unmatched item logging, token refresh
     - _Requirements: 12.1–12.5_
 
   - [x] 28.5 Write integration tests for OCR pipeline using LocalStack S3, WireMock for Textract; test review flow and low-confidence field flagging
     - _Requirements: 12.6–12.10_
 
-  - [ ] 28.6 Write integration tests for AI insights worker using WireMock for Bedrock; test insight upsert, Pro+ tier guard, and autonomy constraint (no recipe/ingredient modification)
+  - [x] 28.6 Write integration tests for AI insights worker using WireMock for Bedrock; test insight upsert, Pro+ tier guard, and autonomy constraint (no recipe/ingredient modification)
     - _Requirements: 13.1–13.8_
 
-  - [ ] 28.7 Write integration tests for Stripe webhook handler: payment success, failure, 7-day downgrade, subscription deletion
+  - [x] 28.7 Write integration tests for Stripe webhook handler: payment success, failure, 7-day downgrade, subscription deletion
     - _Requirements: 11.4–11.8_
 
-- [ ] 29. Frontend E2E tests (Playwright)
-  - [ ] 29.1 Write Playwright E2E tests for critical user journeys against the staging environment: register → login → create ingredient → create recipe → view cost breakdown → view report → export CSV → logout
+- [x] 29. Frontend E2E tests (Playwright)
+  - [x] 29.1 Write Playwright E2E tests for critical user journeys against the staging environment: register → login → create ingredient → create recipe → view cost breakdown → view report → export CSV → logout
     - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 7.4_
 
-  - [ ] 29.2 Write Playwright E2E tests for social login (Google), venue switching, and subscription upgrade prompt display
+  - [x] 29.2 Write Playwright E2E tests for social login (Google), venue switching, and subscription upgrade prompt display
     - _Requirements: 8.3, 10.9, 11.3_
 
-- [ ] 30. CI/CD pipeline (GitHub Actions)
+- [x] 30. CI/CD pipeline (GitHub Actions)
   - [x] 30.1 Implement GitHub Actions workflow `ci.yml`: on push/PR — run `./gradlew test` (all modules), run Vitest, build Docker images for `api` and `workers`, push to ECR, run `cdk diff`
     - Use GitHub OIDC + AWS IAM role for keyless ECR and CDK access
     - _Requirements: all_
 
-  - [ ] 30.2 Implement GitHub Actions workflow `deploy.yml`: on merge to `main` — `cdk deploy --app "npx ts-node bin/app.ts" --require-approval never` to staging; run Playwright E2E; if pass, deploy to prod
+  - [x] 30.2 Implement GitHub Actions workflow `deploy.yml`: on merge to `main` — `cdk deploy --app "npx ts-node bin/app.ts" --require-approval never` to staging; run Playwright E2E; if pass, deploy to prod
     - _Requirements: all_
 
 - [x] 31. Observability wiring
@@ -550,7 +550,7 @@ Incremental implementation of a multi-tenant SaaS food cost calculator. Each tas
   - [x] 31.2 Expose Spring Boot Actuator metrics (`/actuator/prometheus`); configure Kubernetes `ServiceMonitor` or CloudWatch agent to scrape and publish to CloudWatch custom namespace
     - _Requirements: 3.3_
 
-- [ ] 32. Final checkpoint — all tests pass
+- [x] 32. Final checkpoint — all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

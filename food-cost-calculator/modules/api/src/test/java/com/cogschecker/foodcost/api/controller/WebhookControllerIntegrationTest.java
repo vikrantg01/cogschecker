@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -23,6 +27,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,8 +51,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     "stripe.webhook.secret=whsec_test_secret",
     "spring.jpa.hibernate.ddl-auto=create-drop",
     "spring.datasource.url=jdbc:h2:mem:webhooktest",
-    "spring.flyway.enabled=false"
+    "spring.flyway.enabled=false",
+    // Disable Redis for this test
+    "spring.data.redis.repositories.enabled=false"
 })
+@Import(WebhookControllerIntegrationTest.TestConfig.class)
 class WebhookControllerIntegrationTest {
 
     @Autowired
@@ -580,6 +588,17 @@ class WebhookControllerIntegrationTest {
             return String.format("t=%d,v1=%s", timestamp, signature);
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate Stripe signature", e);
+        }
+    }
+
+    /**
+     * Test configuration to provide mock Redis beans.
+     */
+    @Configuration
+    static class TestConfig {
+        @Bean
+        public RedisConnectionFactory redisConnectionFactory() {
+            return mock(RedisConnectionFactory.class);
         }
     }
 }

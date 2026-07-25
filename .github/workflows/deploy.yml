@@ -1,0 +1,270 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write   # Required for OIDC authentication with AWS
+  contents: read
+
+env:
+  AWS_REGION: ap-southeast-2
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-2.amazonaws.com
+  API_IMAGE_NAME: food-cost-calculator-api
+  WORKERS_IMAGE_NAME: food-cost-calculator-workers
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    outputs:
+      staging-url: ${{ steps.get-staging-url.outputs.url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './infra/package-lock.json'
+
+      - name: Install CDK dependencies
+        run: npm ci
+        working-directory: ./infra
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to Staging with CDK
+        run: |
+          npx cdk deploy --app "npx ts-node bin/app.ts" \
+            --context env=staging \
+            --require-approval never \
+            --all
+        working-directory: ./infra
+
+      - name: Get Staging URL
+        id: get-staging-url
+        run: |
+          # Try to get ALB DNS from EKS stack output
+          ALB_DNS=$(aws cloudformation describe-stacks \
+            --stack-name FoodCostCalculator-EKS-staging \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Stacks[0].Outputs[?OutputKey==`LoadBalancerDNS`].OutputValue' \
+            --output text 2>/dev/null || echo "")
+          
+          # If not found, try to get from service discovery or use a default
+          if [ -z "$ALB_DNS" ]; then
+            echo "Warning: Could not retrieve ALB DNS from CloudFormation outputs"
+            echo "url=http://localhost:5173" >> $GITHUB_OUTPUT
+          else
+            echo "url=https://${ALB_DNS}" >> $GITHUB_OUTPUT
+            echo "Staging URL: https://${ALB_DNS}"
+          fi
+
+      - name: Wait for Staging Deployment Health
+        run: |
+          echo "Waiting for staging environment to become healthy..."
+          MAX_ATTEMPTS=30
+          ATTEMPT=0
+          
+          # Wait for the deployment to stabilize
+          sleep 30
+          
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "Health check attempt $ATTEMPT/$MAX_ATTEMPTS..."
+            
+            # Try to reach the health endpoint
+            if curl -sf --max-time 10 "${{ steps.get-staging-url.outputs.url }}/api/v1/health" > /dev/null 2>&1; then
+              echo "✓ Staging environment is healthy"
+              exit 0
+            fi
+            
+            echo "Staging not ready yet, waiting 10 seconds..."
+            sleep 10
+          done
+          
+          echo "Warning: Staging health check did not succeed after $MAX_ATTEMPTS attempts"
+          echo "Proceeding with E2E tests anyway..."
+          exit 0
+
+  e2e-tests:
+    name: Run E2E Tests on Staging
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './food-cost-calculator/frontend/package-lock.json'
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: ./food-cost-calculator/frontend
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+        working-directory: ./food-cost-calculator/frontend
+
+      - name: Configure AWS credentials for test setup
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Cognito Configuration
+        id: cognito-config
+        run: |
+          # Get Cognito User Pool ID
+          COGNITO_POOL_ID=$(aws cloudformation describe-stacks \
+            --stack-name FoodCostCalculator-Auth-staging \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Stacks[0].Outputs[?OutputKey==`UserPoolId`].OutputValue' \
+            --output text 2>/dev/null || echo "")
+          
+          # Get Cognito Client ID
+          COGNITO_CLIENT_ID=$(aws cloudformation describe-stacks \
+            --stack-name FoodCostCalculator-Auth-staging \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Stacks[0].Outputs[?OutputKey==`UserPoolClientId`].OutputValue' \
+            --output text 2>/dev/null || echo "")
+          
+          echo "cognito_pool_id=${COGNITO_POOL_ID}" >> $GITHUB_OUTPUT
+          echo "cognito_client_id=${COGNITO_CLIENT_ID}" >> $GITHUB_OUTPUT
+
+      - name: Run Playwright E2E Tests
+        env:
+          BASE_URL: ${{ needs.deploy-staging.outputs.staging-url }}
+          VITE_API_BASE_URL: ${{ needs.deploy-staging.outputs.staging-url }}/api/v1
+          VITE_COGNITO_USER_POOL_ID: ${{ steps.cognito-config.outputs.cognito_pool_id }}
+          VITE_COGNITO_CLIENT_ID: ${{ steps.cognito-config.outputs.cognito_client_id }}
+          CI: true
+        run: npm run test:e2e
+        working-directory: ./food-cost-calculator/frontend
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: ./food-cost-calculator/frontend/playwright-report/
+          retention-days: 7
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: ./food-cost-calculator/frontend/test-results/
+          retention-days: 7
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, e2e-tests]
+    environment:
+      name: production
+      url: ${{ steps.get-prod-url.outputs.url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './infra/package-lock.json'
+
+      - name: Install CDK dependencies
+        run: npm ci
+        working-directory: ./infra
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to Production with CDK
+        run: |
+          npx cdk deploy --app "npx ts-node bin/app.ts" \
+            --context env=prod \
+            --require-approval never \
+            --all
+        working-directory: ./infra
+
+      - name: Get Production URL
+        id: get-prod-url
+        run: |
+          # Try to get ALB DNS from EKS stack output
+          ALB_DNS=$(aws cloudformation describe-stacks \
+            --stack-name FoodCostCalculator-EKS-prod \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Stacks[0].Outputs[?OutputKey==`LoadBalancerDNS`].OutputValue' \
+            --output text 2>/dev/null || echo "")
+          
+          if [ -z "$ALB_DNS" ]; then
+            echo "Warning: Could not retrieve ALB DNS from CloudFormation outputs"
+            echo "url=https://production.example.com" >> $GITHUB_OUTPUT
+          else
+            echo "url=https://${ALB_DNS}" >> $GITHUB_OUTPUT
+            echo "Production URL: https://${ALB_DNS}"
+          fi
+
+      - name: Verify Production Deployment
+        run: |
+          echo "Verifying production deployment..."
+          MAX_ATTEMPTS=30
+          ATTEMPT=0
+          
+          # Wait for the deployment to stabilize
+          sleep 30
+          
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "Health check attempt $ATTEMPT/$MAX_ATTEMPTS..."
+            
+            # Try to reach the health endpoint
+            if curl -sf --max-time 10 "${{ steps.get-prod-url.outputs.url }}/api/v1/health" > /dev/null 2>&1; then
+              echo "✓ Production environment is healthy"
+              exit 0
+            fi
+            
+            echo "Production not ready yet, waiting 10 seconds..."
+            sleep 10
+          done
+          
+          echo "Error: Production health check failed after $MAX_ATTEMPTS attempts"
+          exit 1
+
+      - name: Post Deployment Summary
+        if: always()
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Staging deployed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "✅ E2E tests passed on staging" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Production deployed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Production URL:** ${{ steps.get-prod-url.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed By:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed At:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY

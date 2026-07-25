@@ -307,9 +307,16 @@ public class SquareSyncWorker {
         loadSquareCredentials();
         
         try {
-            String tokenUrl = squareEnvironment.equalsIgnoreCase("production")
-                    ? "https://connect.squareup.com/oauth2/token"
-                    : "https://connect.squareupsandbox.com/oauth2/token";
+            String tokenUrl;
+            if (squareApiBaseUrl != null) {
+                // Use test/override URL (e.g., WireMock)
+                tokenUrl = squareApiBaseUrl + "/oauth2/token";
+            } else {
+                // Use real Square API URL
+                tokenUrl = squareEnvironment.equalsIgnoreCase("production")
+                        ? "https://connect.squareup.com/oauth2/token"
+                        : "https://connect.squareupsandbox.com/oauth2/token";
+            }
             
             String refreshToken = encryptionService.decryptSquareToken(connection.getRefreshTokenEncrypted());
             
@@ -372,9 +379,16 @@ public class SquareSyncWorker {
      */
     private List<SquareMenuItem> fetchSquareCatalog(String accessToken) {
         try {
-            String catalogUrl = squareEnvironment.equalsIgnoreCase("production")
-                    ? "https://connect.squareup.com/v2/catalog/list"
-                    : "https://connect.squareupsandbox.com/v2/catalog/list";
+            String catalogUrl;
+            if (squareApiBaseUrl != null) {
+                // Use test/override URL (e.g., WireMock)
+                catalogUrl = squareApiBaseUrl + "/v2/catalog/list";
+            } else {
+                // Use real Square API URL
+                catalogUrl = squareEnvironment.equalsIgnoreCase("production")
+                        ? "https://connect.squareup.com/v2/catalog/list"
+                        : "https://connect.squareupsandbox.com/v2/catalog/list";
+            }
             
             catalogUrl += "?types=ITEM";  // Only fetch menu items
             

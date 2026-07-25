@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -55,7 +56,7 @@ class RbacFilterChainIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
+    @MockBean
     private JwtDecoder jwtDecoder;
 
     @Autowired
@@ -484,3 +485,381 @@ class RbacFilterChainIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    @Order(23)
+    @DisplayName("Staff CANNOT update ingredient (blocked by RBAC)")
+    void staffCannotUpdateIngredient() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        UpdateIngredientRequest request = new UpdateIngredientRequest();
+        request.setName("Staff Update Attempt");
+
+        mockMvc.perform(patch("/api/v1/venues/{venueId}/ingredients/{id}", venueAId, ingredientId)
+                        .header("Authorization", "Bearer test-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(24)
+    @DisplayName("Staff CANNOT delete ingredient (blocked by RBAC)")
+    void staffCannotDeleteIngredient() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(delete("/api/v1/venues/{venueId}/ingredients/{id}", venueAId, ingredientId)
+                        .header("Authorization", "Bearer test-token")
+                        .param("confirm", "true"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(25)
+    @DisplayName("Staff can read recipes from assigned venue")
+    void staffCanReadRecipesFromAssignedVenue() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/recipes", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @Order(26)
+    @DisplayName("Staff can read specific recipe from assigned venue")
+    void staffCanReadSpecificRecipeFromAssignedVenue() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/recipes/{id}", venueAId, recipeId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists());
+    }
+
+    @Test
+    @Order(27)
+    @DisplayName("Staff CANNOT create recipe (blocked by RBAC)")
+    void staffCannotCreateRecipe() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        CreateRecipeRequest request = new CreateRecipeRequest();
+        request.setName("Staff Recipe Attempt");
+        request.setPortionCount(2);
+        request.setIngredientLines(Collections.emptyList());
+
+        mockMvc.perform(post("/api/v1/venues/{venueId}/recipes", venueAId)
+                        .header("Authorization", "Bearer test-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(28)
+    @DisplayName("Staff CANNOT export data (blocked by RBAC)")
+    void staffCannotExportData() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/export", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(29)
+    @DisplayName("Staff CANNOT access venue they are not assigned to")
+    void staffCannotAccessUnassignedVenue() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+                // Note: No access to venueB
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/ingredients", venueBId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.error").value("Forbidden"));
+    }
+
+    // ==================== VENUE SCOPE ISOLATION TESTS ====================
+
+    @Test
+    @Order(30)
+    @DisplayName("Admin from Venue A can read ingredients from Venue B (same org)")
+    void adminCanAccessMultipleVenues() throws Exception {
+        Jwt jwt = createJwt(adminUserId, "admin@test.com", orgId, Map.of(
+                venueAId.toString(), "admin",
+                venueBId.toString(), "admin"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        // Access Venue A
+        mockMvc.perform(get("/api/v1/venues/{venueId}/ingredients", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk());
+
+        // Access Venue B
+        mockMvc.perform(get("/api/v1/venues/{venueId}/ingredients", venueBId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(31)
+    @DisplayName("Manager cannot read ingredient from Venue B (not assigned)")
+    void managerCannotReadIngredientFromUnassignedVenue() throws Exception {
+        // Create ingredient in Venue B
+        Ingredient ingredientB = new Ingredient();
+        ingredientB.setVenue(venueRepository.findById(venueBId).orElseThrow());
+        ingredientB.setName("Venue B Flour");
+        ingredientB.setPurchasePrice(new BigDecimal("20.00"));
+        ingredientB.setPurchaseQuantity(new BigDecimal("1.0"));
+        ingredientB.setUnitOfMeasure(UomEnum.KG);
+        ingredientB.setYieldPercentage(new BigDecimal("100.0"));
+        ingredientB = ingredientRepository.save(ingredientB);
+
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/ingredients/{id}", venueBId, ingredientB.getId())
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(32)
+    @DisplayName("Manager cannot update ingredient from Venue B (not assigned)")
+    void managerCannotUpdateIngredientFromUnassignedVenue() throws Exception {
+        // Create ingredient in Venue B
+        Ingredient ingredientB = new Ingredient();
+        ingredientB.setVenue(venueRepository.findById(venueBId).orElseThrow());
+        ingredientB.setName("Venue B Sugar");
+        ingredientB.setPurchasePrice(new BigDecimal("5.00"));
+        ingredientB.setPurchaseQuantity(new BigDecimal("1.0"));
+        ingredientB.setUnitOfMeasure(UomEnum.KG);
+        ingredientB.setYieldPercentage(new BigDecimal("100.0"));
+        ingredientB = ingredientRepository.save(ingredientB);
+
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        UpdateIngredientRequest request = new UpdateIngredientRequest();
+        request.setName("Hacked Name");
+
+        mockMvc.perform(patch("/api/v1/venues/{venueId}/ingredients/{id}", venueBId, ingredientB.getId())
+                        .header("Authorization", "Bearer test-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(33)
+    @DisplayName("Manager cannot delete ingredient from Venue B (not assigned)")
+    void managerCannotDeleteIngredientFromUnassignedVenue() throws Exception {
+        // Create ingredient in Venue B
+        Ingredient ingredientB = new Ingredient();
+        ingredientB.setVenue(venueRepository.findById(venueBId).orElseThrow());
+        ingredientB.setName("Venue B Salt");
+        ingredientB.setPurchasePrice(new BigDecimal("2.00"));
+        ingredientB.setPurchaseQuantity(new BigDecimal("1.0"));
+        ingredientB.setUnitOfMeasure(UomEnum.KG);
+        ingredientB.setYieldPercentage(new BigDecimal("100.0"));
+        ingredientB = ingredientRepository.save(ingredientB);
+
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(delete("/api/v1/venues/{venueId}/ingredients/{id}", venueBId, ingredientB.getId())
+                        .header("Authorization", "Bearer test-token")
+                        .param("confirm", "true"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(34)
+    @DisplayName("Manager cannot create ingredient in Venue B (not assigned)")
+    void managerCannotCreateIngredientInUnassignedVenue() throws Exception {
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        CreateIngredientRequest request = new CreateIngredientRequest();
+        request.setName("Venue B Hack Ingredient");
+        request.setPurchasePrice(new BigDecimal("100.00"));
+        request.setPurchaseQuantity(new BigDecimal("1.0"));
+        request.setUnitOfMeasure(UomEnum.KG);
+        request.setYieldPercentage(new BigDecimal("100.0"));
+
+        mockMvc.perform(post("/api/v1/venues/{venueId}/ingredients", venueBId)
+                        .header("Authorization", "Bearer test-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(35)
+    @DisplayName("Staff cannot read recipe from Venue B (not assigned)")
+    void staffCannotReadRecipeFromUnassignedVenue() throws Exception {
+        // Create recipe in Venue B
+        Recipe recipeB = new Recipe();
+        recipeB.setVenue(venueRepository.findById(venueBId).orElseThrow());
+        recipeB.setName("Venue B Cake");
+        recipeB.setPortionCount(8);
+        recipeB = recipeRepository.save(recipeB);
+
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/recipes/{id}", venueBId, recipeB.getId())
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Order(36)
+    @DisplayName("Staff can view costing report from assigned venue only")
+    void staffCanViewCostingReportFromAssignedVenue() throws Exception {
+        Jwt jwt = createJwt(staffUserId, "staff@test.com", orgId, Map.of(
+                venueAId.toString(), "staff"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        // Can access Venue A report
+        mockMvc.perform(get("/api/v1/venues/{venueId}/reports/costing", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk());
+
+        // Cannot access Venue B report
+        mockMvc.perform(get("/api/v1/venues/{venueId}/reports/costing", venueBId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isForbidden());
+    }
+
+    // ==================== CROSS-ROLE PERMISSION TESTS ====================
+
+    @Test
+    @Order(40)
+    @DisplayName("Manager can delete recipe in assigned venue")
+    void managerCanDeleteRecipeInAssignedVenue() throws Exception {
+        // Create a recipe to delete
+        Recipe toDelete = new Recipe();
+        toDelete.setVenue(venueRepository.findById(venueAId).orElseThrow());
+        toDelete.setName("Recipe to Delete");
+        toDelete.setPortionCount(1);
+        toDelete = recipeRepository.save(toDelete);
+
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(delete("/api/v1/venues/{venueId}/recipes/{id}", venueAId, toDelete.getId())
+                        .header("Authorization", "Bearer test-token")
+                        .param("confirm", "true"))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @Order(41)
+    @DisplayName("Admin can export data from assigned venue")
+    void adminCanExportDataFromAssignedVenue() throws Exception {
+        Jwt jwt = createJwt(adminUserId, "admin@test.com", orgId, Map.of(
+                venueAId.toString(), "admin",
+                venueBId.toString(), "admin"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/export", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk())
+                .andExpect(header().exists("Content-Disposition"));
+    }
+
+    @Test
+    @Order(42)
+    @DisplayName("Manager can export data from assigned venue")
+    void managerCanExportDataFromAssignedVenue() throws Exception {
+        Jwt jwt = createJwt(managerUserId, "manager@test.com", orgId, Map.of(
+                venueAId.toString(), "manager"
+        ), "pro");
+        when(jwtDecoder.decode(any(String.class))).thenReturn(jwt);
+
+        mockMvc.perform(get("/api/v1/venues/{venueId}/export", venueAId)
+                        .header("Authorization", "Bearer test-token"))
+                .andExpect(status().isOk())
+                .andExpect(header().exists("Content-Disposition"));
+    }
+
+    // ==================== HELPER METHODS ====================
+
+    /**
+     * Helper method to create a test JWT with the given user information and venue roles.
+     * 
+     * @param userId the user's UUID
+     * @param email the user's email
+     * @param orgId the organisation UUID
+     * @param venueRoles map of venue IDs to roles (e.g., {"venue-uuid": "admin"})
+     * @param tier subscription tier (e.g., "free", "pro", "pro_plus")
+     * @return a mock JWT for testing
+     */
+    private Jwt createJwt(UUID userId, String email, UUID orgId, Map<String, String> venueRoles, String tier) {
+        // Convert venue roles map to JSON string
+        StringBuilder venueRolesJson = new StringBuilder("{");
+        int count = 0;
+        for (Map.Entry<String, String> entry : venueRoles.entrySet()) {
+            if (count > 0) {
+                venueRolesJson.append(",");
+            }
+            venueRolesJson.append("\"").append(entry.getKey()).append("\":\"").append(entry.getValue()).append("\"");
+            count++;
+        }
+        venueRolesJson.append("}");
+
+        Map<String, Object> claims = Map.of(
+                "sub", userId.toString(),
+                "email", email,
+                "custom:org_id", orgId.toString(),
+                "custom:venue_roles", venueRolesJson.toString(),
+                "custom:tier", tier
+        );
+
+        return new Jwt(
+                "test-token",
+                Instant.now(),
+                Instant.now().plusSeconds(3600),
+                Map.of("alg", "RS256"),
+                claims
+        );
+    }
+}

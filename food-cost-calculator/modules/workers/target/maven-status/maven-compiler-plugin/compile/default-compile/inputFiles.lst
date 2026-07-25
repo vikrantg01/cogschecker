@@ -1,0 +1,16 @@
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/worker/AiInsightsWorker.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/worker/CostPropagationWorker.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/AwsServicesConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/repository/WorkerIngredientRepository.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/WebConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/RedisConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/WorkerApplication.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/service/RecipeCostRecalculationService.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/repository/RecipeDependencyRepository.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/worker/OcrProcessingWorker.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/SqsMessageTracingInterceptor.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/BatchConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/repository/WorkerRecipeRepository.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/SqsConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/config/XRayConfig.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/workers/src/main/java/com/cogschecker/foodcost/workers/worker/SquareSyncWorker.java

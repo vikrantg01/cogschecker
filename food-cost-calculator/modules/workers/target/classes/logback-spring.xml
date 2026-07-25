@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Property for correlation ID key -->
+    <property name="CORRELATION_ID_KEY" value="correlationId"/>
+    
+    <!-- Console appender with JSON format for CloudWatch -->
+    <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Base fields -->
+            <jsonGeneratorDecorator class="net.logstash.logback.decorate.JsonGeneratorDecorator"/>
+            
+            <!-- Include standard fields -->
+            <includeMdcKeyName>${CORRELATION_ID_KEY}</includeMdcKeyName>
+            <includeMdcKeyName>jobName</includeMdcKeyName>
+            <includeMdcKeyName>venueId</includeMdcKeyName>
+            <includeMdcKeyName>ingredientId</includeMdcKeyName>
+            <includeMdcKeyName>invoiceId</includeMdcKeyName>
+            <includeMdcKeyName>sqsMessageId</includeMdcKeyName>
+            <includeMdcKeyName>xrayTraceId</includeMdcKeyName>
+            
+            <!-- Custom fields -->
+            <customFields>{"service":"food-cost-calculator-workers"}</customFields>
+            
+            <!-- Field names mapping -->
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+                <message>message</message>
+                <logger>logger</logger>
+                <thread>thread</thread>
+                <level>level</level>
+                <levelValue>[ignore]</levelValue>
+            </fieldNames>
+            
+            <!-- Timestamp format -->
+            <timestampPattern>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</timestampPattern>
+            <timeZone>UTC</timeZone>
+        </encoder>
+    </appender>
+    
+    <!-- Console appender with human-readable format for local development -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%X{${CORRELATION_ID_KEY}:-NO_CORRELATION_ID}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- Default configuration (use JSON) -->
+    <root level="INFO">
+        <appender-ref ref="JSON_CONSOLE"/>
+    </root>
+    
+    <logger name="com.cogschecker.foodcost" level="INFO"/>
+    <logger name="org.springframework.batch" level="INFO"/>
+    <logger name="io.awspring.cloud.sqs" level="INFO"/>
+    <logger name="software.amazon.awssdk" level="WARN"/>
+    <logger name="com.amazonaws.xray" level="INFO"/>
+</configuration>

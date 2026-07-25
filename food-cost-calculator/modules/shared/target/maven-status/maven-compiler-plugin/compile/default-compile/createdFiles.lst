@@ -1,0 +1,14 @@
+com/cogschecker/foodcost/shared/UomEnumDeserializer.class
+com/cogschecker/foodcost/shared/ThresholdStatus.class
+com/cogschecker/foodcost/shared/CostCalculator.class
+com/cogschecker/foodcost/shared/UomEnum.class
+com/cogschecker/foodcost/shared/UomConverter.class
+com/cogschecker/foodcost/shared/IncompatibleUomException.class
+com/cogschecker/foodcost/shared/ThresholdEvaluator.class
+com/cogschecker/foodcost/shared/RecipeValidator$ValidationResult.class
+com/cogschecker/foodcost/shared/UomEnum$UomDimension.class
+com/cogschecker/foodcost/shared/ErrorCodes.class
+com/cogschecker/foodcost/shared/RecipeValidator.class
+com/cogschecker/foodcost/shared/UomConverter$1.class
+com/cogschecker/foodcost/shared/RecipeValidator$RecipeLineInput.class
+com/cogschecker/foodcost/shared/RoundingUtils.class

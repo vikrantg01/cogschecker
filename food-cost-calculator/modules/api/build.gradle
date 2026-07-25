@@ -52,6 +52,11 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'com.h2database:h2'
     
+    // JWT generation for tests
+    testImplementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    testRuntimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    testRuntimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+    
     // Property-based testing
     testImplementation 'net.jqwik:jqwik:1.8.2'
     
@@ -60,4 +65,7 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter:1.19.3'
     testImplementation 'org.testcontainers:postgresql:1.19.3'
     testImplementation 'org.testcontainers:localstack:1.19.3'
+    
+    // WireMock for mocking Cognito JWKS endpoint
+    testImplementation 'org.wiremock:wiremock-standalone:3.3.1'
 }

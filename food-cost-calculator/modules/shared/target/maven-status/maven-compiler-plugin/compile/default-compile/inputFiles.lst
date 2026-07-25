@@ -1,0 +1,10 @@
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/ThresholdStatus.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/RecipeValidator.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/UomConverter.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/UomEnum.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/UomEnumDeserializer.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/ThresholdEvaluator.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/IncompatibleUomException.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/ErrorCodes.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/RoundingUtils.java
+/Users/vicky/cogschecker/food-cost-calculator/modules/shared/src/main/java/com/cogschecker/foodcost/shared/CostCalculator.java
