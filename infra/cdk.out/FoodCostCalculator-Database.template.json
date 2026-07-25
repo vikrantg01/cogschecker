@@ -1,0 +1,350 @@
+{
+ "Description": "Food Cost Calculator — RDS PostgreSQL t4g.micro single-AZ",
+ "Resources": {
+  "DatabaseCredentials8547B3E7": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "RDS PostgreSQL credentials for Food Cost Calculator (prod)",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\'",
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    },
+    "Name": "foodcost/prod/database/credentials",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Database"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Data"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/DatabaseCredentials/Resource"
+   }
+  },
+  "DatabaseCredentialsAttachment7BAB329F": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "DatabaseCredentials8547B3E7"
+    },
+    "TargetId": {
+     "Ref": "InstanceC1063A87"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/DatabaseCredentials/Attachment/Resource"
+   }
+  },
+  "ParameterGroup5E32DECB": {
+   "Type": "AWS::RDS::DBParameterGroup",
+   "Properties": {
+    "Description": "RDS PostgreSQL parameter group for Food Cost Calculator (prod)",
+    "Family": "postgres15",
+    "Parameters": {
+     "rds.force_ssl": "1"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Database"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Data"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/ParameterGroup/Resource"
+   }
+  },
+  "SubnetGroup": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "RDS PostgreSQL subnet group for Food Cost Calculator (prod)",
+    "DBSubnetGroupName": "foodcost-rds-prod",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet1SubnetE62B1B9BEE029908"
+     },
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet2Subnet392170557C27A199"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Database"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Data"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/SubnetGroup/Default"
+   }
+  },
+  "InstanceMonitoringRole3E2B4286": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "monitoring.rds.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Database"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Data"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/Instance/MonitoringRole/Resource"
+   }
+  },
+  "InstanceC1063A87": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "AutoMinorVersionUpgrade": true,
+    "BackupRetentionPeriod": 7,
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t4g.micro",
+    "DBInstanceIdentifier": "foodcost-db-prod",
+    "DBName": "foodcost",
+    "DBParameterGroupName": {
+     "Ref": "ParameterGroup5E32DECB"
+    },
+    "DBSubnetGroupName": {
+     "Ref": "SubnetGroup"
+    },
+    "DeletionProtection": true,
+    "EnableCloudwatchLogsExports": [
+     "postgresql"
+    ],
+    "EnablePerformanceInsights": false,
+    "Engine": "postgres",
+    "EngineVersion": "15.4",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "DatabaseCredentials8547B3E7"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "DatabaseCredentials8547B3E7"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 100,
+    "MonitoringInterval": 60,
+    "MonitoringRoleArn": {
+     "Fn::GetAtt": [
+      "InstanceMonitoringRole3E2B4286",
+      "Arn"
+     ]
+    },
+    "MultiAZ": true,
+    "PreferredBackupWindow": "03:00-04:00",
+    "PreferredMaintenanceWindow": "sun:04:00-sun:05:00",
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true,
+    "StorageType": "gp3",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Database"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Data"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VPCSecurityGroups": [
+     {
+      "Fn::ImportValue": "FoodCostCalculator-Network:ExportsOutputFnGetAttRdsSecurityGroup632A77E4GroupId9D343172"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Snapshot",
+   "DeletionPolicy": "Snapshot",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/Instance/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12PwQ6CMBBEv8V7qYaEeFZJjCcNeDdLWbFAC2m3eiD9dwtoQjjN7LzZZDfmcbLnuw18bCTKJmplwYecQDQsRI/BojBIVoGGCk1A08xOT/1zs9zBVEgHCosvhXpRWBPPTGn5cAMDCgnN2XSuH+vpcZXlrtBIC74MUiAowOJFWwItcG78J88kKD5kXTuBUb0f3dVR78INuiuR13b7jhOehPdrK2VknCapkGezfgFLsWmfGwEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Database/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "SecretArn": {
+   "Description": "Secrets Manager ARN for database credentials",
+   "Value": {
+    "Ref": "DatabaseCredentials8547B3E7"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-DatabaseSecretArn"
+   }
+  },
+  "Endpoint": {
+   "Description": "RDS PostgreSQL endpoint hostname",
+   "Value": {
+    "Fn::GetAtt": [
+     "InstanceC1063A87",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-DatabaseEndpoint"
+   }
+  },
+  "Port": {
+   "Description": "RDS PostgreSQL port",
+   "Value": {
+    "Fn::GetAtt": [
+     "InstanceC1063A87",
+     "Endpoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-DatabasePort"
+   }
+  },
+  "DatabaseName": {
+   "Description": "Database name",
+   "Value": "foodcost",
+   "Export": {
+    "Name": "FoodCostCalculator-prod-DatabaseName"
+   }
+  },
+  "ExportsOutputRefDatabaseCredentials8547B3E729671DA7": {
+   "Value": {
+    "Ref": "DatabaseCredentials8547B3E7"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Database:ExportsOutputRefDatabaseCredentials8547B3E729671DA7"
+   }
+  },
+  "ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4": {
+   "Value": {
+    "Fn::GetAtt": [
+     "InstanceC1063A87",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Database:ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,164 @@
+{
+  "/FoodCostCalculator-Cache": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Component",
+          "value": "FoodCostCalculator"
+        },
+        {
+          "key": "CostCenter",
+          "value": "Engineering"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisSubnetGroup": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisSubnetGroup"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:64:24)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisParameterGroup": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisParameterGroup"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:74:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisCluster": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisCluster"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:113:29)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisConfigurationEndpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisConfigurationEndpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:187:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisConfigurationEndpointPort": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisConfigurationEndpointPort"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:193:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/RedisReplicationGroupId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedisReplicationGroupId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new CacheStack (/Users/vicky/cogschecker/infra/lib/stacks/CacheStack.ts:199:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:75:20)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Cache/Exports/Output{\"Fn::GetAtt\":[\"RedisCluster\",\"ConfigurationEndPoint.Address\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttRedisClusterConfigurationEndPointAddress4A895782"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

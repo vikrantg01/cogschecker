@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "e62006dfcf3f1852eda5a0ce2787cd246a6f67750ca3f1a1c96f69197e7eb8b5": {
+      "displayName": "FoodCostCalculator-Storage Template",
+      "source": {
+        "path": "FoodCostCalculator-Storage.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-05f80438": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "e62006dfcf3f1852eda5a0ce2787cd246a6f67750ca3f1a1c96f69197e7eb8b5.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

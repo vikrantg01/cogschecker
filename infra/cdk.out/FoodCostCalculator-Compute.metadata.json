@@ -1,0 +1,399 @@
+{
+  "/FoodCostCalculator-Compute": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Component",
+          "value": "ECS"
+        },
+        {
+          "key": "CostCenter",
+          "value": "Compute"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Service": [
+    {
+      "type": "aws:cdk:warning",
+      "data": "Enable the 'circuitBreaker' property to trigger a quicker deployment failure if tasks are failing to come start (without this setting deployments may take up to 3 hours to fail). [ack: @aws-cdk/aws-ecs:shouldUseCircuitBreaker]",
+      "trace": [
+        "Annotations.addMessage (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2399)",
+        "Annotations.addWarningV2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1087)",
+        "new BaseService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:13563)",
+        "new BaseService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/no-box-stack-traces.js:1:345)",
+        "new FargateService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ecs/lib/fargate/fargate-service.js:1:6805)",
+        "new FargateService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:855)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:245:20)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Module.m._compile (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1618:23)",
+        "Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Object.require.extensions.<computed> [as .ts] (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/index.ts:1621:12)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "phase4 (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:649:14)",
+        "bootstrap (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:95:10)",
+        "main (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:55:10)",
+        "Object.<anonymous> (/Users/vicky/cogschecker/infra/node_modules/ts-node/src/bin.ts:800:3)",
+        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
+        "Object.Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
+        "Module.load (node:internal/modules/cjs/loader:1524:32)",
+        "Module._load (node:internal/modules/cjs/loader:1326:12)",
+        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
+        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
+        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
+        "node:internal/main/run_main_module:33:47"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/RepositoryUri": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RepositoryUri"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:318:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/ClusterName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:324:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/ServiceName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:330:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/LoadBalancerDNS": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LoadBalancerDNS"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:336:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/LoadBalancerUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LoadBalancerUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:342:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Repository/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Repository22E53BBD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Repository2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:83:23)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Cluster/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterEB0386A7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Cluster2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:99:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/ALB/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ALBAEE750D2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new ApplicationLoadBalancer2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:108:16)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TaskExecutionRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskExecutionRole250D2532"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Role2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:123:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TaskRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskRole30FC0FBB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Role2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:142:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogGroupF5B46931"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:187:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TaskDefinition/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDefinitionB36D86D9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new FargateTaskDefinition2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:196:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Service/Service": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceD69D759B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new FargateService2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:245:20)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TargetGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TargetGroup3D7CD9B8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new ApplicationTargetGroup2 in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:281:25)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/ALB/HttpListener/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ALBHttpListener04CE8CD0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:303:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TaskExecutionRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskExecutionRoleDefaultPolicyA84DD1B0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:131:23)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/TaskRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskRoleDefaultPolicy07FC53DE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:147:14)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Service/TaskCount/Target/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceTaskCountTarget23E25614"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.autoScaleTaskCount in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:261:34)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Service/TaskCount/Target/CpuScaling/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceTaskCountTargetCpuScalingCC8A5DF6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...ScalableTaskCount.scaleOnCpuUtilization in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:267:13)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Compute/Service/TaskCount/Target/MemoryScaling/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceTaskCountTargetMemoryScalingEA4B07C8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...ScalableTaskCount.scaleOnMemoryUtilization in aws-cdk-lib...",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:274:13)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ]
+}

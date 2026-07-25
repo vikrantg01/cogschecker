@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 /**
- * AWS CDK App - Cost-Optimized Architecture
+ * AWS CDK App - Cost-Optimized Minimal Deployment
  *
- * This is the optimized deployment using ECS Fargate instead of EKS.
+ * Modular infrastructure for Food Cost Calculator using ECS Fargate.
+ * Targets $137-200/month for minimal production deployment (2 venues).
  *
- * Cost comparison (100 cafes):
- *  - Original (EKS): $1,500-2,000/month
- *  - Optimized (ECS): $550-700/month
- *  - Savings: $950-1,300/month (65% reduction)
+ * Architecture:
+ *  - ECS Fargate compute (vs EKS - saves $72/month control plane)
+ *  - RDS PostgreSQL t4g.micro single-AZ (vs Aurora - saves $200-350/month)
+ *  - Single NAT Gateway (vs 2 - saves $35/month)
+ *  - ElastiCache Redis t4g.micro single-node
  *
- * To deploy:
- *   cdk deploy --all --app "npx ts-node bin/app-optimized.ts"
+ * Deployment:
+ *   cdk bootstrap
+ *   cdk deploy --all
  *
- * Or set default in cdk.json:
- *   "app": "npx ts-node --prefer-ts-exts bin/app-optimized.ts"
+ * Requirements: 1.1, 1.2, 9.1
  */
 
 import 'source-map-support/register';
@@ -23,137 +25,137 @@ import { RdsStack } from '../lib/stacks/RdsStack';
 import { CacheStack } from '../lib/stacks/CacheStack';
 import { AuthStack } from '../lib/stacks/AuthStack';
 import { StorageStack } from '../lib/stacks/StorageStack';
-import { MessagingStack } from '../lib/stacks/MessagingStack';
 import { EcsStack } from '../lib/stacks/EcsStack';
+// import { ObservabilityStack } from '../lib/stacks/ObservabilityStack';
 
 const app = new cdk.App();
 
-// Environment
-const envName = app.node.tryGetContext('env') ?? 'staging';
+// Simplified deployment - no environment context switching needed
+// Default to 'prod' for minimal deployment
+const envName = 'prod';
 
 const env: cdk.Environment = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION ?? 'us-east-1', // Cheapest region
+  region: process.env.CDK_DEFAULT_REGION ?? 'us-east-1',
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Phase 1: Core Infrastructure (Network, Database, Cache)
+// Stack Deployment Order (per Requirement 1.5):
+// 1. NetworkStackOptimized (foundation)
+// 2. DatabaseStack + CacheStack + AuthStack (parallel)
+// 3. ComputeStack (depends on Network, Database, Cache, Auth)
+// 4. StorageStack (can be deployed anytime)
+// 5. ObservabilityStack (depends on all infrastructure stacks)
 // ══════════════════════════════════════════════════════════════════════════════
 
-// ── Network Stack (Optimized) ────────────────────────────────────────────────
-// VPC with 1 NAT gateway instead of 2 (save $35/month)
-const networkStack = new NetworkStackOptimized(app, `FoodCost-Network-${envName}`, {
+// ── 1. Network Stack ─────────────────────────────────────────────────────────
+// VPC with 2 AZs, 1 NAT Gateway, security groups for all tiers
+// Requirements: 2.1-2.10, 1.7
+const networkStack = new NetworkStackOptimized(app, 'FoodCostCalculator-Network', {
   env,
-  description: 'Food Cost Calculator — Optimized VPC (1 NAT gateway, 2 AZs)',
   envName,
+  description: 'Food Cost Calculator — VPC, subnets, NAT gateway, security groups',
 });
 
-// ── RDS Stack (PostgreSQL) ───────────────────────────────────────────────────
-// RDS PostgreSQL t4g.micro instead of Aurora Serverless v2 (save $200-350/month)
-const rdsStack = new RdsStack(app, `FoodCost-RDS-${envName}`, {
+// ── 2. Database Stack ────────────────────────────────────────────────────────
+// RDS PostgreSQL t4g.micro single-AZ with Secrets Manager integration
+// Requirements: 4.1-4.11
+const databaseStack = new RdsStack(app, 'FoodCostCalculator-Database', {
   env,
-  description: 'Food Cost Calculator — RDS PostgreSQL t4g.micro Multi-AZ',
   envName,
+  description: 'Food Cost Calculator — RDS PostgreSQL t4g.micro single-AZ',
   vpc: networkStack.vpc,
   rdsSecurityGroup: networkStack.rdsSecurityGroup,
 });
-rdsStack.addDependency(networkStack);
+databaseStack.addDependency(networkStack);
 
-// ── Cache Stack (Redis) ──────────────────────────────────────────────────────
-// ElastiCache Redis single node (can be upgraded to cluster later)
-const cacheStack = new CacheStack(app, `FoodCost-Cache-${envName}`, {
+// ── 3. Cache Stack ───────────────────────────────────────────────────────────
+// ElastiCache Redis t4g.micro single-node with TLS encryption
+// Requirements: 5.1-5.9
+const cacheStack = new CacheStack(app, 'FoodCostCalculator-Cache', {
   env,
-  description: 'Food Cost Calculator — ElastiCache Redis',
   envName,
+  description: 'Food Cost Calculator — ElastiCache Redis t4g.micro single-node',
   vpc: networkStack.vpc,
   elastiCacheSecurityGroup: networkStack.redisSecurityGroup,
 });
 cacheStack.addDependency(networkStack);
 
-// ══════════════════════════════════════════════════════════════════════════════
-// Phase 2: Authentication & Storage
-// ══════════════════════════════════════════════════════════════════════════════
-
-// ── Auth Stack (Cognito) ─────────────────────────────────────────────────────
-// AWS Cognito (free tier up to 50K MAUs)
-const authStack = new AuthStack(app, `FoodCost-Auth-${envName}`, {
+// ── 4. Auth Stack ────────────────────────────────────────────────────────────
+// Cognito User Pool with Google and Apple OAuth integration
+// Requirements: 6.1-6.9
+const authStack = new AuthStack(app, 'FoodCostCalculator-Auth', {
   env,
-  description: 'Food Cost Calculator — Cognito User Pool with OAuth',
   envName,
+  description: 'Food Cost Calculator — Cognito User Pool with OAuth providers',
 });
 
-// ── Storage Stack (S3) ───────────────────────────────────────────────────────
-// S3 buckets for invoices and frontend assets
-const storageStack = new StorageStack(app, `FoodCost-Storage-${envName}`, {
+// ── 5. Compute Stack ─────────────────────────────────────────────────────────
+// ECS Fargate with ALB, auto-scaling, and health checks
+// Requirements: 3.1-3.15
+const computeStack = new EcsStack(app, 'FoodCostCalculator-Compute', {
   env,
-  description: 'Food Cost Calculator — S3 buckets',
   envName,
-});
-
-// ── Messaging Stack (SQS) ────────────────────────────────────────────────────
-// SQS FIFO queues for async processing
-const messagingStack = new MessagingStack(app, `FoodCost-Messaging-${envName}`, {
-  env,
-  description: 'Food Cost Calculator — SQS FIFO queues',
-  envName,
-});
-
-// ══════════════════════════════════════════════════════════════════════════════
-// Phase 3: Compute (ECS Fargate)
-// ══════════════════════════════════════════════════════════════════════════════
-
-// ── ECS Stack (Fargate) ──────────────────────────────────────────────────────
-// ECS Fargate instead of EKS (save $300-400/month)
-const ecsStack = new EcsStack(app, `FoodCost-ECS-${envName}`, {
-  env,
   description: 'Food Cost Calculator — ECS Fargate cluster with ALB',
-  envName,
   vpc: networkStack.vpc,
   ecsSecurityGroup: networkStack.ecsSecurityGroup,
   albSecurityGroup: networkStack.albSecurityGroup,
-  databaseEndpoint: rdsStack.endpoint,
-  databaseSecretArn: rdsStack.secret.secretArn,
+  databaseEndpoint: databaseStack.endpoint,
+  databaseSecretArn: databaseStack.secret.secretArn,
   redisEndpoint: cacheStack.replicationGroup.attrConfigurationEndPointAddress,
   cognitoUserPoolId: authStack.userPool.userPoolId,
   cognitoClientId: authStack.userPoolClient.userPoolClientId,
 });
-ecsStack.addDependency(networkStack);
-ecsStack.addDependency(rdsStack);
-ecsStack.addDependency(cacheStack);
-ecsStack.addDependency(authStack);
+computeStack.addDependency(networkStack);
+computeStack.addDependency(databaseStack);
+computeStack.addDependency(cacheStack);
+computeStack.addDependency(authStack);
+
+// ── 6. Storage Stack ─────────────────────────────────────────────────────────
+// S3 buckets for frontend assets and invoice uploads
+// Requirements: 7.1-7.5
+const storageStack = new StorageStack(app, 'FoodCostCalculator-Storage', {
+  env,
+  envName,
+  description: 'Food Cost Calculator — S3 buckets for assets and invoices',
+});
+
+// ── 7. Observability Stack ───────────────────────────────────────────────────
+// CloudWatch logs, metrics, alarms, and SNS notifications
+// Requirements: 8.1-8.10
+// TODO: Adapt ObservabilityStack for ECS instead of EKS/workers architecture
+// const observabilityStack = new ObservabilityStack(app, 'FoodCostCalculator-Observability', {
+//   env,
+//   description: 'Food Cost Calculator — CloudWatch logs, metrics, and alarms',
+// });
+// observabilityStack.addDependency(computeStack);
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Global Tags
+// Resource Tagging (Requirement 1.7)
 // ══════════════════════════════════════════════════════════════════════════════
 
-cdk.Tags.of(app).add('Project', 'FoodCostCalculator');
-cdk.Tags.of(app).add('Environment', envName);
+cdk.Tags.of(app).add('Component', 'FoodCostCalculator');
+cdk.Tags.of(app).add('CostCenter', 'Engineering');
 cdk.Tags.of(app).add('ManagedBy', 'CDK');
-cdk.Tags.of(app).add('Architecture', 'ECS-Optimized');
-cdk.Tags.of(app).add('CostOptimized', 'true');
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Cost Summary
+// Deployment Summary
 // ══════════════════════════════════════════════════════════════════════════════
 
 console.log('\n══════════════════════════════════════════════════════════════');
-console.log('  Food Cost Calculator - Optimized AWS Deployment');
+console.log('  Food Cost Calculator - Minimal AWS Deployment');
 console.log('══════════════════════════════════════════════════════════════');
-console.log(`  Environment: ${envName}`);
 console.log(`  Region: ${env.region}`);
 console.log('──────────────────────────────────────────────────────────────');
-console.log('  Estimated Monthly Costs:');
-console.log('    • Network (VPC + 1 NAT):       $40-50');
-console.log('    • RDS PostgreSQL (t4g.micro):  $50-60');
-console.log('    • ElastiCache Redis:           $15-25');
-console.log('    • ECS Fargate (2 tasks):       $45-60');
-console.log('    • ALB:                         $20-25');
-console.log('    • Cognito:                     $0-10 (free tier)');
-console.log('    • S3 + CloudWatch:             $10-20');
-console.log('  ──────────────────────────────────────────────────────────');
-console.log('  TOTAL:                           $180-250/month');
-console.log('══════════════════════════════════════════════════════════════');
-console.log('  For 100 cafes: $1.80-2.50 per cafe/month');
-console.log('  Recommended pricing: $49-99/month per cafe');
-console.log('  Gross margin: 95-98%');
+console.log('  Stack Architecture:');
+console.log('    1. NetworkStackOptimized (VPC, 1 NAT Gateway)');
+console.log('    2. DatabaseStack (RDS PostgreSQL t4g.micro)');
+console.log('    3. CacheStack (ElastiCache Redis t4g.micro)');
+console.log('    4. AuthStack (Cognito User Pool)');
+console.log('    5. ComputeStack (ECS Fargate)');
+console.log('    6. StorageStack (S3 buckets)');
+console.log('    7. ObservabilityStack (CloudWatch) - TODO');
+console.log('──────────────────────────────────────────────────────────────');
+console.log('  Estimated Monthly Cost: $137-200');
+console.log('  Target: 2 initial venues');
 console.log('══════════════════════════════════════════════════════════════\n');

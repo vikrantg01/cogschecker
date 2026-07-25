@@ -1,0 +1,336 @@
+{
+ "Description": "Food Cost Calculator — S3 buckets for assets and invoices",
+ "Resources": {
+  "InvoicesKmsKey64E5037F": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Food Cost Calculator — KMS key for invoice file encryption (prod)",
+    "EnableKeyRotation": true,
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::646194726437:root"
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/InvoicesKmsKey/Resource"
+   }
+  },
+  "InvoicesKmsKeyAliasE74ACAB1": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/fcc-invoices-prod",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "InvoicesKmsKey64E5037F",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/InvoicesKmsKey/Alias/Resource"
+   }
+  },
+  "InvoicesBucket57FCB164": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "KMSMasterKeyID": {
+         "Fn::GetAtt": [
+          "InvoicesKmsKey64E5037F",
+          "Arn"
+         ]
+        },
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "BucketName": "fcc-invoices-prod-646194726437",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "transition-to-glacier",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "GLACIER",
+         "TransitionInDays": 90
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/InvoicesBucket/Resource"
+   }
+  },
+  "InvoicesBucketPolicy8F7685F0": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "InvoicesBucket57FCB164"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "InvoicesBucket57FCB164",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "InvoicesBucket57FCB164",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/InvoicesBucket/Policy/Resource"
+   }
+  },
+  "AssetsBucket5CB76180": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "fcc-assets-prod-646194726437",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "WebsiteConfiguration": {
+     "ErrorDocument": "index.html",
+     "IndexDocument": "index.html"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/AssetsBucket/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WOMQ4CIRBFz2IPo8EQa7W00OgBDLKYzMKyxhk0G8LdXcTE6r3/qq9A6Q2sFuZN0nZeBrxBvrCxXszpmv1AkA9uEvt7rNgGNFTHV4qgNeRdst5xjT9rOI0B7fTPbZdSyzHxI3ERcewc9LR8KQ16vtETonymyDg4ODd+AP91JRyjAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Storage/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "InvoicesBucketName": {
+   "Description": "S3 bucket name for invoice files",
+   "Value": {
+    "Ref": "InvoicesBucket57FCB164"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-InvoicesBucketName"
+   }
+  },
+  "InvoicesBucketArn": {
+   "Description": "S3 bucket ARN for invoice files",
+   "Value": {
+    "Fn::GetAtt": [
+     "InvoicesBucket57FCB164",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-InvoicesBucketArn"
+   }
+  },
+  "InvoicesKmsKeyId": {
+   "Description": "KMS key ID for invoice encryption",
+   "Value": {
+    "Ref": "InvoicesKmsKey64E5037F"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-InvoicesKmsKeyId"
+   }
+  },
+  "InvoicesKmsKeyArn": {
+   "Description": "KMS key ARN for invoice encryption",
+   "Value": {
+    "Fn::GetAtt": [
+     "InvoicesKmsKey64E5037F",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-InvoicesKmsKeyArn"
+   }
+  },
+  "AssetsBucketName": {
+   "Description": "S3 bucket name for static assets (React SPA)",
+   "Value": {
+    "Ref": "AssetsBucket5CB76180"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-AssetsBucketName"
+   }
+  },
+  "AssetsBucketArn": {
+   "Description": "S3 bucket ARN for static assets",
+   "Value": {
+    "Fn::GetAtt": [
+     "AssetsBucket5CB76180",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-AssetsBucketArn"
+   }
+  },
+  "AssetsBucketWebsiteUrl": {
+   "Description": "S3 static website URL (not used directly — served via CloudFront)",
+   "Value": {
+    "Fn::GetAtt": [
+     "AssetsBucket5CB76180",
+     "WebsiteURL"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-AssetsBucketWebsiteUrl"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

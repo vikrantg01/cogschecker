@@ -55,10 +55,10 @@ export class CacheStack extends cdk.Stack {
     // ── Subnet Group ─────────────────────────────────────────────────────────
     //
     // ElastiCache requires an explicit subnet group.
-    // We place the Redis cluster in the private data subnets (same as Aurora),
+    // We place the Redis cluster in the isolated subnets (same as RDS),
     // isolated from the internet.
     const privateDataSubnets = vpc.selectSubnets({
-      subnetGroupName: 'private-data',
+      subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
     });
 
     this.subnetGroup = new elasticache.CfnSubnetGroup(this, 'RedisSubnetGroup', {

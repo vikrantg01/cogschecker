@@ -1,33 +1,33 @@
 {
   "version": "53.0.0",
   "artifacts": {
-    "FoodCostCalculator-Network-staging.assets": {
+    "FoodCostCalculator-Network.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Network-staging.assets.json",
+        "file": "FoodCostCalculator-Network.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Network-staging": {
+    "FoodCostCalculator-Network": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Network-staging.template.json",
+        "templateFile": "FoodCostCalculator-Network.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "Network",
+          "CostCenter": "Infrastructure",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/95cc217461c0337a7672ba92620d5990f0a45cc832fee98553fdd9151e8d472c.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/963411806b82db889e5db2f63ff6f7674357b186c1eff80710fc8c5808ab38c7.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Network-staging.assets"
+          "FoodCostCalculator-Network.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -36,38 +36,38 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Network-staging.assets"
+        "FoodCostCalculator-Network.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Network-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Network-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Network.metadata.json",
+      "displayName": "FoodCostCalculator-Network"
     },
-    "FoodCostCalculator-Storage-staging.assets": {
+    "FoodCostCalculator-Database.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Storage-staging.assets.json",
+        "file": "FoodCostCalculator-Database.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Storage-staging": {
+    "FoodCostCalculator-Database": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Storage-staging.template.json",
+        "templateFile": "FoodCostCalculator-Database.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "Database",
+          "CostCenter": "Data",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/4cac13894ef840641ab0388e52035758711e3b6a6265f0549e0a7f7bc0f33a34.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/d2663e0e21d092c255a17a628014c4c5d9cb5a3e2cf7d018e23ec56c269215ed.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Storage-staging.assets"
+          "FoodCostCalculator-Database.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -76,38 +76,39 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Storage-staging.assets"
+        "FoodCostCalculator-Network",
+        "FoodCostCalculator-Database.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Storage-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Storage-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Database.metadata.json",
+      "displayName": "FoodCostCalculator-Database"
     },
-    "FoodCostCalculator-Auth-staging.assets": {
+    "FoodCostCalculator-Cache.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Auth-staging.assets.json",
+        "file": "FoodCostCalculator-Cache.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Auth-staging": {
+    "FoodCostCalculator-Cache": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Auth-staging.template.json",
+        "templateFile": "FoodCostCalculator-Cache.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "FoodCostCalculator",
+          "CostCenter": "Engineering",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/00dd0353b97c0c666e304513fc4ff9e44d65ab22b213ef32fd39874a2d48b00e.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/8a0a60b8681c02813d9d28a2dbdacff3d19fb180393dcea6f148226d5dab56b9.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Auth-staging.assets"
+          "FoodCostCalculator-Cache.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -116,38 +117,39 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Auth-staging.assets"
+        "FoodCostCalculator-Network",
+        "FoodCostCalculator-Cache.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Auth-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Auth-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Cache.metadata.json",
+      "displayName": "FoodCostCalculator-Cache"
     },
-    "FoodCostCalculator-Database-staging.assets": {
+    "FoodCostCalculator-Auth.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Database-staging.assets.json",
+        "file": "FoodCostCalculator-Auth.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Database-staging": {
+    "FoodCostCalculator-Auth": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Database-staging.template.json",
+        "templateFile": "FoodCostCalculator-Auth.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "FoodCostCalculator",
+          "CostCenter": "Engineering",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/411f9cd0d72657b9aada0026b96a41beadb8469a8fe90b513ec7edb2f51f303e.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/571c48102ae3fd26bfe52c1ccb10f20149d6ad3aff9ceb291b64b8a86062b19e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Database-staging.assets"
+          "FoodCostCalculator-Auth.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -156,39 +158,38 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Network-staging",
-        "FoodCostCalculator-Database-staging.assets"
+        "FoodCostCalculator-Auth.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Database-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Database-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Auth.metadata.json",
+      "displayName": "FoodCostCalculator-Auth"
     },
-    "FoodCostCalculator-Cache-staging.assets": {
+    "FoodCostCalculator-Compute.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Cache-staging.assets.json",
+        "file": "FoodCostCalculator-Compute.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Cache-staging": {
+    "FoodCostCalculator-Compute": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Cache-staging.template.json",
+        "templateFile": "FoodCostCalculator-Compute.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "ECS",
+          "CostCenter": "Compute",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/0d01f63256178b7d4808f2461c39a963fdf03e852c16dade4dc87fe8889ff32f.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/43b061e650ace50e0c4af863914a1b1213be155c84f3305efee52c636b827011.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Cache-staging.assets"
+          "FoodCostCalculator-Compute.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -197,39 +198,42 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Network-staging",
-        "FoodCostCalculator-Cache-staging.assets"
+        "FoodCostCalculator-Network",
+        "FoodCostCalculator-Database",
+        "FoodCostCalculator-Cache",
+        "FoodCostCalculator-Auth",
+        "FoodCostCalculator-Compute.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Cache-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Cache-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Compute.metadata.json",
+      "displayName": "FoodCostCalculator-Compute"
     },
-    "FoodCostCalculator-Messaging-staging.assets": {
+    "FoodCostCalculator-Storage.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "FoodCostCalculator-Messaging-staging.assets.json",
+        "file": "FoodCostCalculator-Storage.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "FoodCostCalculator-Messaging-staging": {
+    "FoodCostCalculator-Storage": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://646194726437/us-east-1",
       "properties": {
-        "templateFile": "FoodCostCalculator-Messaging-staging.template.json",
+        "templateFile": "FoodCostCalculator-Storage.template.json",
         "terminationProtection": false,
         "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
+          "Component": "FoodCostCalculator",
+          "CostCenter": "Engineering",
+          "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/68d21ec85190d97bbd3b8c07d2959d9eaa0f0231b62957bb146c351943b0cfda.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/e62006dfcf3f1852eda5a0ce2787cd246a6f67750ca3f1a1c96f69197e7eb8b5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "FoodCostCalculator-Messaging-staging.assets"
+          "FoodCostCalculator-Storage.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
@@ -238,51 +242,10 @@
         }
       },
       "dependencies": [
-        "FoodCostCalculator-Messaging-staging.assets"
+        "FoodCostCalculator-Storage.assets"
       ],
-      "additionalMetadataFile": "FoodCostCalculator-Messaging-staging.metadata.json",
-      "displayName": "FoodCostCalculator-Messaging-staging"
-    },
-    "FoodCostCalculator-EKS-staging.assets": {
-      "type": "cdk:asset-manifest",
-      "properties": {
-        "file": "FoodCostCalculator-EKS-staging.assets.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-      }
-    },
-    "FoodCostCalculator-EKS-staging": {
-      "type": "aws:cloudformation:stack",
-      "environment": "aws://646194726437/us-east-1",
-      "properties": {
-        "templateFile": "FoodCostCalculator-EKS-staging.template.json",
-        "terminationProtection": false,
-        "tags": {
-          "Environment": "staging",
-          "ManagedBy": "CDK",
-          "Project": "FoodCostCalculator"
-        },
-        "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/8cb9c2c9043682029ab630f0e06a3767369b375d667043c143c2c428e3f56b1c.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
-        "additionalDependencies": [
-          "FoodCostCalculator-EKS-staging.assets"
-        ],
-        "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-lookup-role-646194726437-us-east-1",
-          "requiresBootstrapStackVersion": 8,
-          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-        }
-      },
-      "dependencies": [
-        "FoodCostCalculator-Network-staging",
-        "FoodCostCalculator-EKS-staging.assets"
-      ],
-      "additionalMetadataFile": "FoodCostCalculator-EKS-staging.metadata.json",
-      "displayName": "FoodCostCalculator-EKS-staging"
+      "additionalMetadataFile": "FoodCostCalculator-Storage.metadata.json",
+      "displayName": "FoodCostCalculator-Storage"
     },
     "Tree": {
       "type": "cdk:tree",
