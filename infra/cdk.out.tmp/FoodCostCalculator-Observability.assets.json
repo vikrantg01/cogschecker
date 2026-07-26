@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "0f1d8bd811ae7a65968670d4d7cf816dd032948332449614b853f84568348f6c": {
+      "displayName": "FoodCostCalculator-Observability Template",
+      "source": {
+        "path": "FoodCostCalculator-Observability.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "646194726437-us-east-1-77d32f4b": {
+          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+          "objectKey": "0f1d8bd811ae7a65968670d4d7cf816dd032948332449614b853f84568348f6c.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

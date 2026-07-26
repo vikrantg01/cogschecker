@@ -1,0 +1,351 @@
+{
+ "Description": "Food Cost Calculator — Cognito User Pool with OAuth providers",
+ "Resources": {
+  "UserPool6BA7E5F2": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "DeviceConfiguration": {
+     "ChallengeRequiredOnNewDevice": false,
+     "DeviceOnlyRememberedOnUserPrompt": true
+    },
+    "EmailConfiguration": {
+     "EmailSendingAccount": "COGNITO_DEFAULT"
+    },
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "EnabledMfas": [
+     "SOFTWARE_TOKEN_MFA"
+    ],
+    "MfaConfiguration": "OPTIONAL",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": false,
+      "RequireUppercase": true,
+      "TemporaryPasswordValidityDays": 3
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": true,
+      "Name": "email",
+      "Required": true
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "org_id",
+      "StringAttributeConstraints": {
+       "MaxLength": "256",
+       "MinLength": "0"
+      }
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "venue_roles",
+      "StringAttributeConstraints": {
+       "MaxLength": "2048",
+       "MinLength": "0"
+      }
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "tier",
+      "StringAttributeConstraints": {
+       "MaxLength": "32",
+       "MinLength": "0"
+      }
+     }
+    ],
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolAddOns": {
+     "AdvancedSecurityMode": "ENFORCED"
+    },
+    "UserPoolName": "food-cost-calculator-prod",
+    "UserPoolTags": {
+     "Component": "FoodCostCalculator",
+     "CostCenter": "Engineering",
+     "ManagedBy": "CDK"
+    },
+    "UsernameAttributes": [
+     "email"
+    ],
+    "UsernameConfiguration": {
+     "CaseSensitive": false
+    },
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/UserPool/Resource"
+   }
+  },
+  "UserPoolUserPoolDomain9F01E991": {
+   "Type": "AWS::Cognito::UserPoolDomain",
+   "Properties": {
+    "Domain": "food-cost-calculator-prod",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/UserPool/UserPoolDomain/Resource"
+   }
+  },
+  "UserPoolWebAppClientCD2D5CB1": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 60,
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "openid",
+     "email",
+     "profile",
+     "aws.cognito.signin.user.admin"
+    ],
+    "AuthSessionValidity": 15,
+    "CallbackURLs": [
+     "https://app.foodcost.app/auth/callback"
+    ],
+    "ClientName": "food-cost-calculator-web-prod",
+    "EnableTokenRevocation": true,
+    "IdTokenValidity": 60,
+    "LogoutURLs": [
+     "https://app.foodcost.app"
+    ],
+    "PreventUserExistenceErrors": "ENABLED",
+    "ReadAttributes": [
+     "custom:org_id",
+     "custom:tier",
+     "custom:venue_roles",
+     "email",
+     "email_verified",
+     "family_name",
+     "given_name"
+    ],
+    "RefreshTokenValidity": 43200,
+    "SupportedIdentityProviders": [
+     "COGNITO",
+     "Google",
+     "SignInWithApple"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes",
+     "IdToken": "minutes",
+     "RefreshToken": "minutes"
+    },
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    },
+    "WriteAttributes": [
+     "email",
+     "family_name",
+     "given_name"
+    ]
+   },
+   "DependsOn": [
+    "AppleProviderC04D9F31",
+    "GoogleProvider566D8493"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/UserPool/WebAppClient/Resource"
+   }
+  },
+  "GoogleProvider566D8493": {
+   "Type": "AWS::Cognito::UserPoolIdentityProvider",
+   "Properties": {
+    "AttributeMapping": {
+     "email": "email",
+     "given_name": "given_name",
+     "family_name": "family_name",
+     "picture": "picture"
+    },
+    "ProviderDetails": {
+     "client_id": "PLACEHOLDER_GOOGLE_CLIENT_ID",
+     "client_secret": "PLACEHOLDER_GOOGLE_CLIENT_SECRET",
+     "authorize_scopes": "profile email openid"
+    },
+    "ProviderName": "Google",
+    "ProviderType": "Google",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/GoogleProvider/Resource"
+   }
+  },
+  "AppleProviderC04D9F31": {
+   "Type": "AWS::Cognito::UserPoolIdentityProvider",
+   "Properties": {
+    "AttributeMapping": {
+     "email": "email",
+     "given_name": "firstName",
+     "family_name": "lastName"
+    },
+    "ProviderDetails": {
+     "client_id": "PLACEHOLDER_APPLE_CLIENT_ID",
+     "team_id": "PLACEHOLDER_APPLE_TEAM_ID",
+     "key_id": "PLACEHOLDER_APPLE_KEY_ID",
+     "private_key": "PLACEHOLDER_APPLE_PRIVATE_KEY",
+     "authorize_scopes": "email name"
+    },
+    "ProviderName": "SignInWithApple",
+    "ProviderType": "SignInWithApple",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/AppleProvider/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/3WPQQuCQBCFf0t3nUKQzmEQnRKjc2zuJKPrjuyuRoj/vY00lqDTvPfmfYeXQJJuYbMSDxuXsokV3WA8O1E2kY+uJVeaHMN4sWhyZhVld/3Vi9hzK0iHrzlZbKYItQsLc7LYo/SO3DM3PJBEc2CuFIbAb+Mvuus6hdMbPfWu690UaZYItV0PSQqp31pbotj0nmoRis99AXwCV3AIAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Auth/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "UserPoolId": {
+   "Description": "Cognito User Pool ID",
+   "Value": {
+    "Ref": "UserPool6BA7E5F2"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-UserPoolId"
+   }
+  },
+  "UserPoolArn": {
+   "Description": "Cognito User Pool ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "UserPool6BA7E5F2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-UserPoolArn"
+   }
+  },
+  "UserPoolClientId": {
+   "Description": "Cognito User Pool Client ID (Web App)",
+   "Value": {
+    "Ref": "UserPoolWebAppClientCD2D5CB1"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-UserPoolClientId"
+   }
+  },
+  "UserPoolDomain": {
+   "Description": "Cognito User Pool Domain (hosted UI)",
+   "Value": {
+    "Ref": "UserPoolUserPoolDomain9F01E991"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-UserPoolDomain"
+   }
+  },
+  "HostedUiUrl": {
+   "Description": "Cognito Hosted UI login URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "UserPoolUserPoolDomain9F01E991"
+      },
+      ".auth.us-east-1.amazoncognito.com/login?client_id=",
+      {
+       "Ref": "UserPoolWebAppClientCD2D5CB1"
+      },
+      "&response_type=code&redirect_uri=https://app.foodcost.app/auth/callback"
+     ]
+    ]
+   }
+  },
+  "ExportsOutputRefUserPool6BA7E5F296FD7236": {
+   "Value": {
+    "Ref": "UserPool6BA7E5F2"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Auth:ExportsOutputRefUserPool6BA7E5F296FD7236"
+   }
+  },
+  "ExportsOutputRefUserPoolWebAppClientCD2D5CB13BAB4F14": {
+   "Value": {
+    "Ref": "UserPoolWebAppClientCD2D5CB1"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Auth:ExportsOutputRefUserPoolWebAppClientCD2D5CB13BAB4F14"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

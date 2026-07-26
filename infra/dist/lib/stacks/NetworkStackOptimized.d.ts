@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 export interface NetworkStackOptimizedProps extends cdk.StackProps {
     /** Logical environment name, e.g. "staging" or "prod" */
@@ -37,5 +38,7 @@ export declare class NetworkStackOptimized extends cdk.Stack {
     readonly rdsSecurityGroup: ec2.SecurityGroup;
     /** Security group for ElastiCache Redis */
     readonly redisSecurityGroup: ec2.SecurityGroup;
+    /** CloudWatch log group for VPC Flow Logs */
+    readonly flowLogsLogGroup: logs.LogGroup;
     constructor(scope: Construct, id: string, props: NetworkStackOptimizedProps);
 }

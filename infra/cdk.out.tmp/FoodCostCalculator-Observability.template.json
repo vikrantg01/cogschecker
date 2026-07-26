@@ -1,0 +1,369 @@
+{
+ "Description": "Food Cost Calculator — CloudWatch logs and alarm notifications",
+ "Resources": {
+  "ApiLogGroup1DEDFC07": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/foodcost-api-prod",
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/ApiLogGroup/Resource"
+   }
+  },
+  "AlarmTopicD01E77F9": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "Food Cost Calculator Alarms",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "TopicName": "foodcost-alarms-prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/AlarmTopic/Resource"
+   }
+  },
+  "EcsCpuAlarm1D439C07": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "AlarmDescription": "ECS service CPU utilization exceeds 85% for 2 consecutive 5-minute periods",
+    "AlarmName": "fcc-ecs-cpu-prod",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputRefClusterEB0386A796A0E3FE"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputFnGetAttServiceD69D759BName51127533"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "Threshold": 85,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/EcsCpuAlarm/Resource"
+   }
+  },
+  "EcsMemoryAlarmB50C6B61": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "AlarmDescription": "ECS service memory utilization exceeds 90% for 2 consecutive 5-minute periods",
+    "AlarmName": "fcc-ecs-memory-prod",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputRefClusterEB0386A796A0E3FE"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputFnGetAttServiceD69D759BName51127533"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "MemoryUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "Threshold": 90,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/EcsMemoryAlarm/Resource"
+   }
+  },
+  "AlbUnhealthyHostAlarmE5F4235C": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "AlarmDescription": "ALB unhealthy target count exceeds 0 for 2 consecutive 1-minute periods",
+    "AlarmName": "fcc-alb-unhealthy-hosts-prod",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "LoadBalancer",
+      "Value": {
+       "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputFnGetAttALBAEE750D2LoadBalancerFullName725A80F2"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "UnHealthyHostCount",
+    "Namespace": "AWS/ApplicationELB",
+    "Period": 60,
+    "Statistic": "Maximum",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "Threshold": 0,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/AlbUnhealthyHostAlarm/Resource"
+   }
+  },
+  "Alb5xxErrorAlarmFBF48146": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AlarmTopicD01E77F9"
+     }
+    ],
+    "AlarmDescription": "ALB HTTP 5xx error rate exceeds 5% over 5-minute period",
+    "AlarmName": "fcc-alb-5xx-errors-prod",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "EvaluationPeriods": 1,
+    "Metrics": [
+     {
+      "Expression": "(m1 / m2) * 100",
+      "Id": "expr_1",
+      "ReturnData": true
+     },
+     {
+      "Id": "m1",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "LoadBalancer",
+          "Value": {
+           "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputFnGetAttALBAEE750D2LoadBalancerFullName725A80F2"
+          }
+         }
+        ],
+        "MetricName": "HTTPCode_Target_5XX_Count",
+        "Namespace": "AWS/ApplicationELB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     },
+     {
+      "Id": "m2",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "LoadBalancer",
+          "Value": {
+           "Fn::ImportValue": "FoodCostCalculator-Compute:ExportsOutputFnGetAttALBAEE750D2LoadBalancerFullName725A80F2"
+          }
+         }
+        ],
+        "MetricName": "RequestCount",
+        "Namespace": "AWS/ApplicationELB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Observability"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "FoodCostCalculator"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "Threshold": 5,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/Alb5xxErrorAlarm/Resource"
+   }
+  },
+  "MonthlyBudget": {
+   "Type": "AWS::Budgets::Budget",
+   "Properties": {
+    "Budget": {
+     "BudgetLimit": {
+      "Amount": 200,
+      "Unit": "USD"
+     },
+     "BudgetName": "foodcost-budget-prod",
+     "BudgetType": "COST",
+     "TimeUnit": "MONTHLY"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/MonthlyBudget"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWOvQ7CIBhFn8UdPg0JcVYHFxMTdTcUEGkpNPzYgfDuAsbpnpyzXAKE7mG3YWvAXEzY6AHyPTI+oaqe2TgVIF+cOnuXFnR62T8XFGxND7do3nyHgrhxSaws8jfkg2F+bq1DQUMSSsYA1Rw7lhavKS6ponVCwhi2H0KB1ktj0Br7ZKOeJdx++wV1ZIi/rwAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Observability/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "LogGroupName": {
+   "Description": "CloudWatch log group for ECS tasks",
+   "Value": {
+    "Ref": "ApiLogGroup1DEDFC07"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-LogGroupName"
+   }
+  },
+  "AlarmTopicArn": {
+   "Description": "SNS topic ARN for alarm notifications",
+   "Value": {
+    "Ref": "AlarmTopicD01E77F9"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-AlarmTopicArn"
+   }
+  },
+  "CostBreakdownObservability": {
+   "Description": "Observability tier estimated monthly cost",
+   "Value": "CloudWatch (logs + metrics + alarms): $5-10/month",
+   "Export": {
+    "Name": "FoodCostCalculator-ObservabilityCost"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

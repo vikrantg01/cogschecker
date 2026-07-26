@@ -5,40 +5,51 @@ import { Construct } from 'constructs';
 export interface CacheStackProps extends cdk.StackProps {
     /** Logical environment name, e.g. "staging" or "prod". Used for naming. */
     readonly envName: string;
-    /** The VPC in which to deploy the ElastiCache cluster. */
+    /** The VPC in which to deploy the ElastiCache Redis instance. */
     readonly vpc: ec2.IVpc;
-    /** Security group that allows EKS nodes to connect to Redis (port 6379). */
-    readonly elastiCacheSecurityGroup: ec2.ISecurityGroup;
+    /** Security group that allows ECS tasks to connect to Redis (port 6379). */
+    readonly redisSecurityGroup: ec2.ISecurityGroup;
 }
 /**
  * CacheStack
  *
- * Provisions an Amazon ElastiCache for Redis cluster for the Food Cost Calculator:
+ * Cost-optimized Amazon ElastiCache for Redis for the Food Cost Calculator:
  *
- *  • Redis 7.x cluster mode enabled
- *  • Two shards (node groups) for horizontal partitioning
- *  • Two replicas per shard for high availability (3 nodes per shard: 1 primary + 2 replicas)
- *  • Multi-AZ replication groups — replicas spread across availability zones
- *  • Automatic failover enabled — ElastiCache promotes a replica to primary on primary failure
- *  • Deployed in private data subnets with no internet access
- *  • Access restricted to EKS nodes via security group ingress rule (defined in NetworkStack)
+ *  • Redis 7.0+ single-node (no replication) for cost optimization
+ *  • cache.t4g.micro (ARM-based Graviton2, burstable performance)
+ *  • Encryption at rest (AWS-managed KMS keys)
+ *  • Encryption in transit (TLS required)
+ *  • Deployed in private isolated subnets with no internet access
+ *  • Access restricted to ECS tasks via security group ingress rule (defined in NetworkStackOptimized)
+ *  • Subnet group spans both private isolated subnets (ready for multi-AZ expansion)
  *
  * Usage:
- *  - Session token store for Spring Boot API pods (Spring Session Redis)
- *  - Redis pub/sub channel for real-time cost propagation events (venue:{venueId}:costs)
- *  - Query result cache for expensive read operations (recipe costing reports, cross-venue summaries)
+ *  - Session storage for Spring Boot API (Spring Session Redis)
+ *  - Query result cache for expensive read operations
  *
- * Satisfies Requirements: 3.3 (cost propagation within 2 seconds)
+ * Cost savings vs clustered Redis:
+ *  - Single node: ~$12-15/month
+ *  - Cluster with replication: ~$70-90/month
+ *  - **Savings: $55-75/month** (80% reduction)
+ *
+ * Trade-offs:
+ *  - No automatic failover (single node)
+ *  - No read replicas (all reads/writes on primary)
+ *  - Manual recovery required on node failure
+ *
+ * For 2 initial venues, single-node cache.t4g.micro is sufficient.
+ *
+ * Satisfies Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7
  */
 export declare class CacheStack extends cdk.Stack {
     /**
-     * The ElastiCache Redis replication group.
-     * Export the configuration endpoint for cluster-mode clients.
+     * The ElastiCache Redis replication group (single node).
+     * Export the primary endpoint for client connections.
      */
     readonly replicationGroup: elasticache.CfnReplicationGroup;
     /**
      * The subnet group used by ElastiCache.
-     * Placed in private data subnets (same subnets as Aurora for simplicity).
+     * Placed in private isolated subnets (same subnets as RDS).
      */
     readonly subnetGroup: elasticache.CfnSubnetGroup;
     constructor(scope: Construct, id: string, props: CacheStackProps);

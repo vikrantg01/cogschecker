@@ -39,7 +39,6 @@ const networkStack = new NetworkStack(app, `FoodCostCalculator-Network-${envName
 const storageStack = new StorageStack(app, `FoodCostCalculator-Storage-${envName}`, {
   env,
   description: 'Food Cost Calculator — S3 buckets for invoice files and static assets',
-  envName,
 });
 
 // ── Auth Stack ───────────────────────────────────────────────────────────────
@@ -72,7 +71,7 @@ const cacheStack = new CacheStack(app, `FoodCostCalculator-Cache-${envName}`, {
   description: 'Food Cost Calculator — ElastiCache Redis cluster mode Multi-AZ',
   envName,
   vpc: networkStack.vpc,
-  elastiCacheSecurityGroup: networkStack.elastiCacheSecurityGroup,
+  redisSecurityGroup: networkStack.elastiCacheSecurityGroup,
 });
 cacheStack.addDependency(networkStack);
 

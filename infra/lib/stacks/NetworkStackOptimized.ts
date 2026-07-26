@@ -1,5 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as logs from 'aws-cdk-lib/aws-logs';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 export interface NetworkStackOptimizedProps extends cdk.StackProps {
@@ -43,6 +45,9 @@ export class NetworkStackOptimized extends cdk.Stack {
 
   /** Security group for ElastiCache Redis */
   public readonly redisSecurityGroup: ec2.SecurityGroup;
+
+  /** CloudWatch log group for VPC Flow Logs */
+  public readonly flowLogsLogGroup: logs.LogGroup;
 
   constructor(scope: Construct, id: string, props: NetworkStackOptimizedProps) {
     super(scope, id, props);
@@ -158,6 +163,41 @@ export class NetworkStackOptimized extends cdk.Stack {
       'Allow Redis from ECS tasks',
     );
 
+    // ── VPC Flow Logs ────────────────────────────────────────────────────────
+    //
+    // Capture all network traffic metadata (ACCEPT + REJECT) for security auditing
+    // Requirement 11.7: VPC Flow Logs for network traffic analysis
+    //
+    // Create CloudWatch Log Group for VPC flow logs
+    this.flowLogsLogGroup = new logs.LogGroup(this, 'VpcFlowLogsLogGroup', {
+      logGroupName: `/aws/vpc/flowlogs-${envName}`,
+      retention: logs.RetentionDays.ONE_WEEK, // Cost optimization: 7-day retention
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
+    // IAM role for VPC Flow Logs to write to CloudWatch
+    const flowLogsRole = new iam.Role(this, 'VpcFlowLogsRole', {
+      assumedBy: new iam.ServicePrincipal('vpc-flow-logs.amazonaws.com'),
+    });
+
+    // Grant permissions to write logs
+    this.flowLogsLogGroup.grantWrite(flowLogsRole);
+
+    // Enable VPC Flow Logs
+    new ec2.CfnFlowLog(this, 'VpcFlowLog', {
+      resourceType: 'VPC',
+      resourceId: this.vpc.vpcId,
+      trafficType: 'ALL', // Capture both ACCEPT and REJECT traffic
+      logDestinationType: 'cloud-watch-logs',
+      logGroupName: this.flowLogsLogGroup.logGroupName,
+      deliverLogsPermissionArn: flowLogsRole.roleArn,
+      tags: [
+        { key: 'Name', value: `foodcost-vpc-flowlogs-${envName}` },
+        { key: 'Component', value: 'Network' },
+        { key: 'CostCenter', value: 'Infrastructure' },
+      ],
+    });
+
     // ── CloudFormation Outputs ───────────────────────────────────────────────
     new cdk.CfnOutput(this, 'VpcId', {
       value: this.vpc.vpcId,
@@ -206,6 +246,12 @@ export class NetworkStackOptimized extends cdk.Stack {
       value: this.redisSecurityGroup.securityGroupId,
       description: 'Redis security group ID',
       exportName: `FoodCostCalculator-${envName}-RedisSecurityGroupId`,
+    });
+
+    new cdk.CfnOutput(this, 'VpcFlowLogsLogGroupName', {
+      value: this.flowLogsLogGroup.logGroupName,
+      description: 'CloudWatch log group for VPC Flow Logs',
+      exportName: `FoodCostCalculator-${envName}-VpcFlowLogsLogGroupName`,
     });
 
     // ── Tags ─────────────────────────────────────────────────────────────────

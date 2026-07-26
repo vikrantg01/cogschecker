@@ -1,16 +1,16 @@
 {
   "version": "53.0.0",
   "files": {
-    "43b061e650ace50e0c4af863914a1b1213be155c84f3305efee52c636b827011": {
+    "3e42562996f360062a20ac3990d819dd97ed59c26fda69b39fa6cad172884940": {
       "displayName": "FoodCostCalculator-Compute Template",
       "source": {
         "path": "FoodCostCalculator-Compute.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "646194726437-us-east-1-6bac21a8": {
+        "646194726437-us-east-1-0a906652": {
           "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
-          "objectKey": "43b061e650ace50e0c4af863914a1b1213be155c84f3305efee52c636b827011.json",
+          "objectKey": "3e42562996f360062a20ac3990d819dd97ed59c26fda69b39fa6cad172884940.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
         }

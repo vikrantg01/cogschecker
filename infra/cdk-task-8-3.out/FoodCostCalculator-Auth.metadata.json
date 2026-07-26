@@ -1,0 +1,238 @@
+{
+  "/FoodCostCalculator-Auth": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Component",
+          "value": "FoodCostCalculator"
+        },
+        {
+          "key": "CostCenter",
+          "value": "Engineering"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPoolId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:338:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPoolArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:344:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPoolClientId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolClientId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:350:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPoolDomain": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolDomain"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:356:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/HostedUiUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HostedUiUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:362:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPool/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPool6BA7E5F2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new UserPool2 in aws-cdk-lib...",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:58:21)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/GoogleProvider/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GoogleProvider566D8493"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new UserPoolIdentityProviderGoogle2 in aws-cdk-lib...",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:191:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/AppleProvider/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AppleProviderC04D9F31"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new UserPoolIdentityProviderApple2 in aws-cdk-lib...",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:221:27)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/Exports/Output{\"Ref\":\"UserPool6BA7E5F2\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefUserPool6BA7E5F296FD7236"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/Exports/Output{\"Ref\":\"UserPoolWebAppClientCD2D5CB1\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefUserPoolWebAppClientCD2D5CB13BAB4F14"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPool/UserPoolDomain/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolUserPoolDomain9F01E991"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addDomain in aws-cdk-lib...",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:176:41)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Auth/UserPool/WebAppClient/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolWebAppClientCD2D5CB1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addClient in aws-cdk-lib...",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:252:41)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ]
+}

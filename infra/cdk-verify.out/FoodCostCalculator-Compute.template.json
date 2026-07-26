@@ -308,23 +308,22 @@
       },
       {
        "Action": [
-        "sqs:DeleteMessage",
-        "sqs:GetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:ReceiveMessage",
-        "sqs:SendMessage"
-       ],
-       "Effect": "Allow",
-       "Resource": "arn:aws:sqs:us-east-1:646194726437:fcc-*-prod"
-      },
-      {
-       "Action": [
         "cognito-idp:AdminGetUser",
         "cognito-idp:AdminUpdateUserAttributes",
         "cognito-idp:ListUsers"
        ],
        "Effect": "Allow",
-       "Resource": "arn:aws:cognito-idp:us-east-1:646194726437:userpool/*"
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:cognito-idp:us-east-1:646194726437:userpool/",
+          {
+           "Fn::ImportValue": "FoodCostCalculator-Auth:ExportsOutputRefUserPool6BA7E5F296FD7236"
+          }
+         ]
+        ]
+       }
       }
      ],
      "Version": "2012-10-17"
@@ -398,7 +397,7 @@
        {
         "Name": "REDIS_HOST",
         "Value": {
-         "Fn::ImportValue": "FoodCostCalculator-Cache:ExportsOutputFnGetAttRedisClusterConfigurationEndPointAddress4A895782"
+         "Fn::ImportValue": "FoodCostCalculator-Cache:ExportsOutputFnGetAttRedisSingleNodePrimaryEndPointAddress395AD6E4"
         }
        },
        {
@@ -567,10 +566,14 @@
       "Enable": false,
       "Rollback": false
      },
+     "DeploymentCircuitBreaker": {
+      "Enable": true,
+      "Rollback": true
+     },
      "MaximumPercent": 200,
      "MinimumHealthyPercent": 50
     },
-    "DesiredCount": 2,
+    "DesiredCount": 1,
     "EnableECSManagedTags": false,
     "HealthCheckGracePeriodSeconds": 60,
     "LaunchType": "FARGATE",

@@ -1,0 +1,1331 @@
+{
+ "Description": "Food Cost Calculator — VPC, subnets, NAT gateway, security groups",
+ "Resources": {
+  "Vpc8378EB38": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "foodcost-prod"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/Resource"
+   }
+  },
+  "VpcpublicSubnet1Subnet2BB74ED7": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/Subnet"
+   }
+  },
+  "VpcpublicSubnet1RouteTable15C15F8E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/RouteTable"
+   }
+  },
+  "VpcpublicSubnet1RouteTableAssociation4E83B6E4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+    },
+    "SubnetId": {
+     "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcpublicSubnet1DefaultRouteB88F9E93": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/DefaultRoute"
+   }
+  },
+  "VpcpublicSubnet1EIP411541E6": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/EIP"
+   }
+  },
+  "VpcpublicSubnet1NATGatewayA036E8A6": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "VpcpublicSubnet1EIP411541E6",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+    },
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "VpcpublicSubnet1DefaultRouteB88F9E93",
+    "VpcpublicSubnet1RouteTableAssociation4E83B6E4"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet1/NATGateway"
+   }
+  },
+  "VpcpublicSubnet2SubnetE34B022A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet2/Subnet"
+   }
+  },
+  "VpcpublicSubnet2RouteTableC5A6DF77": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet2/RouteTable"
+   }
+  },
+  "VpcpublicSubnet2RouteTableAssociationCCE257FF": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+    },
+    "SubnetId": {
+     "Ref": "VpcpublicSubnet2SubnetE34B022A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcpublicSubnet2DefaultRoute732F0BEB": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/publicSubnet2/DefaultRoute"
+   }
+  },
+  "VpcprivateSubnet1SubnetCEAD3716": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/privateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet1/Subnet"
+   }
+  },
+  "VpcprivateSubnet1RouteTable1979EACB": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/privateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet1/RouteTable"
+   }
+  },
+  "VpcprivateSubnet1RouteTableAssociationEEBD93CE": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcprivateSubnet1RouteTable1979EACB"
+    },
+    "SubnetId": {
+     "Ref": "VpcprivateSubnet1SubnetCEAD3716"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcprivateSubnet1DefaultRouteB506891A": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VpcpublicSubnet1NATGatewayA036E8A6"
+    },
+    "RouteTableId": {
+     "Ref": "VpcprivateSubnet1RouteTable1979EACB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet1/DefaultRoute"
+   }
+  },
+  "VpcprivateSubnet2Subnet2DE7549C": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/privateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet2/Subnet"
+   }
+  },
+  "VpcprivateSubnet2RouteTable4D0FFC8C": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/privateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet2/RouteTable"
+   }
+  },
+  "VpcprivateSubnet2RouteTableAssociationB691E645": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcprivateSubnet2RouteTable4D0FFC8C"
+    },
+    "SubnetId": {
+     "Ref": "VpcprivateSubnet2Subnet2DE7549C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcprivateSubnet2DefaultRouteBAC3C1C3": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VpcpublicSubnet1NATGatewayA036E8A6"
+    },
+    "RouteTableId": {
+     "Ref": "VpcprivateSubnet2RouteTable4D0FFC8C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/privateSubnet2/DefaultRoute"
+   }
+  },
+  "VpcisolatedSubnet1SubnetE62B1B9B": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1a",
+    "CidrBlock": "10.0.4.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/isolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet1/Subnet"
+   }
+  },
+  "VpcisolatedSubnet1RouteTableE442650B": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/isolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet1/RouteTable"
+   }
+  },
+  "VpcisolatedSubnet1RouteTableAssociationD259E31A": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcisolatedSubnet1RouteTableE442650B"
+    },
+    "SubnetId": {
+     "Ref": "VpcisolatedSubnet1SubnetE62B1B9B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcisolatedSubnet2Subnet39217055": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "dummy1b",
+    "CidrBlock": "10.0.5.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/isolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet2/Subnet"
+   }
+  },
+  "VpcisolatedSubnet2RouteTable334F9764": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "FoodCostCalculator-Network/Vpc/isolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet2/RouteTable"
+   }
+  },
+  "VpcisolatedSubnet2RouteTableAssociation25A4716F": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcisolatedSubnet2RouteTable334F9764"
+    },
+    "SubnetId": {
+     "Ref": "VpcisolatedSubnet2Subnet39217055"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/isolatedSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcIGWD7BA715C": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "foodcost-prod"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/IGW"
+   }
+  },
+  "VpcVPCGWBF912B6E": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/VPCGW"
+   }
+  },
+  "VpcRestrictDefaultSecurityGroupCustomResourceC73DA2BE": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "Vpc8378EB38",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": "646194726437"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Vpc/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:ec2:us-east-1:646194726437:security-group/",
+             {
+              "Fn::GetAtt": [
+               "Vpc8378EB38",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AlbSecurityGroup86A59E99": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ALB — internet-facing load balancer",
+    "GroupName": "foodcost-alb-prod",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "Vpc8378EB38",
+        "CidrBlock"
+       ]
+      },
+      "Description": "Allow traffic to ECS tasks",
+      "FromPort": 8080,
+      "IpProtocol": "tcp",
+      "ToPort": 8080
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTP from internet",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS from internet",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/AlbSecurityGroup/Resource"
+   }
+  },
+  "AlbSecurityGrouptoFoodCostCalculatorNetworkEcsSecurityGroupA557809F8080FA675C74": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "EcsSecurityGroup44008BF1",
+      "GroupId"
+     ]
+    },
+    "FromPort": 8080,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "AlbSecurityGroup86A59E99",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 8080
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/AlbSecurityGroup/to FoodCostCalculatorNetworkEcsSecurityGroupA557809F:8080"
+   }
+  },
+  "EcsSecurityGroup44008BF1": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ECS tasks — Spring Boot API",
+    "GroupName": "foodcost-ecs-prod",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "Description": "Allow traffic from ALB",
+      "FromPort": 8080,
+      "IpProtocol": "tcp",
+      "SourceSecurityGroupId": {
+       "Fn::GetAtt": [
+        "AlbSecurityGroup86A59E99",
+        "GroupId"
+       ]
+      },
+      "ToPort": 8080
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/EcsSecurityGroup/Resource"
+   }
+  },
+  "EcsSecurityGroupfromFoodCostCalculatorNetworkAlbSecurityGroup09E36D5480802F28473E": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 8080,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "EcsSecurityGroup44008BF1",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "AlbSecurityGroup86A59E99",
+      "GroupId"
+     ]
+    },
+    "ToPort": 8080
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/EcsSecurityGroup/from FoodCostCalculatorNetworkAlbSecurityGroup09E36D54:8080"
+   }
+  },
+  "RdsSecurityGroup632A77E4": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "RDS PostgreSQL — accepts connections from ECS only",
+    "GroupName": "foodcost-rds-prod",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "Description": "Allow PostgreSQL from ECS tasks",
+      "FromPort": 5432,
+      "IpProtocol": "tcp",
+      "SourceSecurityGroupId": {
+       "Fn::GetAtt": [
+        "EcsSecurityGroup44008BF1",
+        "GroupId"
+       ]
+      },
+      "ToPort": 5432
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/RdsSecurityGroup/Resource"
+   }
+  },
+  "RedisSecurityGroupB05951F6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ElastiCache Redis — accepts connections from ECS only",
+    "GroupName": "foodcost-redis-prod",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "Description": "Allow Redis from ECS tasks",
+      "FromPort": 6379,
+      "IpProtocol": "tcp",
+      "SourceSecurityGroupId": {
+       "Fn::GetAtt": [
+        "EcsSecurityGroup44008BF1",
+        "GroupId"
+       ]
+      },
+      "ToPort": 6379
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "Network"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Infrastructure"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/RedisSecurityGroup/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/32QwU7DMAyGn4V7GlClivOYpqkXiFq0K0pTU7y1SRXbnaZp7066AT2AOPn3Fyf64lznxaN+uLNHylx7yHps9Llm6w4qoTdwuT7vRqfW735n1spI06OrpfHAM1tSFYTh1TY9LHxhK6Lg0DIG/zM8h01p5vJseWsZjvakTMQpxeXh0jPElL8HbiZf3YqT6scAnlUNTiLyaRuDjFeHf8Gmi0D0C5f+yi+qAgoSXbIU4jAsbbL/+8jEMGEL8ckSqPRh4LTHDn0333kRHoUvyocW9J7up7zQRdr7nhCzKJ5xAF3d6ifM5gVJlAEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "FoodCostCalculator-Network/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "VpcId": {
+   "Description": "VPC ID",
+   "Value": {
+    "Ref": "Vpc8378EB38"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-VpcId"
+   }
+  },
+  "PublicSubnetIds": {
+   "Description": "Comma-separated list of public subnet IDs",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+      },
+      ",",
+      {
+       "Ref": "VpcpublicSubnet2SubnetE34B022A"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-PublicSubnetIds"
+   }
+  },
+  "PrivateSubnetIds": {
+   "Description": "Comma-separated list of private subnet IDs (with NAT egress)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Ref": "VpcprivateSubnet1SubnetCEAD3716"
+      },
+      ",",
+      {
+       "Ref": "VpcprivateSubnet2Subnet2DE7549C"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-PrivateSubnetIds"
+   }
+  },
+  "IsolatedSubnetIds": {
+   "Description": "Comma-separated list of isolated subnet IDs (RDS, Redis)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Ref": "VpcisolatedSubnet1SubnetE62B1B9B"
+      },
+      ",",
+      {
+       "Ref": "VpcisolatedSubnet2Subnet39217055"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-IsolatedSubnetIds"
+   }
+  },
+  "AlbSecurityGroupId": {
+   "Description": "ALB security group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "AlbSecurityGroup86A59E99",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-AlbSecurityGroupId"
+   }
+  },
+  "EcsSecurityGroupId": {
+   "Description": "ECS security group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "EcsSecurityGroup44008BF1",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-EcsSecurityGroupId"
+   }
+  },
+  "RdsSecurityGroupId": {
+   "Description": "RDS security group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "RdsSecurityGroup632A77E4",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-RdsSecurityGroupId"
+   }
+  },
+  "RedisSecurityGroupId": {
+   "Description": "Redis security group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisSecurityGroupB05951F6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-prod-RedisSecurityGroupId"
+   }
+  },
+  "ExportsOutputRefVpcisolatedSubnet1SubnetE62B1B9BEE029908": {
+   "Value": {
+    "Ref": "VpcisolatedSubnet1SubnetE62B1B9B"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet1SubnetE62B1B9BEE029908"
+   }
+  },
+  "ExportsOutputRefVpcisolatedSubnet2Subnet392170557C27A199": {
+   "Value": {
+    "Ref": "VpcisolatedSubnet2Subnet39217055"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcisolatedSubnet2Subnet392170557C27A199"
+   }
+  },
+  "ExportsOutputFnGetAttRdsSecurityGroup632A77E4GroupId9D343172": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RdsSecurityGroup632A77E4",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttRdsSecurityGroup632A77E4GroupId9D343172"
+   }
+  },
+  "ExportsOutputFnGetAttRedisSecurityGroupB05951F6GroupIdECA64B37": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RedisSecurityGroupB05951F6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttRedisSecurityGroupB05951F6GroupIdECA64B37"
+   }
+  },
+  "ExportsOutputFnGetAttAlbSecurityGroup86A59E99GroupIdE3A37BC7": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AlbSecurityGroup86A59E99",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttAlbSecurityGroup86A59E99GroupIdE3A37BC7"
+   }
+  },
+  "ExportsOutputRefVpcpublicSubnet1Subnet2BB74ED74EB42ADC": {
+   "Value": {
+    "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcpublicSubnet1Subnet2BB74ED74EB42ADC"
+   }
+  },
+  "ExportsOutputRefVpcpublicSubnet2SubnetE34B022AC8BB6627": {
+   "Value": {
+    "Ref": "VpcpublicSubnet2SubnetE34B022A"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcpublicSubnet2SubnetE34B022AC8BB6627"
+   }
+  },
+  "ExportsOutputRefVpcprivateSubnet1SubnetCEAD37168693D373": {
+   "Value": {
+    "Ref": "VpcprivateSubnet1SubnetCEAD3716"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcprivateSubnet1SubnetCEAD37168693D373"
+   }
+  },
+  "ExportsOutputRefVpcprivateSubnet2Subnet2DE7549CDF5ACE3D": {
+   "Value": {
+    "Ref": "VpcprivateSubnet2Subnet2DE7549C"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpcprivateSubnet2Subnet2DE7549CDF5ACE3D"
+   }
+  },
+  "ExportsOutputFnGetAttEcsSecurityGroup44008BF1GroupIdDE2CA5C5": {
+   "Value": {
+    "Fn::GetAtt": [
+     "EcsSecurityGroup44008BF1",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttEcsSecurityGroup44008BF1GroupIdDE2CA5C5"
+   }
+  },
+  "ExportsOutputRefVpc8378EB38272D6E3A": {
+   "Value": {
+    "Ref": "Vpc8378EB38"
+   },
+   "Export": {
+    "Name": "FoodCostCalculator-Network:ExportsOutputRefVpc8378EB38272D6E3A"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

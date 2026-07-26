@@ -20,25 +20,28 @@ export interface RdsStackProps extends cdk.StackProps {
  *
  * Cost-optimized PostgreSQL database using RDS (not Aurora):
  *
- *  • RDS PostgreSQL 15 (not Aurora Serverless v2)
- *  • db.t4g.micro Multi-AZ for HA (ARM-based, cheaper)
+ *  • RDS PostgreSQL 15.4+ (not Aurora Serverless v2)
+ *  • db.t4g.micro Single-AZ for cost optimization (ARM-based, cheaper)
  *  • Automated backups (7-day retention)
  *  • Encryption at rest (AWS-managed keys)
  *  • SSL/TLS enforcement
- *  • Deployed in private subnets
+ *  • Deployed in private isolated subnets
  *  • Credentials in Secrets Manager
  *
  * Cost savings vs Aurora Serverless v2:
- *  - RDS t4g.micro Multi-AZ: ~$50-60/month
+ *  - RDS t4g.micro Single-AZ: ~$25-30/month
  *  - Aurora Serverless v2: ~$250-400/month
- *  - **Savings: $200-350/month** (80% reduction)
+ *  - **Savings: $220-375/month** (90% reduction)
+ *
+ * Cost savings vs Multi-AZ:
+ *  - Single-AZ saves ~$25-30/month vs Multi-AZ
  *
  * Trade-offs:
+ *  - No automatic failover (single-AZ)
  *  - Fixed compute (not auto-scaling)
- *  - Slower failover (1-2 min vs 30 sec)
  *  - Manual scaling (restart required)
  *
- * For 50-100 cafes, t4g.micro is sufficient (2 vCPU, 1 GB RAM).
+ * For 2 initial venues, t4g.micro is sufficient (2 vCPU, 1 GB RAM).
  */
 export class RdsStack extends cdk.Stack {
   /** The RDS PostgreSQL instance */
@@ -99,12 +102,12 @@ export class RdsStack extends cdk.Stack {
     //  - 2 vCPU, 1 GB RAM
     //  - Burstable performance (T4g baseline: 10% CPU, bursts to 100%)
     //  - 20% cheaper than t3.micro (Intel)
-    //  - Sufficient for 50-100 cafe workload
+    //  - Sufficient for 2 initial venues
     //
-    // Multi-AZ:
-    //  - Synchronous standby in second AZ
-    //  - Automatic failover (1-2 minutes)
-    //  - ~2x cost of single-AZ but worth it for production
+    // Single-AZ (cost optimization):
+    //  - No automatic failover
+    //  - Saves ~$25-30/month vs Multi-AZ
+    //  - Automated backups allow recovery in case of failure
     //
     this.instance = new rds.DatabaseInstance(this, 'Instance', {
       engine: rds.DatabaseInstanceEngine.postgres({
@@ -129,8 +132,8 @@ export class RdsStack extends cdk.Stack {
 
       parameterGroup,
 
-      // Multi-AZ for high availability
-      multiAz: envName === 'prod',
+      // Single-AZ for cost optimization (requirement 4.3)
+      multiAz: false,
 
       // Storage
       allocatedStorage: 20, // GB (minimum for gp3)
@@ -152,9 +155,9 @@ export class RdsStack extends cdk.Stack {
       enablePerformanceInsights: false, // Disable to save cost (can enable later)
       cloudwatchLogsExports: ['postgresql'], // Export logs to CloudWatch
 
-      // Deletion protection
-      deletionProtection: envName === 'prod',
-      removalPolicy: envName === 'prod' ? cdk.RemovalPolicy.SNAPSHOT : cdk.RemovalPolicy.DESTROY,
+      // Deletion protection and RETAIN removal policy (requirement 1.6)
+      deletionProtection: true,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     this.endpoint = this.instance.dbInstanceEndpointAddress;

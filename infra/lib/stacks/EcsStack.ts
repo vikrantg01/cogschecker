@@ -5,6 +5,7 @@ import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
 export interface EcsStackProps extends cdk.StackProps {
@@ -72,6 +73,9 @@ export class EcsStack extends cdk.Stack {
   /** The ALB DNS name */
   public readonly albDnsName: string;
 
+  /** S3 bucket for ALB access logs */
+  public readonly albLogsBucket: s3.Bucket;
+
   constructor(scope: Construct, id: string, props: EcsStackProps) {
     super(scope, id, props);
 
@@ -105,6 +109,24 @@ export class EcsStack extends cdk.Stack {
     // ── Application Load Balancer ────────────────────────────────────────────
     //
     // Internet-facing ALB in public subnets.
+    
+    // Create S3 bucket for ALB access logs
+    // Requirement 11.8: ALB access logs for HTTP request logging
+    this.albLogsBucket = new s3.Bucket(this, 'AlbLogsBucket', {
+      bucketName: `fcc-alb-logs-${envName}`,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      lifecycleRules: [
+        {
+          id: 'DeleteOldLogs',
+          enabled: true,
+          expiration: cdk.Duration.days(90), // Delete logs after 90 days for cost optimization
+        },
+      ],
+      removalPolicy: envName === 'prod' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: envName !== 'prod', // Auto-delete for non-prod environments
+    });
+
     this.alb = new elbv2.ApplicationLoadBalancer(this, 'ALB', {
       vpc,
       internetFacing: true,
@@ -117,9 +139,18 @@ export class EcsStack extends cdk.Stack {
 
     this.albDnsName = this.alb.loadBalancerDnsName;
 
+    // Enable ALB access logs to S3
+    this.alb.logAccessLogs(this.albLogsBucket);
+
     // ── IAM Task Execution Role ──────────────────────────────────────────────
     //
     // Role used by ECS agent to pull images, write logs, read secrets.
+    // Permissions:
+    //   - ECR: Pull Docker images from repository
+    //   - CloudWatch Logs: Write application logs
+    //   - Secrets Manager: Read database credentials
+    //
+    // Note: AmazonECSTaskExecutionRolePolicy includes ECR pull and CloudWatch Logs write
     const taskExecutionRole = new iam.Role(this, 'TaskExecutionRole', {
       assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
       managedPolicies: [
@@ -127,7 +158,7 @@ export class EcsStack extends cdk.Stack {
       ],
     });
 
-    // Grant access to Secrets Manager for database credentials
+    // Grant access to Secrets Manager for database credentials (least-privilege: specific secret only)
     taskExecutionRole.addToPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
@@ -139,11 +170,12 @@ export class EcsStack extends cdk.Stack {
     // ── IAM Task Role ────────────────────────────────────────────────────────
     //
     // Role used by application code to access AWS services.
+    // Follows least-privilege principle with specific resource ARNs.
     const taskRole = new iam.Role(this, 'TaskRole', {
       assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
     });
 
-    // Grant S3 access for invoice uploads
+    // Grant S3 access for invoice uploads (least-privilege: specific bucket only)
     taskRole.addToPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
@@ -155,22 +187,8 @@ export class EcsStack extends cdk.Stack {
       }),
     );
 
-    // Grant SQS access for async jobs
-    taskRole.addToPolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: [
-          'sqs:SendMessage',
-          'sqs:ReceiveMessage',
-          'sqs:DeleteMessage',
-          'sqs:GetQueueUrl',
-          'sqs:GetQueueAttributes',
-        ],
-        resources: [`arn:aws:sqs:${this.region}:${this.account}:fcc-*-${envName}`],
-      }),
-    );
-
-    // Grant Cognito access for user management
+    // Grant Cognito access for user attribute read (least-privilege: specific User Pool only)
+    const userPoolArn = `arn:aws:cognito-idp:${this.region}:${this.account}:userpool/${cognitoUserPoolId}`;
     taskRole.addToPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
@@ -179,7 +197,7 @@ export class EcsStack extends cdk.Stack {
           'cognito-idp:AdminUpdateUserAttributes',
           'cognito-idp:ListUsers',
         ],
-        resources: [`arn:aws:cognito-idp:${this.region}:${this.account}:userpool/*`],
+        resources: [userPoolArn],
       }),
     );
 
@@ -242,11 +260,12 @@ export class EcsStack extends cdk.Stack {
     // ── ECS Service ──────────────────────────────────────────────────────────
     //
     // Fargate service with auto-scaling (1-4 tasks)
+    // Circuit breaker enables automatic rollback if health checks fail after deployment
     this.service = new ecs.FargateService(this, 'Service', {
       cluster: this.cluster,
       taskDefinition,
       serviceName: `foodcost-api-${envName}`,
-      desiredCount: 2, // Start with 2 for HA
+      desiredCount: 1, // Start with 1 task for cost optimization
       minHealthyPercent: 50,
       maxHealthyPercent: 200,
       vpcSubnets: vpc.selectSubnets({
@@ -255,6 +274,10 @@ export class EcsStack extends cdk.Stack {
       securityGroups: [ecsSecurityGroup],
       assignPublicIp: false,
       healthCheckGracePeriod: cdk.Duration.seconds(60),
+      // Automatic rollback configuration - Requirement 9.7
+      circuitBreaker: {
+        rollback: true, // Enable automatic rollback on deployment failure
+      },
     });
 
     // ── Auto Scaling ─────────────────────────────────────────────────────────
@@ -342,6 +365,12 @@ export class EcsStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'LoadBalancerUrl', {
       value: `http://${this.alb.loadBalancerDnsName}`,
       description: 'Application Load Balancer URL',
+    });
+
+    new cdk.CfnOutput(this, 'AlbLogsBucketName', {
+      value: this.albLogsBucket.bucketName,
+      description: 'S3 bucket for ALB access logs',
+      exportName: `FoodCostCalculator-${envName}-AlbLogsBucketName`,
     });
 
     // ── Tags ─────────────────────────────────────────────────────────────────

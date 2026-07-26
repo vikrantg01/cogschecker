@@ -7,56 +7,68 @@ export interface CacheStackProps extends cdk.StackProps {
   /** Logical environment name, e.g. "staging" or "prod". Used for naming. */
   readonly envName: string;
 
-  /** The VPC in which to deploy the ElastiCache cluster. */
+  /** The VPC in which to deploy the ElastiCache Redis instance. */
   readonly vpc: ec2.IVpc;
 
-  /** Security group that allows EKS nodes to connect to Redis (port 6379). */
-  readonly elastiCacheSecurityGroup: ec2.ISecurityGroup;
+  /** Security group that allows ECS tasks to connect to Redis (port 6379). */
+  readonly redisSecurityGroup: ec2.ISecurityGroup;
 }
 
 /**
  * CacheStack
  *
- * Provisions an Amazon ElastiCache for Redis cluster for the Food Cost Calculator:
+ * Cost-optimized Amazon ElastiCache for Redis for the Food Cost Calculator:
  *
- *  • Redis 7.x cluster mode enabled
- *  • Two shards (node groups) for horizontal partitioning
- *  • Two replicas per shard for high availability (3 nodes per shard: 1 primary + 2 replicas)
- *  • Multi-AZ replication groups — replicas spread across availability zones
- *  • Automatic failover enabled — ElastiCache promotes a replica to primary on primary failure
- *  • Deployed in private data subnets with no internet access
- *  • Access restricted to EKS nodes via security group ingress rule (defined in NetworkStack)
+ *  • Redis 7.0+ single-node (no replication) for cost optimization
+ *  • cache.t4g.micro (ARM-based Graviton2, burstable performance)
+ *  • Encryption at rest (AWS-managed KMS keys)
+ *  • Encryption in transit (TLS required)
+ *  • Deployed in private isolated subnets with no internet access
+ *  • Access restricted to ECS tasks via security group ingress rule (defined in NetworkStackOptimized)
+ *  • Subnet group spans both private isolated subnets (ready for multi-AZ expansion)
  *
  * Usage:
- *  - Session token store for Spring Boot API pods (Spring Session Redis)
- *  - Redis pub/sub channel for real-time cost propagation events (venue:{venueId}:costs)
- *  - Query result cache for expensive read operations (recipe costing reports, cross-venue summaries)
+ *  - Session storage for Spring Boot API (Spring Session Redis)
+ *  - Query result cache for expensive read operations
  *
- * Satisfies Requirements: 3.3 (cost propagation within 2 seconds)
+ * Cost savings vs clustered Redis:
+ *  - Single node: ~$12-15/month
+ *  - Cluster with replication: ~$70-90/month
+ *  - **Savings: $55-75/month** (80% reduction)
+ *
+ * Trade-offs:
+ *  - No automatic failover (single node)
+ *  - No read replicas (all reads/writes on primary)
+ *  - Manual recovery required on node failure
+ *
+ * For 2 initial venues, single-node cache.t4g.micro is sufficient.
+ *
+ * Satisfies Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7
  */
 export class CacheStack extends cdk.Stack {
   /**
-   * The ElastiCache Redis replication group.
-   * Export the configuration endpoint for cluster-mode clients.
+   * The ElastiCache Redis replication group (single node).
+   * Export the primary endpoint for client connections.
    */
   public readonly replicationGroup: elasticache.CfnReplicationGroup;
 
   /**
    * The subnet group used by ElastiCache.
-   * Placed in private data subnets (same subnets as Aurora for simplicity).
+   * Placed in private isolated subnets (same subnets as RDS).
    */
   public readonly subnetGroup: elasticache.CfnSubnetGroup;
 
   constructor(scope: Construct, id: string, props: CacheStackProps) {
     super(scope, id, props);
 
-    const { envName, vpc, elastiCacheSecurityGroup } = props;
+    const { envName, vpc, redisSecurityGroup } = props;
 
     // ── Subnet Group ─────────────────────────────────────────────────────────
     //
     // ElastiCache requires an explicit subnet group.
-    // We place the Redis cluster in the isolated subnets (same as RDS),
+    // We place the Redis node in the isolated subnets (same as RDS),
     // isolated from the internet.
+    // Subnet group spans both private isolated subnets for future multi-AZ expansion.
     const privateDataSubnets = vpc.selectSubnets({
       subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
     });
@@ -69,19 +81,14 @@ export class CacheStack extends cdk.Stack {
 
     // ── Parameter Group ──────────────────────────────────────────────────────
     //
-    // Custom parameter group for Redis 7.x cluster mode.
-    // Enable cluster mode and set reasonable defaults for pub/sub and cache use cases.
+    // Custom parameter group for Redis 7.x (no cluster mode).
+    // Set reasonable defaults for session storage and cache use cases.
     const parameterGroup = new elasticache.CfnParameterGroup(this, 'RedisParameterGroup', {
-      cacheParameterGroupFamily: 'redis7.cluster.on', // Redis 7.x with cluster mode enabled
-      description: `Food Cost Calculator Redis 7 cluster parameters (${envName})`,
+      cacheParameterGroupFamily: 'redis7', // Redis 7.x without cluster mode
+      description: `Food Cost Calculator Redis 7 parameters (${envName})`,
       properties: {
-        // Enable Redis pub/sub for cost propagation events.
-        // Default notify-keyspace-events is empty; we enable all notification types.
-        'notify-keyspace-events': 'AKE',
-
         // Max memory policy: evict least-recently-used keys when memory is full.
-        // This is suitable for a cache + pub/sub workload (pub/sub messages are
-        // transient and never evicted; cached query results can be evicted).
+        // This is suitable for session storage and query cache workloads.
         'maxmemory-policy': 'allkeys-lru',
 
         // Timeout for idle connections (default 0 = no timeout).
@@ -90,48 +97,44 @@ export class CacheStack extends cdk.Stack {
       },
     });
 
-    // ── Replication Group (Redis Cluster) ────────────────────────────────────
+    // ── Replication Group (Single Node) ──────────────────────────────────────
     //
-    // Multi-AZ replication group with cluster mode enabled.
+    // Single-node Redis for cost optimization.
     //
     // Configuration:
-    //   - 2 shards (numNodeGroups)
-    //   - 2 replicas per shard (replicasPerNodeGroup) — total 3 nodes per shard
-    //   - cache.t4g.micro for staging; cache.r7g.large for prod (ARM-based Graviton2)
-    //   - Automatic failover enabled (ElastiCache auto-promotes replica on primary failure)
-    //   - Multi-AZ enabled (replicas distributed across availability zones)
-    //   - At-rest encryption enabled (default CMK)
+    //   - 1 node (no replication, no cluster mode)
+    //   - cache.t4g.micro (ARM-based Graviton2, burstable performance)
+    //   - Automatic failover disabled (single node, nothing to fail over to)
+    //   - At-rest encryption enabled (AWS-managed KMS keys)
     //   - In-transit encryption (TLS) enabled
     //   - Automatic minor version upgrades enabled
     //   - Maintenance window: Sunday 03:00–04:00 UTC
     //   - Snapshot retention: 7 days (for disaster recovery)
     //   - Daily snapshot window: 02:00–03:00 UTC
     //
-    // Total cluster size:
-    //   2 shards × 3 nodes per shard = 6 nodes (2 primaries, 4 replicas)
+    // Total cluster size: 1 node (primary only, no replicas)
 
-    this.replicationGroup = new elasticache.CfnReplicationGroup(this, 'RedisCluster', {
+    this.replicationGroup = new elasticache.CfnReplicationGroup(this, 'RedisSingleNode', {
       replicationGroupId: `fcc-redis-${envName}`,
-      replicationGroupDescription: `Food Cost Calculator Redis cluster (${envName})`,
+      replicationGroupDescription: `Food Cost Calculator Redis cache (${envName})`,
 
       // ── Engine Configuration ───────────────────────────────────────────────
       engine: 'redis',
       engineVersion: '7.1', // Latest stable Redis 7.x
-      cacheNodeType: envName === 'prod' ? 'cache.r7g.large' : 'cache.t4g.micro',
+      cacheNodeType: 'cache.t4g.micro', // ARM-based, cost-optimized
       cacheParameterGroupName: parameterGroup.ref,
 
-      // ── Cluster Mode Configuration ─────────────────────────────────────────
-      // Enable cluster mode with 2 shards and 2 replicas per shard.
-      numNodeGroups: 2, // number of shards
-      replicasPerNodeGroup: 2, // number of replicas per shard (total 3 nodes per shard)
+      // ── Single Node Configuration ──────────────────────────────────────────
+      // No cluster mode, no replication - single node only
+      // numNodeGroups and replicasPerNodeGroup are NOT specified for single-node
 
       // ── High Availability ──────────────────────────────────────────────────
-      automaticFailoverEnabled: true, // auto-promote replica on primary failure
-      multiAzEnabled: true, // distribute replicas across AZs
+      automaticFailoverEnabled: false, // Must be false for single node
+      multiAzEnabled: false, // Single node cannot be multi-AZ
 
       // ── Network Configuration ──────────────────────────────────────────────
       cacheSubnetGroupName: this.subnetGroup.ref,
-      securityGroupIds: [elastiCacheSecurityGroup.securityGroupId],
+      securityGroupIds: [redisSecurityGroup.securityGroupId],
 
       // Port 6379 is the default Redis port; explicitly set for clarity.
       port: 6379,
@@ -179,21 +182,19 @@ export class CacheStack extends cdk.Stack {
     this.replicationGroup.addDependency(this.subnetGroup);
 
     // ── CloudFormation Outputs ───────────────────────────────────────────────
-    // Export the configuration endpoint for cluster-mode clients.
-    // For cluster mode, clients should use the configuration endpoint (not individual
-    // node endpoints). Spring Boot's Lettuce client auto-discovers all cluster nodes
-    // from the configuration endpoint.
+    // Export the primary endpoint for single-node Redis.
+    // For single-node deployments, clients connect directly to the primary endpoint.
 
-    new cdk.CfnOutput(this, 'RedisConfigurationEndpoint', {
-      value: this.replicationGroup.attrConfigurationEndPointAddress,
-      description: 'ElastiCache Redis cluster configuration endpoint (address)',
-      exportName: `FoodCostCalculator-${envName}-RedisConfigurationEndpointAddress`,
+    new cdk.CfnOutput(this, 'RedisPrimaryEndpoint', {
+      value: this.replicationGroup.attrPrimaryEndPointAddress,
+      description: 'ElastiCache Redis primary endpoint (address)',
+      exportName: `FoodCostCalculator-${envName}-RedisEndpoint`,
     });
 
-    new cdk.CfnOutput(this, 'RedisConfigurationEndpointPort', {
-      value: this.replicationGroup.attrConfigurationEndPointPort,
-      description: 'ElastiCache Redis cluster configuration endpoint (port)',
-      exportName: `FoodCostCalculator-${envName}-RedisConfigurationEndpointPort`,
+    new cdk.CfnOutput(this, 'RedisPrimaryEndpointPort', {
+      value: this.replicationGroup.attrPrimaryEndPointPort,
+      description: 'ElastiCache Redis primary endpoint (port)',
+      exportName: `FoodCostCalculator-${envName}-RedisPort`,
     });
 
     new cdk.CfnOutput(this, 'RedisReplicationGroupId', {
@@ -201,5 +202,9 @@ export class CacheStack extends cdk.Stack {
       description: 'ElastiCache Redis replication group ID',
       exportName: `FoodCostCalculator-${envName}-RedisReplicationGroupId`,
     });
+
+    // ── Tags ─────────────────────────────────────────────────────────────────
+    cdk.Tags.of(this).add('Component', 'Cache');
+    cdk.Tags.of(this).add('CostCenter', 'Data');
   }
 }

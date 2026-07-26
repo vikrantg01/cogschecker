@@ -363,5 +363,9 @@ export class AuthStack extends cdk.Stack {
       value: `https://${this.userPoolDomain.domainName}.auth.${this.region}.amazoncognito.com/login?client_id=${this.userPoolClient.userPoolClientId}&response_type=code&redirect_uri=${callbackUrls[0]}`,
       description: 'Cognito Hosted UI login URL',
     });
+
+    // ── Tags ─────────────────────────────────────────────────────────────────
+    cdk.Tags.of(this).add('Component', 'Auth');
+    cdk.Tags.of(this).add('CostCenter', 'Security');
   }
 }

@@ -63,7 +63,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/d2663e0e21d092c255a17a628014c4c5d9cb5a3e2cf7d018e23ec56c269215ed.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/da69605a316facc9028227c42885b81c0ab4e63f3d12f0fb687a10de16ac862b.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -97,14 +97,14 @@
         "templateFile": "FoodCostCalculator-Cache.template.json",
         "terminationProtection": false,
         "tags": {
-          "Component": "FoodCostCalculator",
-          "CostCenter": "Engineering",
+          "Component": "Cache",
+          "CostCenter": "Data",
           "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/8a0a60b8681c02813d9d28a2dbdacff3d19fb180393dcea6f148226d5dab56b9.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/1e92eef4bd28164145773631cd48c8d44003a3bd2195ee10baf7a4127040fbeb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -185,7 +185,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/43b061e650ace50e0c4af863914a1b1213be155c84f3305efee52c636b827011.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/3e42562996f360062a20ac3990d819dd97ed59c26fda69b39fa6cad172884940.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -222,14 +222,14 @@
         "templateFile": "FoodCostCalculator-Storage.template.json",
         "terminationProtection": false,
         "tags": {
-          "Component": "FoodCostCalculator",
-          "CostCenter": "Engineering",
+          "Component": "Storage",
+          "CostCenter": "FoodCostCalculator",
           "ManagedBy": "CDK"
         },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-deploy-role-646194726437-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-cfn-exec-role-646194726437-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/e62006dfcf3f1852eda5a0ce2787cd246a6f67750ca3f1a1c96f69197e7eb8b5.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-646194726437-us-east-1/cfcec15a00ac830da3bd9fde0c40f5b3aa1bf6a777dd984e2e11b4295f24a2dd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [

@@ -1,0 +1,8 @@
+@@ -97,6 +98,7 @@
+     const app = new cdk.App();
+     const stack = new ObservabilityStack(app, 'TestObservabilityStackNoEmail', {
+       env: { account: '123456789012', region: 'us-east-1' },
++      envName: 'prod',
+     });
+     const template = Template.fromStack(stack);
+ 

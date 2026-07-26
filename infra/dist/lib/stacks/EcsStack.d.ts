@@ -3,6 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 export interface EcsStackProps extends cdk.StackProps {
     /** Logical environment name, e.g. "staging" or "prod" */
@@ -55,5 +56,7 @@ export declare class EcsStack extends cdk.Stack {
     readonly service: ecs.FargateService;
     /** The ALB DNS name */
     readonly albDnsName: string;
+    /** S3 bucket for ALB access logs */
+    readonly albLogsBucket: s3.Bucket;
     constructor(scope: Construct, id: string, props: EcsStackProps);
 }

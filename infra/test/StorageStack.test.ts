@@ -13,7 +13,6 @@ function buildTemplate(): { stack: StorageStack; template: Template } {
   const app = new cdk.App();
   const stack = new StorageStack(app, 'TestStorageStack', {
     env: { account: '123456789012', region: 'ap-southeast-2' },
-    envName: 'test',
   });
   const template = Template.fromStack(stack);
   return { stack, template };

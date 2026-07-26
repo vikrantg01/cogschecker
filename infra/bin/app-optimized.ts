@@ -26,7 +26,7 @@ import { CacheStack } from '../lib/stacks/CacheStack';
 import { AuthStack } from '../lib/stacks/AuthStack';
 import { StorageStack } from '../lib/stacks/StorageStack';
 import { EcsStack } from '../lib/stacks/EcsStack';
-// import { ObservabilityStack } from '../lib/stacks/ObservabilityStack';
+import { ObservabilityStack } from '../lib/stacks/ObservabilityStack';
 
 const app = new cdk.App();
 
@@ -77,7 +77,7 @@ const cacheStack = new CacheStack(app, 'FoodCostCalculator-Cache', {
   envName,
   description: 'Food Cost Calculator — ElastiCache Redis t4g.micro single-node',
   vpc: networkStack.vpc,
-  elastiCacheSecurityGroup: networkStack.redisSecurityGroup,
+  redisSecurityGroup: networkStack.redisSecurityGroup,
 });
 cacheStack.addDependency(networkStack);
 
@@ -102,7 +102,7 @@ const computeStack = new EcsStack(app, 'FoodCostCalculator-Compute', {
   albSecurityGroup: networkStack.albSecurityGroup,
   databaseEndpoint: databaseStack.endpoint,
   databaseSecretArn: databaseStack.secret.secretArn,
-  redisEndpoint: cacheStack.replicationGroup.attrConfigurationEndPointAddress,
+  redisEndpoint: cacheStack.replicationGroup.attrPrimaryEndPointAddress,
   cognitoUserPoolId: authStack.userPool.userPoolId,
   cognitoClientId: authStack.userPoolClient.userPoolClientId,
 });
@@ -116,19 +116,22 @@ computeStack.addDependency(authStack);
 // Requirements: 7.1-7.5
 const storageStack = new StorageStack(app, 'FoodCostCalculator-Storage', {
   env,
-  envName,
   description: 'Food Cost Calculator — S3 buckets for assets and invoices',
 });
 
 // ── 7. Observability Stack ───────────────────────────────────────────────────
 // CloudWatch logs, metrics, alarms, and SNS notifications
-// Requirements: 8.1-8.10
-// TODO: Adapt ObservabilityStack for ECS instead of EKS/workers architecture
-// const observabilityStack = new ObservabilityStack(app, 'FoodCostCalculator-Observability', {
-//   env,
-//   description: 'Food Cost Calculator — CloudWatch logs, metrics, and alarms',
-// });
-// observabilityStack.addDependency(computeStack);
+// Requirements: 8.1-8.9
+const observabilityStack = new ObservabilityStack(app, 'FoodCostCalculator-Observability', {
+  env,
+  envName,
+  description: 'Food Cost Calculator — CloudWatch logs and alarm notifications',
+  ecsCluster: computeStack.cluster,
+  ecsService: computeStack.service,
+  alb: computeStack.alb,
+  alarmEmail: process.env.ALARM_EMAIL, // Optional: set via environment variable
+});
+observabilityStack.addDependency(computeStack);
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Resource Tagging (Requirement 1.7)
@@ -137,6 +140,52 @@ const storageStack = new StorageStack(app, 'FoodCostCalculator-Storage', {
 cdk.Tags.of(app).add('Component', 'FoodCostCalculator');
 cdk.Tags.of(app).add('CostCenter', 'Engineering');
 cdk.Tags.of(app).add('ManagedBy', 'CDK');
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Cost Breakdown Outputs (Requirements 10.1, 10.6)
+// ══════════════════════════════════════════════════════════════════════════════
+
+new cdk.CfnOutput(computeStack, 'CostBreakdown-Compute', {
+  value: 'ECS Fargate (1-2 tasks × 1 vCPU × 2 GB) + ALB: $45-90/month',
+  description: 'Compute tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-ComputeCost',
+});
+
+new cdk.CfnOutput(databaseStack, 'CostBreakdown-Database', {
+  value: 'RDS PostgreSQL (db.t4g.micro single-AZ + 20 GB gp3): $15-25/month',
+  description: 'Database tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-DatabaseCost',
+});
+
+new cdk.CfnOutput(cacheStack, 'CostBreakdown-Cache', {
+  value: 'ElastiCache Redis (cache.t4g.micro single-node): $15-20/month',
+  description: 'Cache tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-CacheCost',
+});
+
+new cdk.CfnOutput(networkStack, 'CostBreakdown-Network', {
+  value: 'NAT Gateway (1 gateway + data transfer): $35/month',
+  description: 'Network tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-NetworkCost',
+});
+
+new cdk.CfnOutput(storageStack, 'CostBreakdown-Storage', {
+  value: 'S3 (frontend assets + invoice files): $1-5/month',
+  description: 'Storage tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-StorageCost',
+});
+
+new cdk.CfnOutput(observabilityStack, 'CostBreakdown-Observability', {
+  value: 'CloudWatch (logs + metrics + alarms): $5-10/month',
+  description: 'Observability tier estimated monthly cost',
+  exportName: 'FoodCostCalculator-ObservabilityCost',
+});
+
+new cdk.CfnOutput(computeStack, 'CostBreakdown-Total', {
+  value: 'TOTAL ESTIMATED COST: $116-185/month (minimal deployment)',
+  description: 'Total estimated monthly cost for all services',
+  exportName: 'FoodCostCalculator-TotalCost',
+});
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Deployment Summary
@@ -154,8 +203,18 @@ console.log('    3. CacheStack (ElastiCache Redis t4g.micro)');
 console.log('    4. AuthStack (Cognito User Pool)');
 console.log('    5. ComputeStack (ECS Fargate)');
 console.log('    6. StorageStack (S3 buckets)');
-console.log('    7. ObservabilityStack (CloudWatch) - TODO');
+console.log('    7. ObservabilityStack (CloudWatch)');
 console.log('──────────────────────────────────────────────────────────────');
-console.log('  Estimated Monthly Cost: $137-200');
+console.log('  Estimated Monthly Cost Breakdown:');
+console.log('    • Compute (ECS Fargate + ALB):     $45-90');
+console.log('    • Database (RDS PostgreSQL):       $15-25');
+console.log('    • Cache (Redis):                   $15-20');
+console.log('    • Network (NAT Gateway):           $35');
+console.log('    • Storage (S3):                    $1-5');
+console.log('    • Observability (CloudWatch):      $5-10');
+console.log('    ─────────────────────────────────────────');
+console.log('    TOTAL:                             $116-185/month');
+console.log('──────────────────────────────────────────────────────────────');
 console.log('  Target: 2 initial venues');
+console.log('  Cost Monitoring: AWS Budget alerts at 80% and 100%');
 console.log('══════════════════════════════════════════════════════════════\n');

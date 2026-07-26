@@ -16,25 +16,28 @@ export interface RdsStackProps extends cdk.StackProps {
  *
  * Cost-optimized PostgreSQL database using RDS (not Aurora):
  *
- *  • RDS PostgreSQL 15 (not Aurora Serverless v2)
- *  • db.t4g.micro Multi-AZ for HA (ARM-based, cheaper)
+ *  • RDS PostgreSQL 15.4+ (not Aurora Serverless v2)
+ *  • db.t4g.micro Single-AZ for cost optimization (ARM-based, cheaper)
  *  • Automated backups (7-day retention)
  *  • Encryption at rest (AWS-managed keys)
  *  • SSL/TLS enforcement
- *  • Deployed in private subnets
+ *  • Deployed in private isolated subnets
  *  • Credentials in Secrets Manager
  *
  * Cost savings vs Aurora Serverless v2:
- *  - RDS t4g.micro Multi-AZ: ~$50-60/month
+ *  - RDS t4g.micro Single-AZ: ~$25-30/month
  *  - Aurora Serverless v2: ~$250-400/month
- *  - **Savings: $200-350/month** (80% reduction)
+ *  - **Savings: $220-375/month** (90% reduction)
+ *
+ * Cost savings vs Multi-AZ:
+ *  - Single-AZ saves ~$25-30/month vs Multi-AZ
  *
  * Trade-offs:
+ *  - No automatic failover (single-AZ)
  *  - Fixed compute (not auto-scaling)
- *  - Slower failover (1-2 min vs 30 sec)
  *  - Manual scaling (restart required)
  *
- * For 50-100 cafes, t4g.micro is sufficient (2 vCPU, 1 GB RAM).
+ * For 2 initial venues, t4g.micro is sufficient (2 vCPU, 1 GB RAM).
  */
 export declare class RdsStack extends cdk.Stack {
     /** The RDS PostgreSQL instance */

@@ -1,0 +1,239 @@
+{
+  "/FoodCostCalculator-Database": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Component",
+          "value": "Database"
+        },
+        {
+          "key": "CostCenter",
+          "value": "Data"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/SecretArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SecretArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:166:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Endpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Endpoint"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:172:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Port": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Port"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:178:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/DatabaseName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DatabaseName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:184:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/DatabaseCredentials/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DatabaseCredentials8547B3E7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Secret2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:65:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/ParameterGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ParameterGroup5E32DECB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseInstance2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:112:21)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/SubnetGroup/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SubnetGroup"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new SubnetGroup2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:90:25)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Instance/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceC1063A87"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseInstance2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:112:21)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Exports/Output{\"Ref\":\"DatabaseCredentials8547B3E7\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefDatabaseCredentials8547B3E729671DA7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Exports/Output{\"Fn::GetAtt\":[\"InstanceC1063A87\",\"Endpoint.Address\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/DatabaseCredentials/Attachment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DatabaseCredentialsAttachment7BAB329F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseInstance2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:112:21)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Database/Instance/MonitoringRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceMonitoringRole3E2B4286"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new DatabaseInstance2 in aws-cdk-lib...",
+        "new RdsStack (/Users/vicky/cogschecker/infra/lib/stacks/RdsStack.ts:112:21)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:63:23)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ]
+}

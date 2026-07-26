@@ -1,0 +1,110 @@
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { ObservabilityStack } from '../lib/stacks/ObservabilityStack';
+
+/**
+ * Unit tests for ObservabilityStack — Minimal Deployment
+ *
+ * Uses the CDK assertions library to validate CloudFormation template output
+ * without deploying to AWS.
+ *
+ * This tests the simplified observability stack for minimal deployment:
+ * - Single CloudWatch log group: /ecs/foodcost-api
+ * - SNS topic for alarm notifications
+ * - No dashboards, X-Ray groups, or complex alarms (created in later tasks)
+ */
+
+function buildTemplate(): { stack: ObservabilityStack; template: Template } {
+  const app = new cdk.App();
+  const stack = new ObservabilityStack(app, 'TestObservabilityStack', {
+    env: { account: '123456789012', region: 'us-east-1' },
+    alarmEmail: 'test@example.com',
+  });
+  const template = Template.fromStack(stack);
+  return { stack, template };
+}
+
+describe('ObservabilityStack — Log Groups', () => {
+  test('creates exactly 1 CloudWatch log group', () => {
+    const { template } = buildTemplate();
+    template.resourceCountIs('AWS::Logs::LogGroup', 1);
+  });
+
+  test('API log group has correct name and 7-day retention', () => {
+    const { template } = buildTemplate();
+    template.hasResourceProperties('AWS::Logs::LogGroup', {
+      LogGroupName: '/ecs/foodcost-api',
+      RetentionInDays: 7,
+    });
+  });
+});
+
+describe('ObservabilityStack — SNS Topic', () => {
+  test('creates exactly 1 SNS topic', () => {
+    const { template } = buildTemplate();
+    template.resourceCountIs('AWS::SNS::Topic', 1);
+  });
+
+  test('SNS topic has correct name and display name', () => {
+    const { template } = buildTemplate();
+    template.hasResourceProperties('AWS::SNS::Topic', {
+      TopicName: 'foodcost-alarms',
+      DisplayName: 'Food Cost Calculator Alarms',
+    });
+  });
+
+  test('SNS topic has email subscription when alarmEmail is provided', () => {
+    const { template } = buildTemplate();
+    template.resourceCountIs('AWS::SNS::Subscription', 1);
+    template.hasResourceProperties('AWS::SNS::Subscription', {
+      Protocol: 'email',
+      Endpoint: 'test@example.com',
+    });
+  });
+});
+
+describe('ObservabilityStack — CloudFormation Exports', () => {
+  test('exports log group name', () => {
+    const { template } = buildTemplate();
+    template.hasOutput('LogGroupName', {
+      Export: {
+        Name: 'FoodCostCalculator-LogGroupName',
+      },
+    });
+  });
+
+  test('exports SNS topic ARN', () => {
+    const { template } = buildTemplate();
+    template.hasOutput('AlarmTopicArn', {
+      Export: {
+        Name: 'FoodCostCalculator-AlarmTopicArn',
+      },
+    });
+  });
+});
+
+describe('ObservabilityStack — Resource Tags', () => {
+  test('all resources have Component tag', () => {
+    const { stack } = buildTemplate();
+    const tags = cdk.Tags.of(stack);
+    // The tags are applied at stack level, verify they exist
+    expect(tags).toBeDefined();
+  });
+});
+
+describe('ObservabilityStack — Optional Email Subscription', () => {
+  test('SNS topic created without email subscription when alarmEmail is omitted', () => {
+    const app = new cdk.App();
+    const stack = new ObservabilityStack(app, 'TestObservabilityStackNoEmail', {
+      env: { account: '123456789012', region: 'us-east-1' },
+      envName: 'prod',
+    });
+    const template = Template.fromStack(stack);
+    
+    // Topic should exist
+    template.resourceCountIs('AWS::SNS::Topic', 1);
+    
+    // No email subscription should be created
+    template.resourceCountIs('AWS::SNS::Subscription', 0);
+  });
+});

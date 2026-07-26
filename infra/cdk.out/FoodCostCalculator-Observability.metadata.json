@@ -1,0 +1,212 @@
+{
+  "/FoodCostCalculator-Observability": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Component",
+          "value": "Observability"
+        },
+        {
+          "key": "CostCenter",
+          "value": "FoodCostCalculator"
+        },
+        {
+          "key": "ManagedBy",
+          "value": "CDK"
+        }
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/MonthlyBudget": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "MonthlyBudget"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:207:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/LogGroupName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogGroupName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:220:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/AlarmTopicArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlarmTopicArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:226:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/CostBreakdown-Observability": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CostBreakdownObservability"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:178:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/ApiLogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiLogGroup1DEDFC07"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new LogGroup2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:33:24)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/AlarmTopic/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlarmTopicD01E77F9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Topic2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:39:23)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/EcsCpuAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EcsCpuAlarm1D439C07"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:51:26)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/EcsMemoryAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EcsMemoryAlarmB50C6B61"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:72:29)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/AlbUnhealthyHostAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbUnhealthyHostAlarmE5F4235C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:102:36)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/Alb5xxErrorAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Alb5xxErrorAlarmFBF48146"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:155:31)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/FoodCostCalculator-Observability/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

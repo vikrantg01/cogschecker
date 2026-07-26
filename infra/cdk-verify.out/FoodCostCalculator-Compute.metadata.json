@@ -25,30 +25,6 @@
       ]
     }
   ],
-  "/FoodCostCalculator-Compute/Service": [
-    {
-      "type": "aws:cdk:warning",
-      "data": "Enable the 'circuitBreaker' property to trigger a quicker deployment failure if tasks are failing to come start (without this setting deployments may take up to 3 hours to fail). [ack: @aws-cdk/aws-ecs:shouldUseCircuitBreaker]",
-      "trace": [
-        "Annotations.addMessage (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2399)",
-        "Annotations.addWarningV2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1087)",
-        "new BaseService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:13563)",
-        "new BaseService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/no-box-stack-traces.js:1:345)",
-        "new FargateService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/aws-ecs/lib/fargate/fargate-service.js:1:6805)",
-        "new FargateService2 (/Users/vicky/cogschecker/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:855)",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:245:20)",
-        "Object.<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
-        "Module._compile (node:internal/modules/cjs/loader:1803:14)",
-        "Object.Module._extensions..js (node:internal/modules/cjs/loader:1934:10)",
-        "Module.load (node:internal/modules/cjs/loader:1524:32)",
-        "Module._load (node:internal/modules/cjs/loader:1326:12)",
-        "TracingChannel.traceSync (node:diagnostics_channel:328:14)",
-        "wrapModuleLoad (node:internal/modules/cjs/loader:245:24)",
-        "Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)",
-        "node:internal/main/run_main_module:33:47"
-      ]
-    }
-  ],
   "/FoodCostCalculator-Compute/RepositoryUri": [
     {
       "type": "aws:cdk:logicalId",
@@ -57,7 +33,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:318:5)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:316:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -71,7 +47,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:324:5)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:322:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -85,7 +61,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:330:5)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:328:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -99,7 +75,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:336:5)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:334:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -113,7 +89,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:342:5)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:340:5)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -199,7 +175,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Role2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:123:31)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:129:31)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -214,7 +190,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Role2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:142:22)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:149:22)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -229,7 +205,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new LogGroup2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:187:22)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:180:22)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -244,7 +220,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new FargateTaskDefinition2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:196:28)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:189:28)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -259,7 +235,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new FargateService2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:245:20)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:239:20)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -274,7 +250,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationTargetGroup2 in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:281:25)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:279:25)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -302,7 +278,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:303:31)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:301:31)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -317,7 +293,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:131:23)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:137:23)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -332,7 +308,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:147:14)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:154:14)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -347,7 +323,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.autoScaleTaskCount in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:261:34)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:259:34)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -362,7 +338,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...ScalableTaskCount.scaleOnCpuUtilization in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:267:13)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:265:13)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
@@ -377,7 +353,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...ScalableTaskCount.scaleOnMemoryUtilization in aws-cdk-lib...",
-        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:274:13)",
+        "new EcsStack (/Users/vicky/cogschecker/infra/lib/stacks/EcsStack.ts:272:13)",
         "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:96:22)",
         "...node internals..."
       ]
