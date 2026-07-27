@@ -226,9 +226,9 @@ curl http://$ALB_DNS/actuator/health
 
 ### Step 5: Deploy Application
 ```bash
-# Build Spring Boot JAR
+# Build Spring Boot JAR using Maven
 cd food-cost-calculator
-./gradlew :modules:api:bootJar
+./mvnw clean package -DskipTests -pl modules/api -am
 
 # Get ECR URI
 ECR_URI=$(aws cloudformation describe-stacks \

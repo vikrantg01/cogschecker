@@ -243,11 +243,11 @@ The Spring Boot API must be containerized and pushed to Amazon ECR before deploy
 ```bash
 cd ../food-cost-calculator
 
-# Build JAR file using Gradle
-./gradlew :modules:api:bootJar
+# Build JAR file using Maven
+./mvnw clean package -DskipTests -pl modules/api -am
 
 # Verify JAR was created
-ls -lh modules/api/build/libs/api-*.jar
+ls -lh modules/api/target/api-*.jar
 ```
 
 ### 2. Authenticate Docker to ECR
@@ -607,7 +607,7 @@ When you make changes to the Spring Boot application:
 ```bash
 # 1. Rebuild JAR
 cd food-cost-calculator
-./gradlew :modules:api:bootJar
+./mvnw clean package -DskipTests -pl modules/api -am
 
 # 2. Rebuild and push Docker image
 docker build -t food-cost-calculator-api:latest -f Dockerfile.api .
