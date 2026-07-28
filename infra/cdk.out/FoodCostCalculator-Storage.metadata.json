@@ -3,7 +3,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     },
@@ -34,7 +34,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:101:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -48,7 +48,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:107:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -62,7 +62,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:113:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -76,7 +76,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:119:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -89,7 +89,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:172:1)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:177:1)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -130,7 +130,7 @@
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:52:27)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -145,7 +145,7 @@
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:74:27)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -173,7 +173,7 @@
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:52:27)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)"
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)"
       ]
     }
   ],
@@ -187,7 +187,7 @@
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
         "new StorageStack (/Users/vicky/cogschecker/infra/lib/stacks/StorageStack.ts:74:27)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:117:22)"
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:120:22)"
       ]
     }
   ]

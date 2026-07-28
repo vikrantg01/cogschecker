@@ -716,7 +716,7 @@
       "DefaultSecurityGroup"
      ]
     },
-    "Account": "646194726437"
+    "Account": "333968387413"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
@@ -763,7 +763,7 @@
            "Fn::Join": [
             "",
             [
-             "arn:aws:ec2:us-east-1:646194726437:security-group/",
+             "arn:aws:ec2:us-east-1:333968387413:security-group/",
              {
               "Fn::GetAtt": [
                "Vpc8378EB38",
@@ -788,7 +788,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "S3Bucket": "cdk-hnb659fds-assets-646194726437-us-east-1",
+     "S3Bucket": "cdk-hnb659fds-assets-333968387413-us-east-1",
      "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
     },
     "Timeout": 900,
@@ -815,7 +815,7 @@
   "AlbSecurityGroup86A59E99": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "ALB — internet-facing load balancer",
+    "GroupDescription": "ALB - internet-facing load balancer",
     "GroupName": "foodcost-alb-prod",
     "SecurityGroupEgress": [
      {
@@ -896,7 +896,7 @@
   "EcsSecurityGroup44008BF1": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "ECS tasks — Spring Boot API",
+    "GroupDescription": "ECS tasks - Spring Boot API",
     "GroupName": "foodcost-ecs-prod",
     "SecurityGroupEgress": [
      {
@@ -968,7 +968,7 @@
   "RdsSecurityGroup632A77E4": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "RDS PostgreSQL — accepts connections from ECS only",
+    "GroupDescription": "RDS PostgreSQL - accepts connections from ECS only",
     "GroupName": "foodcost-rds-prod",
     "SecurityGroupEgress": [
      {
@@ -1018,7 +1018,7 @@
   "RedisSecurityGroupB05951F6": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "ElastiCache Redis — accepts connections from ECS only",
+    "GroupDescription": "ElastiCache Redis - accepts connections from ECS only",
     "GroupName": "foodcost-redis-prod",
     "SecurityGroupEgress": [
      {
@@ -1367,17 +1367,6 @@
    },
    "Export": {
     "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttRdsSecurityGroup632A77E4GroupId9D343172"
-   }
-  },
-  "ExportsOutputFnGetAttRedisSecurityGroupB05951F6GroupIdECA64B37": {
-   "Value": {
-    "Fn::GetAtt": [
-     "RedisSecurityGroupB05951F6",
-     "GroupId"
-    ]
-   },
-   "Export": {
-    "Name": "FoodCostCalculator-Network:ExportsOutputFnGetAttRedisSecurityGroupB05951F6GroupIdECA64B37"
    }
   },
   "ExportsOutputFnGetAttAlbSecurityGroup86A59E99GroupIdE3A37BC7": {

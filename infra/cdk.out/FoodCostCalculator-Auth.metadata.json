@@ -3,7 +3,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     },
@@ -33,8 +33,8 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:338:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:345:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -47,8 +47,8 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:344:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:351:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -61,8 +61,8 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:350:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:357:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -75,8 +75,8 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:356:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:363:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -89,8 +89,8 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:362:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:369:5)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -131,7 +131,7 @@
       "data": [
         "...new UserPool2 in aws-cdk-lib...",
         "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:58:21)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -146,22 +146,7 @@
       "data": [
         "...new UserPoolIdentityProviderGoogle2 in aws-cdk-lib...",
         "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:191:28)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
-        "...node internals, ts-node, ts-node..."
-      ]
-    }
-  ],
-  "/FoodCostCalculator-Auth/AppleProvider/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "AppleProviderC04D9F31"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new UserPoolIdentityProviderApple2 in aws-cdk-lib...",
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:221:27)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -215,7 +200,7 @@
       "data": [
         "...WrappedClass.addDomain in aws-cdk-lib...",
         "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:176:41)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -229,8 +214,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addClient in aws-cdk-lib...",
-        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:252:41)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:87:19)",
+        "new AuthStack (/Users/vicky/cogschecker/infra/lib/stacks/AuthStack.ts:257:41)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:90:19)",
         "...node internals, ts-node, ts-node..."
       ]
     }

@@ -72,6 +72,8 @@ databaseStack.addDependency(networkStack);
 // ── 3. Cache Stack ───────────────────────────────────────────────────────────
 // ElastiCache Redis t4g.micro single-node with TLS encryption
 // Requirements: 5.1-5.9
+// TEMPORARILY DISABLED: ElastiCache deployment issues on free tier account
+/*
 const cacheStack = new CacheStack(app, 'FoodCostCalculator-Cache', {
   env,
   envName,
@@ -80,6 +82,7 @@ const cacheStack = new CacheStack(app, 'FoodCostCalculator-Cache', {
   redisSecurityGroup: networkStack.redisSecurityGroup,
 });
 cacheStack.addDependency(networkStack);
+*/
 
 // ── 4. Auth Stack ────────────────────────────────────────────────────────────
 // Cognito User Pool with Google and Apple OAuth integration
@@ -102,13 +105,13 @@ const computeStack = new EcsStack(app, 'FoodCostCalculator-Compute', {
   albSecurityGroup: networkStack.albSecurityGroup,
   databaseEndpoint: databaseStack.endpoint,
   databaseSecretArn: databaseStack.secret.secretArn,
-  redisEndpoint: cacheStack.replicationGroup.attrPrimaryEndPointAddress,
+  // redisEndpoint: cacheStack.replicationGroup.attrPrimaryEndPointAddress, // DISABLED: Redis unavailable
   cognitoUserPoolId: authStack.userPool.userPoolId,
   cognitoClientId: authStack.userPoolClient.userPoolClientId,
 });
 computeStack.addDependency(networkStack);
 computeStack.addDependency(databaseStack);
-computeStack.addDependency(cacheStack);
+// computeStack.addDependency(cacheStack); // DISABLED: Redis unavailable
 computeStack.addDependency(authStack);
 
 // ── 6. Storage Stack ─────────────────────────────────────────────────────────
@@ -157,11 +160,13 @@ new cdk.CfnOutput(databaseStack, 'CostBreakdown-Database', {
   exportName: 'FoodCostCalculator-DatabaseCost',
 });
 
+/*
 new cdk.CfnOutput(cacheStack, 'CostBreakdown-Cache', {
   value: 'ElastiCache Redis (cache.t4g.micro single-node): $15-20/month',
   description: 'Cache tier estimated monthly cost',
   exportName: 'FoodCostCalculator-CacheCost',
 });
+*/
 
 new cdk.CfnOutput(networkStack, 'CostBreakdown-Network', {
   value: 'NAT Gateway (1 gateway + data transfer): $35/month',
@@ -182,7 +187,7 @@ new cdk.CfnOutput(observabilityStack, 'CostBreakdown-Observability', {
 });
 
 new cdk.CfnOutput(computeStack, 'CostBreakdown-Total', {
-  value: 'TOTAL ESTIMATED COST: $116-185/month (minimal deployment)',
+  value: 'TOTAL ESTIMATED COST: $101-165/month (without Redis cache)',
   description: 'Total estimated monthly cost for all services',
   exportName: 'FoodCostCalculator-TotalCost',
 });
@@ -199,7 +204,7 @@ console.log('──────────────────────�
 console.log('  Stack Architecture:');
 console.log('    1. NetworkStackOptimized (VPC, 1 NAT Gateway)');
 console.log('    2. DatabaseStack (RDS PostgreSQL t4g.micro)');
-console.log('    3. CacheStack (ElastiCache Redis t4g.micro)');
+console.log('    3. [DISABLED] CacheStack (Redis unavailable on free tier)');
 console.log('    4. AuthStack (Cognito User Pool)');
 console.log('    5. ComputeStack (ECS Fargate)');
 console.log('    6. StorageStack (S3 buckets)');
@@ -208,12 +213,12 @@ console.log('──────────────────────�
 console.log('  Estimated Monthly Cost Breakdown:');
 console.log('    • Compute (ECS Fargate + ALB):     $45-90');
 console.log('    • Database (RDS PostgreSQL):       $15-25');
-console.log('    • Cache (Redis):                   $15-20');
+console.log('    • Cache (Redis):                   [DISABLED]');
 console.log('    • Network (NAT Gateway):           $35');
 console.log('    • Storage (S3):                    $1-5');
 console.log('    • Observability (CloudWatch):      $5-10');
 console.log('    ─────────────────────────────────────────');
-console.log('    TOTAL:                             $116-185/month');
+console.log('    TOTAL:                             $101-165/month');
 console.log('──────────────────────────────────────────────────────────────');
 console.log('  Target: 2 initial venues');
 console.log('  Cost Monitoring: AWS Budget alerts at 80% and 100%');

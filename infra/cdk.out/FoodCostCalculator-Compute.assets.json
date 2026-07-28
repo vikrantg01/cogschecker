@@ -1,18 +1,18 @@
 {
   "version": "53.0.0",
   "files": {
-    "3f8784a351f9b06cb23fd373b0f9f1debc36af5dec3ff041b59e476a7030e0cd": {
+    "187ff00d3a4de3bf74575d8179d9f4abd27ab9fc888894c2efccc6478be6d427": {
       "displayName": "FoodCostCalculator-Compute Template",
       "source": {
         "path": "FoodCostCalculator-Compute.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "646194726437-us-east-1-608dfb62": {
-          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
-          "objectKey": "3f8784a351f9b06cb23fd373b0f9f1debc36af5dec3ff041b59e476a7030e0cd.json",
+        "333968387413-us-east-1-32c09568": {
+          "bucketName": "cdk-hnb659fds-assets-333968387413-us-east-1",
+          "objectKey": "187ff00d3a4de3bf74575d8179d9f4abd27ab9fc888894c2efccc6478be6d427.json",
           "region": "us-east-1",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::333968387413:role/cdk-hnb659fds-file-publishing-role-333968387413-us-east-1"
         }
       }
     }

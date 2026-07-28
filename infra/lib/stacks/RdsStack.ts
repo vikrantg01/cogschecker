@@ -20,9 +20,9 @@ export interface RdsStackProps extends cdk.StackProps {
  *
  * Cost-optimized PostgreSQL database using RDS (not Aurora):
  *
- *  • RDS PostgreSQL 15.4+ (not Aurora Serverless v2)
+ *  • RDS PostgreSQL 15+ (latest 15.x version, not Aurora Serverless v2)
  *  • db.t4g.micro Single-AZ for cost optimization (ARM-based, cheaper)
- *  • Automated backups (7-day retention)
+ *  • Automated backups (1-day retention for free tier)
  *  • Encryption at rest (AWS-managed keys)
  *  • SSL/TLS enforcement
  *  • Deployed in private isolated subnets
@@ -78,7 +78,7 @@ export class RdsStack extends cdk.Stack {
     // ── Parameter Group — SSL Enforcement ───────────────────────────────────
     const parameterGroup = new rds.ParameterGroup(this, 'ParameterGroup', {
       engine: rds.DatabaseInstanceEngine.postgres({
-        version: rds.PostgresEngineVersion.VER_15_4,
+        version: rds.PostgresEngineVersion.VER_15,
       }),
       description: `RDS PostgreSQL parameter group for Food Cost Calculator (${envName})`,
       parameters: {
@@ -111,7 +111,7 @@ export class RdsStack extends cdk.Stack {
     //
     this.instance = new rds.DatabaseInstance(this, 'Instance', {
       engine: rds.DatabaseInstanceEngine.postgres({
-        version: rds.PostgresEngineVersion.VER_15_4,
+        version: rds.PostgresEngineVersion.VER_15,
       }),
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.T4G, // ARM-based (Graviton2)
@@ -142,7 +142,8 @@ export class RdsStack extends cdk.Stack {
       storageEncrypted: true, // Encryption at rest (AWS-managed key)
 
       // Backup
-      backupRetention: cdk.Duration.days(7),
+      // Free tier only allows 1-day retention (upgrade account for 7-day retention)
+      backupRetention: cdk.Duration.days(1),
       preferredBackupWindow: '03:00-04:00', // UTC (off-peak)
       copyTagsToSnapshot: true,
 

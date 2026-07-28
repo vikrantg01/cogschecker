@@ -154,8 +154,7 @@
     "RefreshTokenValidity": 43200,
     "SupportedIdentityProviders": [
      "COGNITO",
-     "Google",
-     "SignInWithApple"
+     "Google"
     ],
     "TokenValidityUnits": {
      "AccessToken": "minutes",
@@ -172,7 +171,6 @@
     ]
    },
    "DependsOn": [
-    "AppleProviderC04D9F31",
     "GoogleProvider566D8493"
    ],
    "Metadata": {
@@ -203,35 +201,10 @@
     "aws:cdk:path": "FoodCostCalculator-Auth/GoogleProvider/Resource"
    }
   },
-  "AppleProviderC04D9F31": {
-   "Type": "AWS::Cognito::UserPoolIdentityProvider",
-   "Properties": {
-    "AttributeMapping": {
-     "email": "email",
-     "given_name": "firstName",
-     "family_name": "lastName"
-    },
-    "ProviderDetails": {
-     "client_id": "PLACEHOLDER_APPLE_CLIENT_ID",
-     "team_id": "PLACEHOLDER_APPLE_TEAM_ID",
-     "key_id": "PLACEHOLDER_APPLE_KEY_ID",
-     "private_key": "PLACEHOLDER_APPLE_PRIVATE_KEY",
-     "authorize_scopes": "email name"
-    },
-    "ProviderName": "SignInWithApple",
-    "ProviderType": "SignInWithApple",
-    "UserPoolId": {
-     "Ref": "UserPool6BA7E5F2"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "FoodCostCalculator-Auth/AppleProvider/Resource"
-   }
-  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/3WPQQuCQBCFf0t3nUKQzmEQnRKjc2zuJKPrjuyuRoj/vY00lqDTvPfmfYeXQJJuYbMSDxuXsokV3WA8O1E2kY+uJVeaHMN4sWhyZhVld/3Vi9hzK0iHrzlZbKYItQsLc7LYo/SO3DM3PJBEc2CuFIbAb+Mvuus6hdMbPfWu690UaZYItV0PSQqp31pbotj0nmoRis99AXwCV3AIAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12PywrCMBBFv8V9M0qg+AEVxJVFcS0xiWXaNCN5VKT0343YSnA199zHYjjwcgublXh6JlXHDN5gPAchuyJZV0mNxUAwXrx2NZEpqrv96UXsqBdo82h2FqwMahvywuwseFCJMLxqRwMq7fZEjdH54L8xfcJjDI8YpsKS0tD69cBLKNM3rUdkLqZBr+H0vW96te4y6gAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "FoodCostCalculator-Auth/CDKMetadata/Default"

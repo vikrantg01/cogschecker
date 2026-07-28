@@ -95,7 +95,7 @@ export class NetworkStackOptimized extends cdk.Stack {
     this.albSecurityGroup = new ec2.SecurityGroup(this, 'AlbSecurityGroup', {
       vpc: this.vpc,
       securityGroupName: `foodcost-alb-${envName}`,
-      description: 'ALB — internet-facing load balancer',
+      description: 'ALB - internet-facing load balancer',
       allowAllOutbound: false,
     });
 
@@ -123,7 +123,7 @@ export class NetworkStackOptimized extends cdk.Stack {
     this.ecsSecurityGroup = new ec2.SecurityGroup(this, 'EcsSecurityGroup', {
       vpc: this.vpc,
       securityGroupName: `foodcost-ecs-${envName}`,
-      description: 'ECS tasks — Spring Boot API',
+      description: 'ECS tasks - Spring Boot API',
       allowAllOutbound: true, // Allow outbound for AWS services, Docker Hub, etc.
     });
 
@@ -138,7 +138,7 @@ export class NetworkStackOptimized extends cdk.Stack {
     this.rdsSecurityGroup = new ec2.SecurityGroup(this, 'RdsSecurityGroup', {
       vpc: this.vpc,
       securityGroupName: `foodcost-rds-${envName}`,
-      description: 'RDS PostgreSQL — accepts connections from ECS only',
+      description: 'RDS PostgreSQL - accepts connections from ECS only',
       allowAllOutbound: false,
     });
 
@@ -153,7 +153,7 @@ export class NetworkStackOptimized extends cdk.Stack {
     this.redisSecurityGroup = new ec2.SecurityGroup(this, 'RedisSecurityGroup', {
       vpc: this.vpc,
       securityGroupName: `foodcost-redis-${envName}`,
-      description: 'ElastiCache Redis — accepts connections from ECS only',
+      description: 'ElastiCache Redis - accepts connections from ECS only',
       allowAllOutbound: false,
     });
 

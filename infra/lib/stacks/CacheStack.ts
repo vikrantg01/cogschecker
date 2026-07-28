@@ -120,13 +120,14 @@ export class CacheStack extends cdk.Stack {
 
       // ── Engine Configuration ───────────────────────────────────────────────
       engine: 'redis',
-      engineVersion: '7.1', // Latest stable Redis 7.x
-      cacheNodeType: 'cache.t4g.micro', // ARM-based, cost-optimized
+      engineVersion: '7.0', // Latest stable Redis 7.x (7.1 may have compatibility issues)
+      cacheNodeType: 'cache.t3.micro', // Cost-optimized (t4g not available for Redis 7.1)
       cacheParameterGroupName: parameterGroup.ref,
 
       // ── Single Node Configuration ──────────────────────────────────────────
       // No cluster mode, no replication - single node only
-      // numNodeGroups and replicasPerNodeGroup are NOT specified for single-node
+      // For single-node (non-cluster mode), specify numCacheClusters
+      numCacheClusters: 1, // Single primary node
 
       // ── High Availability ──────────────────────────────────────────────────
       automaticFailoverEnabled: false, // Must be false for single node

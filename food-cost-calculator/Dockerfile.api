@@ -5,8 +5,8 @@
 FROM eclipse-temurin:21-jre-jammy AS builder
 WORKDIR /app
 
-# Copy the pre-built JAR file (Maven output)
-COPY modules/api/target/*.jar app.jar
+# Copy the pre-built JAR file (Maven output - use -exec.jar for Spring Boot executable)
+COPY modules/api/target/*-exec.jar app.jar
 
 # Extract layers for better Docker layer caching
 RUN java -Djarmode=layertools -jar app.jar extract

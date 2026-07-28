@@ -3,7 +3,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     },
@@ -34,7 +34,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:207:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -48,7 +48,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:220:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -62,7 +62,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:226:5)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -75,7 +75,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:178:1)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:183:1)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -116,7 +116,7 @@
       "data": [
         "...new LogGroup2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:33:24)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -131,7 +131,7 @@
       "data": [
         "...new Topic2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:39:23)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -146,7 +146,7 @@
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:51:26)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -161,7 +161,7 @@
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:72:29)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -176,7 +176,7 @@
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:102:36)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }
@@ -191,7 +191,7 @@
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
         "new ObservabilityStack (/Users/vicky/cogschecker/infra/lib/stacks/ObservabilityStack.ts:155:31)",
-        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:125:28)",
+        "<anonymous> (/Users/vicky/cogschecker/infra/bin/app-optimized.ts:128:28)",
         "...node internals, ts-node, ts-node..."
       ]
     }

@@ -8,26 +8,26 @@
         "packaging": "zip"
       },
       "destinations": {
-        "646194726437-us-east-1-60893fd5": {
-          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
+        "333968387413-us-east-1-a9131dd8": {
+          "bucketName": "cdk-hnb659fds-assets-333968387413-us-east-1",
           "objectKey": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip",
           "region": "us-east-1",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::333968387413:role/cdk-hnb659fds-file-publishing-role-333968387413-us-east-1"
         }
       }
     },
-    "04c56303402bbfd4b1d56cba28636c3d11d699974bc14c4cd54679f0479ecb95": {
+    "0168b28b5b92665df097d9752690131bfb72701eed30caf8acc3d882adbb9dc2": {
       "displayName": "FoodCostCalculator-Network Template",
       "source": {
         "path": "FoodCostCalculator-Network.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "646194726437-us-east-1-b52b5fcc": {
-          "bucketName": "cdk-hnb659fds-assets-646194726437-us-east-1",
-          "objectKey": "04c56303402bbfd4b1d56cba28636c3d11d699974bc14c4cd54679f0479ecb95.json",
+        "333968387413-us-east-1-141fd8c9": {
+          "bucketName": "cdk-hnb659fds-assets-333968387413-us-east-1",
+          "objectKey": "0168b28b5b92665df097d9752690131bfb72701eed30caf8acc3d882adbb9dc2.json",
           "region": "us-east-1",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::646194726437:role/cdk-hnb659fds-file-publishing-role-646194726437-us-east-1"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::333968387413:role/cdk-hnb659fds-file-publishing-role-333968387413-us-east-1"
         }
       }
     }

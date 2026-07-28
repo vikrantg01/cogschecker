@@ -67,7 +67,7 @@
     "AtRestEncryptionEnabled": true,
     "AutoMinorVersionUpgrade": true,
     "AutomaticFailoverEnabled": false,
-    "CacheNodeType": "cache.t4g.micro",
+    "CacheNodeType": "cache.t3.micro",
     "CacheParameterGroupName": {
      "Ref": "RedisParameterGroup"
     },
@@ -99,6 +99,7 @@
      }
     ],
     "MultiAZEnabled": false,
+    "NumCacheClusters": 1,
     "Port": 6379,
     "PreferredMaintenanceWindow": "sun:03:00-sun:04:00",
     "ReplicationGroupDescription": "Food Cost Calculator Redis cache (prod)",

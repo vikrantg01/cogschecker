@@ -1,0 +1,55 @@
+{
+  "FoodCostCalculator-Network": {
+    "RdsSecurityGroupId": "sg-0238b1bc7e1b11737",
+    "PublicSubnetIds": "subnet-026902e75ef94a93b,subnet-0690acca410ee3e7b",
+    "EcsSecurityGroupId": "sg-0d830d0c88a687b2e",
+    "RedisSecurityGroupId": "sg-036f8174b883933cf",
+    "ExportsOutputRefVpcprivateSubnet2Subnet2DE7549CDF5ACE3D": "subnet-0b13b7ec9ff735ee1",
+    "ExportsOutputRefVpcisolatedSubnet2Subnet392170557C27A199": "subnet-0857bba572302fe30",
+    "AlbSecurityGroupId": "sg-08a024390dd79f26d",
+    "ExportsOutputRefVpcisolatedSubnet1SubnetE62B1B9BEE029908": "subnet-091d6b9d91651405e",
+    "ExportsOutputFnGetAttAlbSecurityGroup86A59E99GroupIdE3A37BC7": "sg-08a024390dd79f26d",
+    "ExportsOutputRefVpc8378EB38272D6E3A": "vpc-0f42c8b3dd0121a97",
+    "PrivateSubnetIds": "subnet-01d9b579d48e82b91,subnet-0b13b7ec9ff735ee1",
+    "IsolatedSubnetIds": "subnet-091d6b9d91651405e,subnet-0857bba572302fe30",
+    "VpcId": "vpc-0f42c8b3dd0121a97",
+    "ExportsOutputRefVpcprivateSubnet1SubnetCEAD37168693D373": "subnet-01d9b579d48e82b91",
+    "ExportsOutputRefVpcpublicSubnet1Subnet2BB74ED74EB42ADC": "subnet-026902e75ef94a93b",
+    "CostBreakdownNetwork": "NAT Gateway (1 gateway + data transfer): $35/month",
+    "ExportsOutputRefVpcpublicSubnet2SubnetE34B022AC8BB6627": "subnet-0690acca410ee3e7b",
+    "ExportsOutputFnGetAttRdsSecurityGroup632A77E4GroupId9D343172": "sg-0238b1bc7e1b11737",
+    "ExportsOutputFnGetAttEcsSecurityGroup44008BF1GroupIdDE2CA5C5": "sg-0d830d0c88a687b2e",
+    "VpcFlowLogsLogGroupName": "/aws/vpc/flowlogs-prod"
+  },
+  "FoodCostCalculator-Auth": {
+    "UserPoolClientId": "6dpibdrb29ke9nckdufs09fo9v",
+    "UserPoolDomain": "food-cost-calculator-prod",
+    "UserPoolId": "us-east-1_6cpftY9WK",
+    "ExportsOutputRefUserPool6BA7E5F296FD7236": "us-east-1_6cpftY9WK",
+    "ExportsOutputRefUserPoolWebAppClientCD2D5CB13BAB4F14": "6dpibdrb29ke9nckdufs09fo9v",
+    "UserPoolArn": "arn:aws:cognito-idp:us-east-1:333968387413:userpool/us-east-1_6cpftY9WK",
+    "HostedUiUrl": "https://food-cost-calculator-prod.auth.us-east-1.amazoncognito.com/login?client_id=6dpibdrb29ke9nckdufs09fo9v&response_type=code&redirect_uri=https://app.foodcost.app/auth/callback"
+  },
+  "FoodCostCalculator-Database": {
+    "SecretArn": "arn:aws:secretsmanager:us-east-1:333968387413:secret:foodcost/prod/database/credentials-V88prI",
+    "Endpoint": "foodcost-db-prod.cyb4cgueq921.us-east-1.rds.amazonaws.com",
+    "Port": "5432",
+    "DatabaseName": "foodcost",
+    "CostBreakdownDatabase": "RDS PostgreSQL (db.t4g.micro single-AZ + 20 GB gp3): $15-25/month",
+    "ExportsOutputRefDatabaseCredentials8547B3E729671DA7": "arn:aws:secretsmanager:us-east-1:333968387413:secret:foodcost/prod/database/credentials-V88prI",
+    "ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4": "foodcost-db-prod.cyb4cgueq921.us-east-1.rds.amazonaws.com"
+  },
+  "FoodCostCalculator-Compute": {
+    "ExportsOutputFnGetAttALBAEE750D2LoadBalancerFullName725A80F2": "app/foodcost-alb-prod/100c04952b2a4a0a",
+    "CostBreakdownCompute": "ECS Fargate (1-2 tasks ? 1 vCPU ? 2 GB) + ALB: $45-90/month",
+    "ExportsOutputFnGetAttServiceD69D759BName51127533": "foodcost-api-prod",
+    "ServiceName": "foodcost-api-prod",
+    "AlbLogsBucketName": "fcc-alb-logs-prod",
+    "LoadBalancerUrl": "http://foodcost-alb-prod-2088117438.us-east-1.elb.amazonaws.com",
+    "ClusterName": "foodcost-prod",
+    "LoadBalancerDNS": "foodcost-alb-prod-2088117438.us-east-1.elb.amazonaws.com",
+    "ExportsOutputRefClusterEB0386A796A0E3FE": "foodcost-prod",
+    "RepositoryUri": "333968387413.dkr.ecr.us-east-1.amazonaws.com/food-cost-calculator-prod",
+    "CostBreakdownTotal": "TOTAL ESTIMATED COST: $101-165/month (without Redis cache)"
+  }
+}

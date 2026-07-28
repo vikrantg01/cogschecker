@@ -213,6 +213,10 @@ export class AuthStack extends cdk.Stack {
     // These are passed via CDK context at deploy time:
     //   cdk deploy --context appleClientId=xxx --context appleTeamId=yyy \
     //              --context appleKeyId=zzz --context applePrivateKey="-----BEGIN PRIVATE KEY-----..."
+    
+    // TEMPORARILY DISABLED: Apple provider requires real credentials from Apple Developer account
+    // Uncomment and provide real values when Apple Sign In is needed
+    /*
     const appleClientId = this.node.tryGetContext('appleClientId') ?? 'PLACEHOLDER_APPLE_CLIENT_ID';
     const appleTeamId = this.node.tryGetContext('appleTeamId') ?? 'PLACEHOLDER_APPLE_TEAM_ID';
     const appleKeyId = this.node.tryGetContext('appleKeyId') ?? 'PLACEHOLDER_APPLE_KEY_ID';
@@ -236,6 +240,7 @@ export class AuthStack extends cdk.Stack {
       // OAuth scopes requested from Apple.
       scopes: ['email', 'name'],
     });
+    */
 
     // ── App Client ───────────────────────────────────────────────────────────
     // Used by the React SPA and hosted UI.
@@ -277,11 +282,12 @@ export class AuthStack extends cdk.Stack {
       },
 
       // ── Supported identity providers ───────────────────────────────────────
-      // Enable Cognito native auth (email/password) + Google + Apple
+      // Enable Cognito native auth (email/password) + Google
+      // Apple temporarily disabled - add back when Apple Developer credentials are available
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.COGNITO,
         cognito.UserPoolClientIdentityProvider.GOOGLE,
-        cognito.UserPoolClientIdentityProvider.APPLE,
+        // cognito.UserPoolClientIdentityProvider.APPLE,  // Enable when Apple provider is configured
       ],
 
       // ── Token validity ─────────────────────────────────────────────────────
@@ -330,7 +336,8 @@ export class AuthStack extends cdk.Stack {
     // Ensure identity providers are created before the client.
     // CDK doesn't automatically track this dependency, so we add it explicitly.
     this.userPoolClient.node.addDependency(googleProvider);
-    this.userPoolClient.node.addDependency(appleProvider);
+    // Apple provider temporarily disabled - add dependency back when enabled:
+    // this.userPoolClient.node.addDependency(appleProvider);
 
     // ── CloudFormation Outputs ───────────────────────────────────────────────
     // Exported so the API stack and frontend can reference them.

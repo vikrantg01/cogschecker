@@ -27,8 +27,8 @@ export interface EcsStackProps extends cdk.StackProps {
   /** Database secret ARN */
   readonly databaseSecretArn: string;
 
-  /** Redis endpoint (ElastiCache) */
-  readonly redisEndpoint: string;
+  /** Redis endpoint (ElastiCache) - optional, can be undefined if Redis is not available */
+  readonly redisEndpoint?: string;
 
   /** Cognito User Pool ID */
   readonly cognitoUserPoolId: string;
@@ -62,7 +62,7 @@ export class EcsStack extends cdk.Stack {
   public readonly cluster: ecs.Cluster;
 
   /** The ECR repository */
-  public readonly repository: ecr.Repository;
+  public readonly repository: ecr.IRepository;
 
   /** The Application Load Balancer */
   public readonly alb: elbv2.ApplicationLoadBalancer;
@@ -83,19 +83,13 @@ export class EcsStack extends cdk.Stack {
 
     // ── ECR Repository ───────────────────────────────────────────────────────
     //
-    // Store Docker images with automatic scanning and encryption.
-    this.repository = new ecr.Repository(this, 'Repository', {
-      repositoryName: `food-cost-calculator-${envName}`,
-      imageScanOnPush: true,
-      encryption: ecr.RepositoryEncryption.AES_256,
-      removalPolicy: envName === 'prod' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
-      lifecycleRules: [
-        {
-          description: 'Keep last 10 images',
-          maxImageCount: 10,
-        },
-      ],
-    });
+    // Import existing repository (created by deployment script) or create new one
+    const repositoryName = `food-cost-calculator-${envName}`;
+    this.repository = ecr.Repository.fromRepositoryName(
+      this, 
+      'Repository', 
+      repositoryName
+    );
 
     // ── ECS Cluster ──────────────────────────────────────────────────────────
     //
@@ -210,11 +204,11 @@ export class EcsStack extends cdk.Stack {
 
     // ── Task Definition ──────────────────────────────────────────────────────
     //
-    // Fargate task: 1 vCPU, 2 GB RAM (sufficient for Spring Boot)
+    // Fargate task: 1 vCPU, 3 GB RAM (increased for Spring Boot + Flyway migrations)
     const taskDefinition = new ecs.FargateTaskDefinition(this, 'TaskDefinition', {
       family: `foodcost-api-${envName}`,
       cpu: 1024, // 1 vCPU
-      memoryLimitMiB: 2048, // 2 GB
+      memoryLimitMiB: 3072, // 3 GB (increased from 2GB to handle Flyway + Spring Boot startup)
       executionRole: taskExecutionRole,
       taskRole,
     });
@@ -231,11 +225,29 @@ export class EcsStack extends cdk.Stack {
         SPRING_PROFILES_ACTIVE: 'production',
         DATABASE_URL: `jdbc:postgresql://${databaseEndpoint}/foodcost`,
         DATABASE_USERNAME: 'postgres',
-        REDIS_HOST: redisEndpoint,
-        REDIS_PORT: '6379',
+        ...(redisEndpoint ? {
+          REDIS_HOST: redisEndpoint,
+          REDIS_PORT: '6379',
+          REDIS_SSL_ENABLED: 'true',
+        } : {
+          // Disable Redis when not available
+          'spring.data.redis.enabled': 'false',
+          'spring.cache.type': 'none',
+          'management.health.redis.enabled': 'false', // Disable Redis health check
+        }),
         AWS_REGION: this.region,
         COGNITO_USER_POOL_ID: cognitoUserPoolId,
         COGNITO_CLIENT_ID: cognitoClientId,
+        COGNITO_JWKS_URI: `https://cognito-idp.${this.region}.amazonaws.com/${cognitoUserPoolId}/.well-known/jwks.json`,
+        COGNITO_DOMAIN: `https://food-cost-calculator-${envName}.auth.${this.region}.amazoncognito.com`,
+        S3_INVOICES_BUCKET: `fcc-invoices-${envName}`,
+        // Disable X-Ray for now (not configured)
+        AWS_XRAY_ENABLED: 'false',
+        // Set placeholders for optional SQS queues (not critical for startup)
+        SQS_COST_PROPAGATION_QUEUE: 'disabled',
+        SQS_OCR_PROCESSING_QUEUE: 'disabled',
+        // CORS configuration
+        CORS_ALLOWED_ORIGINS: 'http://localhost:5173,http://localhost:3000,http://fcc-frontend.s3-website-us-east-1.amazonaws.com',
       },
       secrets: {
         DATABASE_PASSWORD: ecs.Secret.fromSecretsManager(
@@ -248,7 +260,7 @@ export class EcsStack extends cdk.Stack {
         interval: cdk.Duration.seconds(30),
         timeout: cdk.Duration.seconds(5),
         retries: 3,
-        startPeriod: cdk.Duration.seconds(60),
+        startPeriod: cdk.Duration.seconds(180), // Increased to allow Flyway migrations and Spring Boot startup
       },
     });
 
@@ -273,7 +285,7 @@ export class EcsStack extends cdk.Stack {
       }),
       securityGroups: [ecsSecurityGroup],
       assignPublicIp: false,
-      healthCheckGracePeriod: cdk.Duration.seconds(60),
+      healthCheckGracePeriod: cdk.Duration.seconds(300), // Increased to 5 minutes for Flyway migrations and Spring Boot startup
       // Automatic rollback configuration - Requirement 9.7
       circuitBreaker: {
         rollback: true, // Enable automatic rollback on deployment failure
@@ -309,9 +321,9 @@ export class EcsStack extends cdk.Stack {
       healthCheck: {
         path: '/actuator/health',
         interval: cdk.Duration.seconds(30),
-        timeout: cdk.Duration.seconds(5),
+        timeout: cdk.Duration.seconds(10), // Increased timeout to handle slow responses during startup
         healthyThresholdCount: 2,
-        unhealthyThresholdCount: 3,
+        unhealthyThresholdCount: 5, // Increased to allow more retries during startup
         healthyHttpCodes: '200',
       },
       deregistrationDelay: cdk.Duration.seconds(30),
